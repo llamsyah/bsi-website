@@ -13,8 +13,13 @@
   --primary-navy: #082F6B;
   --deep-ink: #10182B;
   --bsi-blue: #2463D4;
+  --bsi-indigo: #283090;
+  --bsi-indigo-soft: #EEEEFA;
+  --bsi-mint: #B0D8D0;
+  --bsi-mint-soft: #EAF5F2;
   --ice-blue: #EAF2FF;
   --bsi-red: #E63946;
+  --bsi-logo-red: #E81820;
   --bsi-red-dark: #C92C3A;
   --bsi-red-soft: #FFF0F2;
   --accreditation-orange: #F28C28;
@@ -30,7 +35,10 @@
   --primary-navy-rgb: 8, 47, 107;
   --deep-ink-rgb: 16, 24, 43;
   --bsi-blue-rgb: 36, 99, 212;
+  --bsi-indigo-rgb: 40, 48, 144;
+  --bsi-mint-rgb: 176, 216, 208;
   --bsi-red-rgb: 230, 57, 70;
+  --bsi-logo-red-rgb: 232, 24, 32;
   --bsi-red-dark-rgb: 201, 44, 58;
   --accreditation-orange-rgb: 242, 140, 40;
   --gold-rgb: 214, 174, 36;
@@ -977,6 +985,63 @@ h1.headline .accent{
   }
 }
 
+/* ============ V2.2 — DESKTOP LOGO-DERIVED PALETTE REBALANCE ============ */
+@media(min-width:1081px){
+  /* Navigation remains quiet: indigo marks location, red marks conversion. */
+  nav{border-bottom-color:rgba(var(--bsi-indigo-rgb),.12);}
+  .nav-links button.active{background:var(--bsi-indigo); box-shadow:0 4px 14px rgba(var(--bsi-indigo-rgb),.24);}
+  .nav-links button:not(.active):hover{color:var(--bsi-indigo); background:var(--bsi-mint-soft);}
+  .nav-links button[data-page="ai"]:not(.active):hover{color:var(--bsi-blue);}
+
+  #page-home .hero-gradient{
+    background:
+      radial-gradient(circle at 15% 20%,rgba(var(--bsi-mint-rgb),.38),transparent 44%),
+      radial-gradient(circle at 25% 78%,rgba(var(--bsi-red-rgb),.055),transparent 24%),
+      radial-gradient(circle at 84% 18%,rgba(var(--champagne-rgb),.64),transparent 42%),
+      radial-gradient(circle at 50% 92%,rgba(var(--bsi-indigo-rgb),.055),transparent 46%),
+      linear-gradient(135deg,var(--bsi-mint-soft) 0%,var(--white) 54%,var(--champagne) 100%);
+  }
+  #page-home .hero-grid{background-image:linear-gradient(rgba(var(--bsi-indigo-rgb),.04) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--bsi-indigo-rgb),.04) 1px,transparent 1px);}
+  #page-home h1.headline .accent{color:var(--bsi-indigo);}
+  #page-home .tagline-badge{color:var(--bsi-indigo); background:var(--bsi-mint-soft); border-color:rgba(var(--bsi-indigo-rgb),.20);}
+  #page-home .btn-ghost{color:var(--bsi-indigo); background:rgba(var(--white-rgb),.80); border-color:rgba(var(--bsi-indigo-rgb),.18);}
+  #page-home .btn-ghost:hover{background:var(--bsi-mint-soft); color:var(--bsi-indigo);}
+  #page-home .sphere-badge{color:var(--bsi-indigo); background:rgba(var(--white-rgb),.82); border-color:rgba(var(--bsi-indigo-rgb),.14);}
+  #page-home .sphere-badge.badge-1 svg{color:var(--bsi-blue);}
+  #page-home .hero-accreditation-badge{box-shadow:0 8px 22px rgba(var(--bsi-indigo-rgb),.07);}
+
+  #page-home .trust-bar::before{
+    background:radial-gradient(circle at 18% 35%,rgba(var(--bsi-mint-rgb),.09),transparent 30%),radial-gradient(circle at 50% 0%,rgba(var(--gold-rgb),.10),transparent 35%),radial-gradient(circle at 83% 52%,rgba(var(--accreditation-purple-rgb),.14),transparent 32%);
+  }
+  #page-home .pmb-banner{background:linear-gradient(120deg,var(--deep-ink),var(--primary-navy) 42%,var(--bsi-indigo));}
+  #page-home .pmb-banner::before{background:radial-gradient(circle at 88% 12%,rgba(var(--bsi-mint-rgb),.16),transparent 42%),radial-gradient(circle at 5% 95%,rgba(var(--bsi-red-rgb),.10),transparent 45%);}
+  #page-home .pmb-period-tag{color:var(--bsi-mint);}
+  #page-home .pmb-period-card:hover{background:rgba(var(--bsi-mint-rgb),.13); border-color:rgba(var(--bsi-mint-rgb),.48);}
+
+  #page-home .about-copy .about-link{color:var(--bsi-indigo);}
+  #page-home .about-copy .about-link:hover{color:var(--bsi-indigo);}
+  #page-home .about-facts{border-color:rgba(var(--bsi-indigo-rgb),.13);}
+  #page-home .about-fact:hover{background:var(--bsi-mint-soft);}
+  #page-home .about-fact-val{color:var(--bsi-indigo);}
+  #page-home .about-fact:nth-child(2) .about-fact-val{color:var(--accreditation-gold);}
+
+  #page-home .teaser-card{background:linear-gradient(150deg,var(--white),var(--bsi-mint-soft)); border-color:rgba(var(--bsi-indigo-rgb),.13);}
+  #page-home .teaser-card::before{content:none;}
+  #page-home .teaser-card::after{background:radial-gradient(circle,rgba(var(--bsi-blue-rgb),.11),transparent 70%);}
+  #page-home .teaser-tag,#page-home .teaser-cta{color:var(--bsi-blue);}
+  #page-home .teaser-card h3{color:var(--bsi-indigo);}
+
+  #page-home .bento-card{border-color:rgba(var(--bsi-indigo-rgb),.12);}
+  #page-home .bento-card:hover{border-color:rgba(var(--bsi-indigo-rgb),.22);}
+  #page-home .tag-ai{background:var(--ice-blue); color:var(--bsi-blue);}
+  #page-home .tag-social{background:var(--bsi-mint-soft); color:var(--bsi-indigo);}
+  #page-home .tag-event{background:rgba(var(--bsi-red-rgb),.09); color:var(--bsi-red);}
+  #page-home .bento-glow{background:radial-gradient(circle,rgba(var(--bsi-indigo-rgb),.10),transparent 70%);}
+  #page-home .bento-card:nth-child(1) .bento-glow{background:radial-gradient(circle,rgba(var(--bsi-blue-rgb),.12),transparent 70%);}
+  #page-home .bento-card:nth-child(3) .bento-glow{background:radial-gradient(circle,rgba(var(--bsi-red-rgb),.10),transparent 70%);}
+  #page-home .bento-card:nth-child(2) .bento-glow,#page-home .bento-card:nth-child(4) .bento-glow{background:radial-gradient(circle,rgba(var(--bsi-mint-rgb),.30),transparent 70%);}
+}
+
 /* ============ MISC ============ */
 .grain{position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.02; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
@@ -1779,6 +1844,8 @@ const heroColorTokens = getComputedStyle(document.documentElement);
 const heroPalette = {
   navy: heroColorTokens.getPropertyValue('--primary-navy-rgb').trim(),
   blue: heroColorTokens.getPropertyValue('--bsi-blue-rgb').trim(),
+  indigo: heroColorTokens.getPropertyValue('--bsi-indigo-rgb').trim(),
+  mint: heroColorTokens.getPropertyValue('--bsi-mint-rgb').trim(),
   red: heroColorTokens.getPropertyValue('--bsi-red-rgb').trim(),
   redDark: heroColorTokens.getPropertyValue('--bsi-red-dark-rgb').trim(),
   gold: heroColorTokens.getPropertyValue('--gold-rgb').trim(),
@@ -1825,7 +1892,10 @@ const NODE_COUNT = 90;
 for(let i=0;i<NODE_COUNT;i++){
   const phi = Math.acos(-1+(2*i)/NODE_COUNT);
   const theta = Math.sqrt(NODE_COUNT*Math.PI)*phi;
-  sphereNodes.push({phi,theta,tone:i%23===0?'gold':i%6===0?'red':'blue'});
+  // Deterministic permutation spreads 4 gold, 15 red, 18 mint, and 53 indigo nodes across the sphere.
+  const paletteSlot = (i*37)%NODE_COUNT;
+  const tone = paletteSlot<4 ? 'gold' : paletteSlot<19 ? 'red' : paletteSlot<37 ? 'mint' : 'indigo';
+  sphereNodes.push({phi,theta,tone});
 }
 let rot=0; let sMouseX=0, sMouseY=0;
 sCanvas.addEventListener('mousemove', e=>{
@@ -1857,15 +1927,15 @@ function drawSphere(){
     sCtx.arc(sx,sy,rr,0,Math.PI*2);
     const grad = sCtx.createRadialGradient(sx,sy,0,sx,sy,rr*2);
     const desktopTone = innerWidth>=1081 ? p.tone : 'blue';
-    const nodeColor = desktopTone==='red' ? heroPalette.red : desktopTone==='gold' ? heroPalette.gold : heroPalette.blue;
-    const edgeColor = desktopTone==='red' ? heroPalette.redDark : heroPalette.navy;
+    const nodeColor = desktopTone==='red' ? heroPalette.red : desktopTone==='gold' ? heroPalette.gold : desktopTone==='mint' ? heroPalette.mint : desktopTone==='indigo' ? heroPalette.indigo : heroPalette.blue;
+    const edgeColor = desktopTone==='red' ? heroPalette.redDark : heroPalette.indigo;
     grad.addColorStop(0, `rgba(${nodeColor},${alpha})`);
     grad.addColorStop(1, `rgba(${edgeColor},${alpha*0.5})`);
     sCtx.fillStyle = grad;
     sCtx.fill();
   });
   // connecting glow lines near center
-  sCtx.strokeStyle='rgba(8,47,107,0.08)';
+  sCtx.strokeStyle=`rgba(${heroPalette.indigo},0.08)`;
   for(let i=0;i<pts.length;i+=6){
     const a=pts[i], b=pts[(i+7)%pts.length];
     sCtx.beginPath();
