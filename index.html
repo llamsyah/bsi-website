@@ -20,6 +20,9 @@
   --ice-blue: #EAF2FF;
   --bsi-red: #E63946;
   --bsi-logo-red: #E81820;
+  --bsi-warm-red: #E7462D;
+  --bsi-warm-red-dark: #C93624;
+  --bsi-warm-red-soft: #FFF0EC;
   --bsi-red-dark: #C92C3A;
   --bsi-red-soft: #FFF0F2;
   --accreditation-orange: #F28C28;
@@ -39,6 +42,9 @@
   --bsi-mint-rgb: 176, 216, 208;
   --bsi-red-rgb: 230, 57, 70;
   --bsi-logo-red-rgb: 232, 24, 32;
+  --bsi-warm-red-rgb: 231, 70, 45;
+  --bsi-warm-red-dark-rgb: 201, 54, 36;
+  --bsi-warm-red-soft-rgb: 255, 240, 236;
   --bsi-red-dark-rgb: 201, 44, 58;
   --accreditation-orange-rgb: 242, 140, 40;
   --gold-rgb: 214, 174, 36;
@@ -985,6 +991,39 @@ h1.headline .accent{
   }
 }
 
+/* ============ V2.3 — RED-FORWARD DESKTOP PALETTE EXPERIMENT ============ */
+@media(min-width:1081px){
+  /* Red is reserved for conversion, PMB status, and event territory. */
+  nav .btn-primary,#page-home .hero-ctas .btn-primary{
+    background:var(--bsi-warm-red); box-shadow:0 9px 22px rgba(var(--bsi-warm-red-rgb),.28);
+  }
+  nav .btn-primary:hover,#page-home .hero-ctas .btn-primary:hover{
+    background:var(--bsi-warm-red-dark); box-shadow:0 12px 28px rgba(var(--bsi-warm-red-rgb),.34);
+  }
+  #page-home h1.headline .accent{color:var(--bsi-warm-red);}
+  #page-home .hero-gradient{
+    background:
+      radial-gradient(circle at 15% 20%,rgba(var(--bsi-mint-rgb),.34),transparent 44%),
+      radial-gradient(circle at 77% 76%,rgba(var(--bsi-warm-red-rgb),.12),transparent 36%),
+      radial-gradient(circle at 84% 18%,rgba(var(--champagne-rgb),.56),transparent 42%),
+      radial-gradient(circle at 50% 92%,rgba(var(--bsi-indigo-rgb),.045),transparent 46%),
+      linear-gradient(135deg,var(--bsi-mint-soft) 0%,var(--white) 54%,var(--bsi-warm-red-soft) 100%);
+  }
+  #page-home .sphere-badge.badge-2{color:var(--bsi-warm-red-dark); background:var(--bsi-warm-red-soft); border-color:rgba(var(--bsi-warm-red-rgb),.28);}
+  #page-home .sphere-badge.badge-2 svg{color:var(--bsi-warm-red);}
+
+  #page-home .accred-strip .pmb-live{background:rgba(var(--bsi-warm-red-rgb),.16); border-color:rgba(var(--bsi-warm-red-rgb),.42); color:#FFE6E1; box-shadow:0 6px 18px rgba(var(--bsi-warm-red-rgb),.18);}
+  #page-home .pmb-banner::before{
+    background:radial-gradient(circle at 90% 76%,rgba(var(--bsi-warm-red-rgb),.24),transparent 39%),radial-gradient(circle at 14% 14%,rgba(var(--bsi-mint-rgb),.15),transparent 35%);
+  }
+  #page-home .pmb-banner-head .eyebrow{background:rgba(var(--bsi-warm-red-rgb),.18); border-color:rgba(var(--bsi-warm-red-rgb),.42); color:#FFE6E1;}
+  #page-home .pmb-period-card:hover{background:rgba(var(--bsi-warm-red-rgb),.13); border-color:rgba(var(--bsi-warm-red-rgb),.42);}
+
+  #page-home .about-band .eyebrow,#page-home .teaser-band > .wrap > .eyebrow,#page-home section[style] > .wrap > .eyebrow{color:var(--bsi-indigo); border-color:rgba(var(--bsi-indigo-rgb),.15);}
+  #page-home .tag-event{background:var(--bsi-warm-red-soft); color:var(--bsi-warm-red-dark);}
+  #page-home .bento-card:nth-child(3) .bento-glow{background:radial-gradient(circle,rgba(var(--bsi-warm-red-rgb),.18),transparent 70%);}
+}
+
 /* ============ V2.2 — DESKTOP LOGO-DERIVED PALETTE REBALANCE ============ */
 @media(min-width:1081px){
   /* Navigation remains quiet: indigo marks location, red marks conversion. */
@@ -1847,6 +1886,7 @@ const heroPalette = {
   indigo: heroColorTokens.getPropertyValue('--bsi-indigo-rgb').trim(),
   mint: heroColorTokens.getPropertyValue('--bsi-mint-rgb').trim(),
   red: heroColorTokens.getPropertyValue('--bsi-red-rgb').trim(),
+  warmRed: heroColorTokens.getPropertyValue('--bsi-warm-red-rgb').trim(),
   redDark: heroColorTokens.getPropertyValue('--bsi-red-dark-rgb').trim(),
   gold: heroColorTokens.getPropertyValue('--gold-rgb').trim(),
 };
@@ -1892,9 +1932,9 @@ const NODE_COUNT = 90;
 for(let i=0;i<NODE_COUNT;i++){
   const phi = Math.acos(-1+(2*i)/NODE_COUNT);
   const theta = Math.sqrt(NODE_COUNT*Math.PI)*phi;
-  // Deterministic permutation spreads 4 gold, 15 red, 18 mint, and 53 indigo nodes across the sphere.
+  // Deterministic permutation spreads 4 gold, 27 warm-red, 19 mint, and 40 indigo nodes across the sphere.
   const paletteSlot = (i*37)%NODE_COUNT;
-  const tone = paletteSlot<4 ? 'gold' : paletteSlot<19 ? 'red' : paletteSlot<37 ? 'mint' : 'indigo';
+  const tone = paletteSlot<4 ? 'gold' : paletteSlot<31 ? 'red' : paletteSlot<50 ? 'mint' : 'indigo';
   sphereNodes.push({phi,theta,tone});
 }
 let rot=0; let sMouseX=0, sMouseY=0;
@@ -1927,8 +1967,8 @@ function drawSphere(){
     sCtx.arc(sx,sy,rr,0,Math.PI*2);
     const grad = sCtx.createRadialGradient(sx,sy,0,sx,sy,rr*2);
     const desktopTone = innerWidth>=1081 ? p.tone : 'blue';
-    const nodeColor = desktopTone==='red' ? heroPalette.red : desktopTone==='gold' ? heroPalette.gold : desktopTone==='mint' ? heroPalette.mint : desktopTone==='indigo' ? heroPalette.indigo : heroPalette.blue;
-    const edgeColor = desktopTone==='red' ? heroPalette.redDark : heroPalette.indigo;
+    const nodeColor = desktopTone==='red' ? heroPalette.warmRed : desktopTone==='gold' ? heroPalette.gold : desktopTone==='mint' ? heroPalette.mint : desktopTone==='indigo' ? heroPalette.indigo : heroPalette.blue;
+    const edgeColor = desktopTone==='red' ? heroPalette.warmRed : heroPalette.indigo;
     grad.addColorStop(0, `rgba(${nodeColor},${alpha})`);
     grad.addColorStop(1, `rgba(${edgeColor},${alpha*0.5})`);
     sCtx.fillStyle = grad;
