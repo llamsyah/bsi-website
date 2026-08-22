@@ -21,6 +21,7 @@
   --accreditation-gold: #D6AE24;
   --accreditation-purple: #6D3FC0;
   --accreditation-purple-soft: #F3EEFF;
+  --accreditation-spectrum: linear-gradient(100deg, var(--accreditation-orange), var(--accreditation-gold) 52%, var(--accreditation-purple));
   --champagne: #FFF5CF;
   --canvas: #F7F9FC;
   --muted-text: #516078;
@@ -809,10 +810,6 @@ nav{
 .cert-more-btn:hover,.sch-toggle:hover,.quick-chip:hover,.icon-btn.send{
   background:var(--primary-navy); color:var(--white);
 }
-.nav-links button.active::after{
-  content:''; position:absolute; left:50%; bottom:3px; width:4px; height:4px;
-  border-radius:50%; background:var(--bsi-red); transform:translateX(-50%);
-}
 .nav-links button:not(.active):hover,.about-copy .about-link:hover{color:var(--bsi-blue);}
 .nav-links button:not(.active):hover,.btn-ghost,.eyebrow,.quick-chip,.sch-toggle,
 .cert-more-btn,.flow-step,.vmt-num,.cert-idx{
@@ -931,37 +928,36 @@ h1.headline .accent{
 /* ============ V2 — DESKTOP INTEGRATED PALETTE ============ */
 @media(min-width:1081px){
   nav{border-bottom-color:rgba(var(--primary-navy-rgb),.11);}
-  nav::after{
-    content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px; pointer-events:none;
-    background:linear-gradient(90deg,var(--primary-navy),var(--bsi-blue) 48%,var(--bsi-red)); opacity:.78;
-  }
   nav .btn-primary,#page-home .hero-ctas .btn-primary{
     background:var(--bsi-red); color:var(--white); box-shadow:0 9px 22px rgba(var(--bsi-red-rgb),.24);
   }
   nav .btn-primary:hover,#page-home .hero-ctas .btn-primary:hover{
     background:var(--bsi-red-dark); box-shadow:0 12px 28px rgba(var(--bsi-red-rgb),.30);
   }
-  .nav-links button.active::after{width:18px; height:2px; bottom:4px; border-radius:100px;}
-
   h1.headline .accent{
     position:relative; display:inline-block; color:var(--bsi-blue); background:none; -webkit-text-fill-color:currentColor;
   }
-  h1.headline .accent::after{
-    content:''; position:absolute; left:3%; right:3%; bottom:.05em; height:.075em; min-height:3px;
-    border-radius:100px; background:var(--bsi-red); opacity:.92;
+  .hero-gradient{
+    background:
+      radial-gradient(circle at 15% 20%,rgba(var(--bsi-blue-rgb),.14),transparent 44%),
+      radial-gradient(circle at 25% 78%,rgba(var(--bsi-red-rgb),.055),transparent 24%),
+      radial-gradient(circle at 84% 18%,rgba(var(--champagne-rgb),.72),transparent 42%),
+      radial-gradient(circle at 50% 92%,rgba(var(--primary-navy-rgb),.07),transparent 46%),
+      linear-gradient(135deg,var(--ice-blue) 0%,var(--white) 52%,var(--champagne) 100%);
   }
 
   .hero-accreditation-badge{
     gap:8px; color:var(--deep-ink); background:rgba(var(--white-rgb),.86);
-    border-color:rgba(var(--primary-navy-rgb),.13); box-shadow:0 8px 22px rgba(var(--primary-navy-rgb),.06);
+    border:1px solid transparent;
+    background:linear-gradient(rgba(var(--white-rgb),.86),rgba(var(--white-rgb),.86)) padding-box,var(--accreditation-spectrum) border-box;
+    box-shadow:0 8px 22px rgba(var(--primary-navy-rgb),.06);
   }
   .hero-accreditation-badge .dot{background:var(--accreditation-orange); animation:none; box-shadow:0 0 0 3px rgba(var(--gold-rgb),.15);}
-  .hero-accreditation-badge .badge-recognition{color:var(--accreditation-orange);}
+  .hero-accreditation-badge .badge-recognition{color:var(--deep-ink);}
   .hero-accreditation-badge .badge-recognition strong{color:var(--accreditation-purple);}
   .hero-accreditation-badge .badge-divider{color:var(--accreditation-gold); font-size:14px;}
   .hero-accreditation-badge .badge-ai{color:var(--bsi-blue);}
 
-  .sphere-badge{border-left-color:rgba(var(--bsi-red-rgb),.72);}
   .trust-bar::before{
     background:
       radial-gradient(circle at 16% 35%,rgba(var(--accreditation-orange-rgb),.16),transparent 30%),
@@ -971,7 +967,7 @@ h1.headline .accent{
   .accred-strip .accred-badge:not(.pmb-live){
     color:var(--white); border:1px solid transparent;
     background:linear-gradient(rgba(var(--deep-ink-rgb),.76),rgba(var(--deep-ink-rgb),.76)) padding-box,
-      linear-gradient(100deg,var(--accreditation-orange),var(--accreditation-gold) 52%,var(--accreditation-purple)) border-box;
+      var(--accreditation-spectrum) border-box;
     box-shadow:0 8px 22px rgba(var(--accreditation-purple-rgb),.16);
   }
   .accred-strip .accred-badge:not(.pmb-live) svg{color:var(--accreditation-orange);}
@@ -1785,6 +1781,7 @@ const heroPalette = {
   blue: heroColorTokens.getPropertyValue('--bsi-blue-rgb').trim(),
   red: heroColorTokens.getPropertyValue('--bsi-red-rgb').trim(),
   redDark: heroColorTokens.getPropertyValue('--bsi-red-dark-rgb').trim(),
+  gold: heroColorTokens.getPropertyValue('--gold-rgb').trim(),
 };
 const bgCanvas = document.getElementById('bg-canvas');
 const bgCtx = bgCanvas.getContext('2d');
@@ -1828,7 +1825,7 @@ const NODE_COUNT = 90;
 for(let i=0;i<NODE_COUNT;i++){
   const phi = Math.acos(-1+(2*i)/NODE_COUNT);
   const theta = Math.sqrt(NODE_COUNT*Math.PI)*phi;
-  sphereNodes.push({phi,theta,accent:i%6===0});
+  sphereNodes.push({phi,theta,tone:i%23===0?'gold':i%6===0?'red':'blue'});
 }
 let rot=0; let sMouseX=0, sMouseY=0;
 sCanvas.addEventListener('mousemove', e=>{
@@ -1848,7 +1845,7 @@ function drawSphere(){
     const x = R*Math.sin(phi)*Math.cos(theta);
     const y = R*Math.cos(phi);
     const z = R*Math.sin(phi)*Math.sin(theta);
-    return {x,y,z,accent:n.accent};
+    return {x,y,z,tone:n.tone};
   });
   pts.sort((a,b)=>a.z-b.z);
   pts.forEach(p=>{
@@ -1859,9 +1856,11 @@ function drawSphere(){
     sCtx.beginPath();
     sCtx.arc(sx,sy,rr,0,Math.PI*2);
     const grad = sCtx.createRadialGradient(sx,sy,0,sx,sy,rr*2);
-    const isDesktopAccent = innerWidth>=1081 && p.accent;
-    grad.addColorStop(0, isDesktopAccent ? `rgba(${heroPalette.red},${alpha})` : `rgba(${heroPalette.blue},${alpha})`);
-    grad.addColorStop(1, isDesktopAccent ? `rgba(${heroPalette.redDark},${alpha*0.5})` : `rgba(${heroPalette.navy},${alpha*0.5})`);
+    const desktopTone = innerWidth>=1081 ? p.tone : 'blue';
+    const nodeColor = desktopTone==='red' ? heroPalette.red : desktopTone==='gold' ? heroPalette.gold : heroPalette.blue;
+    const edgeColor = desktopTone==='red' ? heroPalette.redDark : heroPalette.navy;
+    grad.addColorStop(0, `rgba(${nodeColor},${alpha})`);
+    grad.addColorStop(1, `rgba(${edgeColor},${alpha*0.5})`);
     sCtx.fillStyle = grad;
     sCtx.fill();
   });
