@@ -1109,6 +1109,67 @@ h1.headline .accent{
   }
 }
 
+/* ============ V2.4 — HYBRID INSTITUTIONAL–CAMPAIGN BALANCE ============ */
+@media(min-width:1081px){
+  /* Light institutional core: preserve red anchors without warming every surface. */
+  nav .btn-primary,#page-home .hero-ctas .btn-primary{
+    background:var(--bsi-warm-red); box-shadow:0 9px 22px rgba(var(--bsi-warm-red-rgb),.27);
+  }
+  nav .btn-primary:hover,#page-home .hero-ctas .btn-primary:hover{
+    background:var(--bsi-warm-red-dark); box-shadow:0 12px 28px rgba(var(--bsi-warm-red-rgb),.33);
+  }
+  #page-home h1.headline .accent{color:var(--bsi-warm-red);}
+  #page-home .hero-gradient{
+    background:
+      radial-gradient(circle at 13% 19%,rgba(var(--bsi-mint-rgb),.34),transparent 42%),
+      radial-gradient(circle at 78% 74%,rgba(var(--bsi-warm-red-rgb),.13),transparent 34%),
+      radial-gradient(circle at 25% 78%,rgba(var(--bsi-warm-red-rgb),.05),transparent 23%),
+      radial-gradient(circle at 87% 16%,rgba(var(--champagne-rgb),.46),transparent 36%),
+      linear-gradient(135deg,var(--bsi-mint-soft) 0%,var(--white) 54%,var(--bsi-warm-red-soft) 100%);
+  }
+  #page-home .hero-grid{
+    background-image:linear-gradient(rgba(var(--bsi-indigo-rgb),.038) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--bsi-indigo-rgb),.038) 1px,transparent 1px);
+  }
+  #page-home .tagline-badge{
+    color:var(--bsi-indigo); background:var(--bsi-mint-soft); border-color:rgba(var(--bsi-indigo-rgb),.20);
+  }
+
+  /* Dark institutional island: accreditation remains isolated from campaign red. */
+  #page-home .trust-bar{background:var(--deep-ink);}
+  #page-home .trust-bar::before{
+    background:radial-gradient(circle at 18% 35%,rgba(var(--bsi-mint-rgb),.065),transparent 30%),radial-gradient(circle at 50% 0%,rgba(var(--gold-rgb),.085),transparent 35%),radial-gradient(circle at 83% 52%,rgba(var(--accreditation-purple-rgb),.11),transparent 32%);
+  }
+  #page-home .accred-strip .pmb-live{
+    background:rgba(var(--bsi-warm-red-rgb),.18); border-color:rgba(var(--bsi-warm-red-rgb),.46); color:#FFE6E1;
+    box-shadow:0 6px 18px rgba(var(--bsi-warm-red-rgb),.18);
+  }
+
+  /* Dark campaign island: navy structure with one controlled red emphasis zone. */
+  #page-home .pmb-banner{
+    background:linear-gradient(120deg,var(--deep-ink),var(--primary-navy) 48%,var(--bsi-indigo));
+    border-color:rgba(var(--bsi-warm-red-rgb),.22);
+    box-shadow:inset 3px 0 0 rgba(var(--bsi-warm-red-rgb),.72),0 22px 54px rgba(var(--deep-ink-rgb),.14),0 12px 32px rgba(var(--bsi-warm-red-rgb),.07);
+  }
+  #page-home .pmb-banner::before{
+    background:radial-gradient(circle at 92% 72%,rgba(var(--bsi-warm-red-rgb),.28),transparent 33%),radial-gradient(circle at 12% 12%,rgba(var(--bsi-mint-rgb),.11),transparent 31%);
+  }
+  #page-home .pmb-banner-head .eyebrow{
+    background:rgba(var(--bsi-warm-red-rgb),.20); border-color:rgba(var(--bsi-warm-red-rgb),.48); color:#FFE6E1;
+  }
+  #page-home .pmb-period-tag{color:#FFD3C9;}
+  #page-home .pmb-period-card:hover{background:rgba(var(--bsi-warm-red-rgb),.13); border-color:rgba(var(--bsi-warm-red-rgb),.46);}
+
+  /* Institutional and technology sections restore the calmer V2.2 treatments. */
+  #page-home .about-band .eyebrow,#page-home .teaser-band > .wrap > .eyebrow,#page-home .teaser-band + section > .wrap > .eyebrow{
+    color:var(--bsi-indigo); background:rgba(var(--bsi-indigo-rgb),.06); border-color:rgba(var(--bsi-indigo-rgb),.15);
+  }
+  #page-home .teaser-card{background:linear-gradient(150deg,var(--white),var(--bsi-mint-soft)); border-color:rgba(var(--bsi-indigo-rgb),.13);}
+  #page-home .teaser-card::before{content:none;}
+  #page-home .teaser-card::after{background:radial-gradient(circle,rgba(var(--bsi-blue-rgb),.11),transparent 70%);}
+  #page-home .tag-event{background:var(--bsi-warm-red-soft); color:var(--bsi-warm-red-dark);}
+  #page-home .bento-card:nth-child(3) .bento-glow{background:radial-gradient(circle,rgba(var(--bsi-warm-red-rgb),.18),transparent 70%);}
+}
+
 /* ============ MISC ============ */
 .grain{position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.02; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
