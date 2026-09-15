@@ -365,10 +365,14 @@ h1.headline .accent{background:linear-gradient(100deg,var(--red),var(--blue) 60%
 #sphere-canvas{width:100%; height:100%;}
 .sphere-badge{
   position:absolute; padding:10px 16px; border-radius:14px; background:rgba(255,255,255,0.75); backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.6); box-shadow:var(--sh-soft); font-size:12.5px; font-weight:700; display:flex; align-items:center; gap:8px;
+  border:2px solid rgba(255,255,255,0.85); box-shadow:var(--sh-soft); font-size:12.5px; font-weight:700; display:flex; align-items:center; gap:8px;
   animation: float-badge 5s ease-in-out infinite;
 }
-.sphere-badge svg{width:14px; height:14px;}
+.sphere-badge svg{width:14px; height:14px; color:var(--blue-2); flex-shrink:0;}
+.sphere-badge-text{
+  background:linear-gradient(90deg, var(--red) 0%, var(--blue-3) 55%, var(--blue) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+}
 .badge-1{top:10%; left:0;}
 .badge-2{bottom:16%; right:0; animation-delay:1.5s;}
 .badge-3{top:44%; right:8%; animation-delay:3s;}
@@ -429,8 +433,16 @@ h1.headline .accent{background:linear-gradient(100deg,var(--red),var(--blue) 60%
 .tag-community{background:rgba(224,32,61,0.10); color:var(--red);}
 .bento-glow{position:absolute; top:-40%; right:-30%; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(27,47,110,0.12), transparent 70%); transition:transform .5s var(--ease);}
 .bento-card:hover .bento-glow{transform:scale(1.4);}
-.bento-title{font-weight:700; font-size:18px; margin-bottom:6px; position:relative; z-index:1;}
-.bento-desc{font-size:13.5px; color:var(--text2); position:relative; z-index:1;}
+.bento-title{font-weight:700; font-size:18px; margin-bottom:6px; position:relative; z-index:1; transition:transform .4s var(--ease);}
+.bento-desc{
+  font-size:13.5px; color:var(--text2); position:relative; z-index:1; overflow:hidden;
+  transition:opacity .35s var(--ease), transform .35s var(--ease), max-height .4s var(--ease), margin-top .4s var(--ease);
+}
+.bento-card:hover .bento-desc{opacity:0; transform:translateY(10px); max-height:0 !important; margin-top:-6px;}
+/* Smaller right-side news cards: tighter type + clamp so text never overflows the fixed card height */
+.bento-card:not(.span2row) .bento-title{font-size:14px; line-height:1.32; margin-bottom:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+.bento-card:not(.span2row) .bento-desc{font-size:11.5px; line-height:1.45; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+.bento-card:not(.span2row).span2 .bento-desc{-webkit-line-clamp:1;}
 @media(max-width:1000px){.bento{grid-template-columns:repeat(2,1fr);} .bento-card.span2{grid-column:span 2;}}
 
 /* ============ AI ASSISTANT PAGE ============ */
@@ -473,6 +485,10 @@ h1.headline .accent{background:linear-gradient(100deg,var(--red),var(--blue) 60%
 
 .ai-right{background:linear-gradient(160deg,var(--blue-2),var(--blue) 60%,var(--blue-3)); position:relative; display:flex; flex-direction:column; padding:32px; color:#fff; overflow:hidden;}
 .ai-right::before{content:''; position:absolute; inset:0; background-image:radial-gradient(circle at 30% 20%, rgba(27,47,110,0.25), transparent 45%), radial-gradient(circle at 70% 80%, rgba(27,47,110,0.15), transparent 40%);}
+/* Red "breathing" wash that fades in over the blue background while the AI is thinking */
+.ai-right-glow{position:absolute; inset:0; z-index:0; pointer-events:none; background:linear-gradient(160deg, var(--red-deep), var(--red) 55%, #ff5c74); opacity:0; transition:opacity 1.1s var(--ease); transform:scale(1); transform-origin:center;}
+.ai-right-glow.active{opacity:1; animation:ai-breathe 2.4s ease-in-out infinite;}
+@keyframes ai-breathe{0%,100%{opacity:.4; transform:scale(1);}50%{opacity:1; transform:scale(1.045);}}
 #ai-viz{position:relative; z-index:1; flex:1; display:flex; align-items:center; justify-content:center;}
 .ai-caps{position:relative; z-index:1;}
 .ai-caps-title{font-size:12px; text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,0.55); margin-bottom:14px; font-weight:700;}
@@ -520,8 +536,18 @@ h1.headline .accent{background:linear-gradient(100deg,var(--red),var(--blue) 60%
 .map-embed{border-radius:var(--r-xl); overflow:hidden; border:1px solid var(--border); box-shadow:var(--sh-soft); height:340px;}
 .map-embed iframe{width:100%; height:100%; border:0;}
 .loc-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:24px;}
-.loc-card{background:var(--card); border:1px solid var(--border); border-radius:var(--r-lg); padding:22px; padding-top:26px; transition:all .4s var(--ease); position:relative; overflow:hidden;}
-.loc-card::before{content:''; position:absolute; left:0; top:0; right:0; height:4px; background:linear-gradient(90deg,var(--amber-deep),var(--amber-2));}
+@media(max-width:760px){.loc-cards{grid-template-columns:1fr;}}
+.loc-card{background:var(--card); border:1px solid var(--border); border-radius:var(--r-lg); padding:22px; padding-top:0; transition:all .4s var(--ease); position:relative; overflow:hidden;}
+.loc-card::before{content:''; position:absolute; left:0; top:0; right:0; height:4px; background:linear-gradient(90deg,var(--amber-deep),var(--amber-2)); z-index:2;}
+.loc-photo{position:relative; margin:0 -22px 18px; height:170px; background-size:cover; background-position:center; background-repeat:no-repeat;}
+.loc-photo .loc-icon{position:absolute; left:18px; bottom:-22px; margin:0; background:var(--card); box-shadow:var(--sh-soft); border:1px solid var(--border);}
+.loc-card-h{display:flex; align-items:stretch; padding:0; overflow:hidden;}
+.loc-photo-sq{position:relative; flex:0 0 42%; aspect-ratio:1/1; background-size:cover; background-position:center; background-repeat:no-repeat;}
+.loc-photo-sq .loc-icon{position:absolute; left:14px; bottom:14px; margin:0; background:rgba(255,255,255,0.92); box-shadow:var(--sh-soft); backdrop-filter:blur(2px);}
+.loc-content{flex:1; padding:24px 24px 24px 22px; display:flex; flex-direction:column; justify-content:center; text-align:left; min-width:0;}
+.loc-content h4{font-size:16px; margin-bottom:6px;}
+.loc-content p{font-size:13px; color:var(--text2); line-height:1.6;}
+@media(max-width:560px){.loc-card-h{flex-direction:column;} .loc-photo-sq{flex:0 0 auto; width:100%; aspect-ratio:16/10;} .loc-content{padding:20px;}}
 .loc-card:hover{transform:translateY(-6px); box-shadow:var(--sh-lift); border-color:var(--amber-2);}
 .loc-card h4{font-size:16px; margin-bottom:6px;}
 .loc-card p{font-size:13px; color:var(--text2); line-height:1.6;}
@@ -645,7 +671,15 @@ h1.headline .accent{background:linear-gradient(100deg,var(--red),var(--blue) 60%
 .wave-fomo-fill{height:100%; border-radius:8px; transition:all .5s var(--ease);}
 .fomo-label{display:flex; justify-content:space-between; margin-top:8px; font-size:11.5px; font-weight:700; color:var(--text2);}
 
-.wave-compare-panel{background:var(--card); border:1px solid var(--border); border-radius:var(--r-xl); padding:34px; margin-top:24px;}
+.wave-compare-panel{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--r-xl); padding:34px; margin-top:24px;
+  overflow:hidden; max-height:2400px;
+  transition: opacity .5s var(--ease), transform .5s var(--ease), max-height .6s var(--ease), padding .5s var(--ease), margin .5s var(--ease), border-color .5s var(--ease);
+}
+.wave-compare-panel.wc-collapsed{
+  opacity:0 !important; transform:translateY(-14px) scale(.98) !important; max-height:0;
+  padding-top:0; padding-bottom:0; margin-top:0; border-color:transparent; pointer-events:none;
+}
 .wc-head{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; margin-bottom:8px;}
 .wc-head h3{font-size:20px; margin-top:6px;}
 .wc-legend{display:flex; align-items:center; gap:18px; font-size:12px; font-weight:700; color:var(--text2);}
@@ -655,7 +689,14 @@ h1.headline .accent{background:linear-gradient(100deg,var(--red),var(--blue) 60%
 .wc-dot-future{background:var(--red);}
 .wc-dot-past{background:var(--border); border:1px solid #C9D2E0;}
 .wc-sub{color:var(--text2); font-size:13.5px; margin-bottom:26px;}
-.wc-bars{display:flex; align-items:flex-end; gap:12px; height:180px; padding:0 2px; margin-bottom:6px;}
+.wc-bars{
+  display:flex; align-items:flex-end; gap:12px; height:180px; padding:0 2px 0; margin-bottom:6px; position:relative;
+  background-image:
+    linear-gradient(to top, transparent 0, transparent calc(25% - 1px), rgba(15,23,42,0.07) calc(25% - 1px), rgba(15,23,42,0.07) 25%, transparent 25%),
+    linear-gradient(to top, transparent 0, transparent calc(50% - 1px), rgba(15,23,42,0.07) calc(50% - 1px), rgba(15,23,42,0.07) 50%, transparent 50%),
+    linear-gradient(to top, transparent 0, transparent calc(75% - 1px), rgba(15,23,42,0.07) calc(75% - 1px), rgba(15,23,42,0.07) 75%, transparent 75%);
+  border-bottom:1.5px solid var(--border);
+}
 .wc-bar-col{flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; position:relative;}
 .wc-bar-val{font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700; color:var(--text2); margin-bottom:8px; white-space:nowrap;}
 .wc-bar-col.is-current .wc-bar-val{color:var(--blue-2); font-size:11.5px;}
@@ -663,7 +704,13 @@ h1.headline .accent{background:linear-gradient(100deg,var(--red),var(--blue) 60%
   position:absolute; top:-30px; left:50%; transform:translateX(-50%); background:var(--blue); color:#fff;
   font-size:9px; font-weight:800; letter-spacing:.03em; text-transform:uppercase; padding:4px 9px; border-radius:100px; white-space:nowrap; box-shadow:0 6px 14px var(--blue-glow);
 }
-.wc-bar{width:100%; border-radius:10px 10px 4px 4px; transition:height .6s var(--ease), background .4s; position:relative; min-height:14px;}
+.wc-bar{
+  width:100%; border-radius:10px 10px 4px 4px; position:relative; min-height:14px; transform-origin:bottom;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.5), inset 0 -10px 16px -8px rgba(0,0,0,0.12), 0 10px 18px -10px rgba(15,23,42,0.35);
+  transition: height .8s var(--ease), transform .25s var(--ease), filter .25s var(--ease), box-shadow .25s var(--ease), background .4s;
+}
+.wc-bar-col.is-past .wc-bar{box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.6), 0 6px 12px -8px rgba(15,23,42,0.15);}
+.wc-bar-col:hover .wc-bar{filter:brightness(1.07); transform:scaleX(1.05); box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.55), inset 0 -10px 16px -8px rgba(0,0,0,0.14), 0 14px 24px -10px rgba(15,23,42,0.4);}
 .wc-bar-label{margin-top:10px; font-size:12px; font-weight:800; color:var(--text);}
 .wc-bar-sub{font-size:10px; font-weight:600; color:var(--text2); margin-top:2px; text-align:center; line-height:1.3;}
 .wc-bar-col.is-current .wc-bar-sub{color:var(--blue-3); font-weight:800;}
@@ -730,15 +777,25 @@ h1.headline .accent{background:linear-gradient(100deg,var(--red),var(--blue) 60%
 /* ============ STUDENT LIFE ============ */
 .ig-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
 .ig-item{aspect-ratio:1; border-radius:var(--r-md); position:relative; overflow:hidden;}
-.ig-item .ig-bg{position:absolute; inset:0; transition:transform .5s var(--ease);}
+.ig-item .ig-bg{position:absolute; inset:0; transition:transform .5s var(--ease); background-size:cover; background-position:center; background-repeat:no-repeat;}
+.bento-img{position:absolute; inset:0; background-size:cover; background-position:center; background-repeat:no-repeat; transition:transform .5s var(--ease);}
+.bento-card:hover .bento-img{transform:scale(1.08);}
+.bento-scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(16,27,71,0) 30%, rgba(10,17,45,0.55) 68%, rgba(10,17,45,0.9) 100%); z-index:1;}
+.bento-card.has-photo .bento-title, .bento-card.has-photo .bento-desc{color:#fff; position:relative; z-index:2;}
+.bento-card.has-photo .bento-desc{color:rgba(255,255,255,0.85);}
+.bento-card.has-photo .bento-tag{z-index:2;}
+.bento-card.has-photo .bento-glow{display:none;}
 .ig-item:hover .ig-bg{transform:scale(1.1);}
 .ig-overlay{position:absolute; inset:0; background:linear-gradient(0deg, rgba(27,29,99,0.75), transparent 55%); display:flex; align-items:flex-end; padding:14px; opacity:0; transition:opacity .35s;}
 .ig-item:hover .ig-overlay{opacity:1;}
 .ig-overlay span{color:#fff; font-size:12.5px; font-weight:700;}
 .ig-play{position:absolute; top:10px; right:10px; width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,0.25); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; color:#fff;}
 .ig-play svg{width:12px; height:12px;}
-.facility-grid{
-  display:flex; grid-template-columns:unset; gap:16px; overflow-x:auto; padding-bottom:20px; scroll-snap-type:x mandatory;
+.facility-panel{opacity:0; transform:translateY(10px); transition:opacity .35s var(--ease), transform .35s var(--ease);}
+.facility-panel.active{opacity:1; transform:translateY(0);}
+.facility-toggle-btn{opacity:.55; transition:opacity .25s var(--ease), box-shadow .25s var(--ease);}
+.facility-toggle-btn.active{opacity:1; box-shadow:0 0 0 2px var(--amber-2) inset;}
+.facility-grid{  display:flex; grid-template-columns:unset; gap:16px; overflow-x:auto; padding-bottom:20px; scroll-snap-type:x mandatory;
   scrollbar-width:thin; scrollbar-color:var(--border) transparent;
 }
 .facility-grid::-webkit-scrollbar{height:6px;}
@@ -746,6 +803,12 @@ h1.headline .accent{background:linear-gradient(100deg,var(--red),var(--blue) 60%
 .facility-grid::-webkit-scrollbar-thumb{background:var(--border); border-radius:8px;}
 .facility-grid .ig-item{flex:0 0 260px; aspect-ratio:4/3; scroll-snap-align:start;}
 @media(max-width:960px){.facility-grid{grid-template-columns:unset;} .facility-grid .ig-item{flex:0 0 220px;}}
+/* ===== Facility cards: hover behavior reversed vs default ig-item ===== */
+/* Default: zoomed-in with gradient + room name visible. Hover: zooms out to clear/plain, no gradient, no text. */
+.facility-grid .ig-item .ig-bg{transform:scale(1.12);}
+.facility-grid .ig-item:hover .ig-bg{transform:scale(1);}
+.facility-grid .ig-overlay{opacity:1;}
+.facility-grid .ig-item:hover .ig-overlay{opacity:0;}
 
 .org-marquee{margin-top:70px; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);}
 .marquee-track{display:flex; gap:16px; width:max-content; animation:marquee 26s linear infinite;}
@@ -907,9 +970,9 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
       </div>
       <div class="sphere-wrap">
         <canvas id="sphere-canvas"></canvas>
-        <div class="sphere-badge badge-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg> AI Native Learning</div>
-        <div class="sphere-badge badge-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg> 18+ Sertifikasi BNSP</div>
-        <div class="sphere-badge badge-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 15.5 5 12l3.5-3.5M2 12h6M15.5 8.5 19 12l-3.5 3.5M22 12h-6"/><circle cx="12" cy="12" r="2.2"/></svg> 1000+ Mitra Industri</div>
+        <div class="sphere-badge badge-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg> <span class="sphere-badge-text">AI Native Learning</span></div>
+        <div class="sphere-badge badge-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg> <span class="sphere-badge-text">18+ Sertifikasi BNSP</span></div>
+        <div class="sphere-badge badge-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 15.5 5 12l3.5-3.5M2 12h6M15.5 8.5 19 12l-3.5 3.5M22 12h-6"/><circle cx="12" cy="12" r="2.2"/></svg> <span class="sphere-badge-text">1000+ Mitra Industri</span></div>
       </div>
     </div>
   </div>
@@ -924,7 +987,7 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
         <div class="counter-item reveal"><div class="counter-num" data-count="24">0</div><div class="counter-label">Program Studi</div></div>
         <div class="counter-item reveal"><div class="counter-num" data-count="8">0</div><div class="counter-label">Fakultas</div></div>
         <div class="counter-item reveal"><div class="counter-num" data-count="1000" data-suffix="+">0</div><div class="counter-label">Mitra Industri</div></div>
-        <div class="counter-item reveal"><div class="counter-num" data-count="12" data-suffix="+">0</div><div class="counter-label">Jenis Beasiswa</div></div>
+        <div class="counter-item reveal"><div class="counter-num" data-count="4" data-suffix="">0</div><div class="counter-label">Jenis Beasiswa</div></div>
         <div class="counter-item reveal"><div class="counter-num" data-count="18">0</div><div class="counter-label">Sertifikasi BNSP</div></div>
       </div>
     </div>
@@ -993,7 +1056,7 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
         <div class="teaser-card reveal teaser-teal" onclick="goTo('calc')">
           <div class="teaser-tag"><span class="flagship-badge-dot"></span> Digital Campus Tool</div>
           <h3>Financial Cost Simulator</h3>
-          <p>Hitung estimasi biaya kuliah berdasarkan jenjang, gelombang pendaftaran, dan skema cicilan.</p>
+          <p>Hitung estimasi biaya kuliah berdasarkan jenjang dan gelombang pendaftaran — skema cicilan lengkap tersedia di laman PMB resmi.</p>
           <span class="teaser-cta">Coba Sekarang <svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></span>
         </div>
       </div>
@@ -1006,29 +1069,33 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
       <h2 class="reveal">Berita &amp; Kegiatan Kampus</h2>
       <p class="section-sub reveal">Dari workshop kecerdasan buatan hingga pengabdian masyarakat — begini dinamika mahasiswa UBSI Margonda.</p>
       <div class="bento">
-        <div class="bento-card span2 span2row reveal">
-          <div class="bento-tag tag-ai">AI Workshop</div>
-          <div class="bento-glow"></div>
-          <div class="bento-title">Workshop AI untuk Mahasiswa Baru</div>
-          <div class="bento-desc">Maba dikenalkan langsung ke ChatGPT &amp; Bing Image Creator sebagai bekal produktivitas akademik sejak semester 1.</div>
+        <div class="bento-card has-photo span2 span2row reveal" onclick="window.open('https://news.bsi.ac.id/berita/tembus-top-50-gsa-2026-mahasiswi-ubsi-kampus-pontianak-dapat-kesempatan-office-tour-ke-google/','_blank')" style="cursor:pointer;">
+          <div class="bento-img" style="background-image:url('https://news.bsi.ac.id/wp-content/uploads/2026/09/WhatsApp-Image-2026-09-02-at-07.21.51-1.jpeg');"></div>
+          <div class="bento-scrim"></div>
+          <div class="bento-tag tag-ai">Prestasi</div>
+          <div class="bento-title">Tembus Top 50 GSA 2026, Mahasiswi UBSI Pontianak Office Tour ke Google</div>
+          <div class="bento-desc">Tiara Sari, mahasiswi Informatika UBSI Kampus Pontianak, jadi mahasiswi pertama kampusnya yang office tour langsung ke kantor Google lewat program Google Student Ambassador.</div>
         </div>
-        <div class="bento-card reveal">
-          <div class="bento-tag tag-social">Pengabdian</div>
-          <div class="bento-glow"></div>
-          <div class="bento-title">Literasi Digital di Cimanggis, Depok</div>
-          <div class="bento-desc">BKOT UBSI mendampingi warga Cimanggis meningkatkan literasi digital &amp; kecakapan teknologi dasar.</div>
+        <div class="bento-card has-photo reveal" onclick="window.open('https://news.bsi.ac.id/berita/21-tenant-ratusan-ide-entrepreneur-fair-2026-ubsi-kampus-slipi-buktikan-semangat-wirausaha-mahasiswa/','_blank')" style="cursor:pointer;">
+          <div class="bento-img" style="background-image:url('https://news.bsi.ac.id/wp-content/uploads/2026/07/Fair_11zon.webp');"></div>
+          <div class="bento-scrim"></div>
+          <div class="bento-tag tag-social">Wirausaha</div>
+          <div class="bento-title">21 Tenant Ramaikan Entrepreneur Fair UBSI Slipi</div>
+          <div class="bento-desc">Ratusan ide bisnis mahasiswa, dari kuliner hingga solusi digital.</div>
         </div>
-        <div class="bento-card reveal">
-          <div class="bento-tag tag-event">Edufair</div>
-          <div class="bento-glow"></div>
-          <div class="bento-title">Invasi Edufair 2026</div>
-          <div class="bento-desc">Menyambangi SMA N 8 Depok, SMA Yapemri, dan SMA Yaspen Tugu Ibu untuk showcase karier &amp; program studi.</div>
+        <div class="bento-card has-photo reveal" onclick="window.open('https://news.bsi.ac.id/beasiswa/atlet-pencak-silat-nasional-ini-dapat-beasiswa-dan-resmi-jadi-mahasiswa-ubsi-kampus-pontianak/','_blank')" style="cursor:pointer;">
+          <div class="bento-img" style="background-image:url('https://news.bsi.ac.id/wp-content/uploads/2026/08/foto_6a70411975aa29.38567643.png');"></div>
+          <div class="bento-scrim"></div>
+          <div class="bento-tag tag-event">Beasiswa</div>
+          <div class="bento-title">Atlet Pencak Silat Nasional Jadi Mahasiswa UBSI</div>
+          <div class="bento-desc">Dede Salsabila kini kuliah lewat Beasiswa Indonesia Juara.</div>
         </div>
-        <div class="bento-card span2 reveal">
-          <div class="bento-tag tag-community">Organisasi</div>
-          <div class="bento-glow"></div>
-          <div class="bento-title">HIMASI x HIMA RPL Tech Fest</div>
-          <div class="bento-desc">Kolaborasi himpunan mahasiswa menghadirkan kompetisi hackathon internal kampus.</div>
+        <div class="bento-card has-photo span2 reveal" onclick="window.open('https://news.bsi.ac.id/berita/kolaborasi-ubsi-dan-university-selangor-dorong-pengabdian-masyarakat-internasional/','_blank')" style="cursor:pointer;">
+          <div class="bento-img" style="background-image:url('https://news.bsi.ac.id/wp-content/uploads/2026/08/foto_6a816606f084d9.44794356-1.webp');"></div>
+          <div class="bento-scrim"></div>
+          <div class="bento-tag tag-community">Kerja Sama</div>
+          <div class="bento-title">Kolaborasi UBSI &amp; University Selangor</div>
+          <div class="bento-desc">Tiga dosen UBSI dorong pengabdian masyarakat internasional bersama UNISEL Malaysia.</div>
         </div>
       </div>
     </div>
@@ -1098,6 +1165,7 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
       </div>
 
       <div class="ai-right">
+        <div class="ai-right-glow" id="ai-right-glow"></div>
         <div id="ai-viz"><canvas id="ai-orb" width="340" height="340"></canvas></div>
         <div class="ai-caps">
           <div class="ai-caps-title">Bisa membantu soal</div>
@@ -1169,58 +1237,113 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
     <div class="map-embed reveal">
       <iframe id="campus-map-iframe" loading="lazy" src="https://www.google.com/maps?q=Jl.+Margonda+Raya+No.+8+Depok&output=embed"></iframe>
     </div>
-    <div class="loc-cards reveal" style="display:flex; justify-content:center; flex-wrap:wrap;">
-      <div class="loc-card" data-map="https://www.google.com/maps?q=Jl.+Margonda+Raya+No.+8+Depok&output=embed" style="text-align:center; flex:1 1 320px; max-width:360px;">
-        <div class="loc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg></div>
-        <h4>Kampus Margonda A</h4>
-        <p>Jl. Margonda Raya No. 8 — gedung utama perkuliahan &amp; layanan akademik.</p>
-        <button class="btn btn-ghost campus-map-btn" style="margin-top:14px;">Lihat di Peta <svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></button>
+    <div class="loc-cards reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+      <div class="loc-card loc-card-h" data-map="https://www.google.com/maps?q=Jl.+Margonda+Raya+No.+8+Depok&output=embed" data-building="a">
+        <div class="loc-photo-sq" style="background-image:url('https://bsi.ac.id/storage/kampus/35DEz7Gyug69WDSDGJaEllpOVvmoEGiXa4uVhsYL.png');">
+          <div class="loc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg></div>
+        </div>
+        <div class="loc-content">
+          <h4>Kampus Margonda A</h4>
+          <p>Jl. Margonda Raya No. 8 — gedung utama perkuliahan &amp; layanan akademik.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+            <button class="btn btn-ghost campus-map-btn">Lihat di Peta <svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></button>
+            <button class="btn btn-primary facility-toggle-btn active" data-target="a">Fasilitas <svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></button>
+          </div>
+        </div>
       </div>
-      <div class="loc-card" data-map="https://www.google.com/maps?q=Jl.+Margonda+No.+277d+Depok&output=embed" style="text-align:center; flex:1 1 320px; max-width:360px;">
-        <div class="loc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg></div>
-        <h4>Kampus Margonda B</h4>
-        <p>Jl. Margonda No. 277d — laboratorium digital &amp; ruang kreatif mahasiswa.</p>
-        <button class="btn btn-ghost campus-map-btn" style="margin-top:14px;">Lihat di Peta <svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></button>
+      <div class="loc-card loc-card-h" data-map="https://www.google.com/maps?q=Jl.+Margonda+Raya+No.+471+Pancoran+Mas+Depok&output=embed" data-building="b">
+        <div class="loc-photo-sq" style="background-image:url('https://bsi.ac.id/storage/kampus/l81Qjg92KIHNh2D9I6PdepZdEMZe6Up9GJuRXUmL.jpg');">
+          <div class="loc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg></div>
+        </div>
+        <div class="loc-content">
+          <h4>Kampus Margonda B</h4>
+          <p>Jl. Margonda Raya No. 471, Pancoran Mas — laboratorium digital &amp; ruang kreatif mahasiswa.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+            <button class="btn btn-ghost campus-map-btn">Lihat di Peta <svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></button>
+            <button class="btn btn-primary facility-toggle-btn" data-target="b">Fasilitas <svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="wrap">
+  <div class="wrap" id="sarana-section">
     <div class="eyebrow reveal" style="text-align:center; justify-content:center; display:flex;"><svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg> Sarana &amp; Prasarana</div>
     <h2 class="reveal" style="text-align:center;">Fasilitas Kampus Margonda</h2>
-    <p class="section-sub reveal" style="text-align:center; margin-left:auto; margin-right:auto;">Ruang praktik nyata yang menunjang kompetensi mahasiswa lintas program studi — geser untuk melihat semua.</p>
-    <div class="ig-grid facility-grid reveal" id="facility-grid">
-      <div class="ig-item">
-        <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Laboratorium Bahasa Multimedia, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Laboratorium Bahasa Multimedia</span></div>
-        <div class="ig-overlay"><span>Laboratorium Bahasa Multimedia</span></div>
+    <p class="section-sub reveal" style="text-align:center; margin-left:auto; margin-right:auto;">Ruang praktik nyata yang menunjang kompetensi mahasiswa lintas program studi.</p>
+    <p id="facility-status" style="text-align:center; font-size:14px; font-weight:600; color:var(--amber-deep); margin-top:-8px; margin-bottom:28px; transition:opacity .25s var(--ease);">Menampilkan fasilitas Kampus Margonda A</p>
+
+    <div class="facility-panel active" id="facility-panel-a">
+      <div class="ig-grid facility-grid reveal" id="facility-grid">
+        <div class="ig-item">
+          <div class="ig-bg" style="background-image:url('https://bsi.ac.id/storage/kampus/KFjBsIIoObBCA6LqlveL5fUOv3a4GcopjlD2mzpY.jpg');"></div>
+          <div class="ig-overlay"><span>Ruang Dosen</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg" style="background-image:url('https://bsi.ac.id/storage/kampus/Ckt7HFJGXL2cSI3oaNqSCSB9B2FEYwvgoaJdBMaK.jpg');"></div>
+          <div class="ig-overlay"><span>Ruang Kelas</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg" style="background-image:url('https://bsi.ac.id/storage/kampus/qRFIbldL19GTJweFf8M1CG4NLFnzXmDrgwW1MZ4E.jpg');"></div>
+          <div class="ig-overlay"><span>Laboratorium</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg" style="background-image:url('https://bsi.ac.id/storage/kampus/aXHd0jkJQnzdtBrXPVqnIu4mSWaklK159DbYUfhD.jpg');"></div>
+          <div class="ig-overlay"><span>Perpustakaan</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg" style="background-image:url('https://bsi.ac.id/storage/kampus/IOxZ1kvqszGNzq4L1oiY7PLGrRweyVwShvCDvMoH.jpg');"></div>
+          <div class="ig-overlay"><span>Area Parkir</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg" style="background-image:url('https://bsi.ac.id/storage/kampus/UgGvF3LOGY684HJtKB17pxKikhvFB2E3b1o1Az6W.jpg');"></div>
+          <div class="ig-overlay"><span>Musholla</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg" style="background-image:url('https://bsi.ac.id/storage/kampus/JlZJ6Sc4CucGWlLnSbFGt3LIqmDFvEmEdkNPsEau.jpg');"></div>
+          <div class="ig-overlay"><span>Ruang Meeting</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg" style="background-image:url('https://bsi.ac.id/storage/kampus/4fOUZI8jzunsOEBP93Vlr0RbEHGNwF6eJFjzYBqr.jpg');"></div>
+          <div class="ig-overlay"><span>Parkiran Gedung</span></div>
+        </div>
       </div>
-      <div class="ig-item">
-        <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Trading Room Simulation, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Trading Room Simulation</span></div>
-        <div class="ig-overlay"><span>Trading Room Simulation</span></div>
-      </div>
-      <div class="ig-item">
-        <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Studio Interpretasi &amp; Translasi, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Studio Interpretasi &amp; Translasi</span></div>
-        <div class="ig-overlay"><span>Studio Interpretasi &amp; Translasi</span></div>
-      </div>
-      <div class="ig-item">
-        <div class="ig-bg img-placeholder" data-replace="ganti dengan foto TUK Lembaga Sertifikasi Profesi (LSP), ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — TUK Lembaga Sertifikasi Profesi (LSP)</span></div>
-        <div class="ig-overlay"><span>TUK Lembaga Sertifikasi Profesi (LSP)</span></div>
-      </div>
-      <div class="ig-item">
-        <div class="ig-bg img-placeholder" data-replace="ganti dengan foto E-Library &amp; Ruang Baca, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — E-Library &amp; Ruang Baca</span></div>
-        <div class="ig-overlay"><span>E-Library &amp; Ruang Baca</span></div>
-      </div>
-      <div class="ig-item">
-        <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Ruang Kelas Digital Terpadu, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Ruang Kelas Digital Terpadu</span></div>
-        <div class="ig-overlay"><span>Ruang Kelas Digital Terpadu</span></div>
-      </div>
-      <div class="ig-item">
-        <div class="ig-bg img-placeholder" data-replace="ganti dengan foto BSI Startup &amp; Inkubasi Bisnis, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — BSI Startup &amp; Inkubasi Bisnis</span></div>
-        <div class="ig-overlay"><span>BSI Startup &amp; Inkubasi Bisnis</span></div>
-      </div>
-      <div class="ig-item">
-        <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Studio Penyiaran &amp; Broadcasting, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Studio Penyiaran &amp; Broadcasting</span></div>
-        <div class="ig-overlay"><span>Studio Penyiaran &amp; Broadcasting</span></div>
+    </div>
+
+    <div class="facility-panel" id="facility-panel-b" style="display:none;">
+      <div class="ig-grid facility-grid reveal" id="facility-grid-b">
+        <div class="ig-item">
+          <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Ruang Dosen Gedung B, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Ruang Dosen</span></div>
+          <div class="ig-overlay"><span>Ruang Dosen</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Ruang Kelas Gedung B, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Ruang Kelas</span></div>
+          <div class="ig-overlay"><span>Ruang Kelas</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Laboratorium Gedung B, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Laboratorium</span></div>
+          <div class="ig-overlay"><span>Laboratorium</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Perpustakaan Gedung B, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Perpustakaan</span></div>
+          <div class="ig-overlay"><span>Perpustakaan</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Area Parkir Gedung B, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Area Parkir</span></div>
+          <div class="ig-overlay"><span>Area Parkir</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Musholla Gedung B, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Musholla</span></div>
+          <div class="ig-overlay"><span>Musholla</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Ruang Meeting Gedung B, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Ruang Meeting</span></div>
+          <div class="ig-overlay"><span>Ruang Meeting</span></div>
+        </div>
+        <div class="ig-item">
+          <div class="ig-bg img-placeholder" data-replace="ganti dengan foto Parkiran Gedung B, ukuran mengikuti kartu ini (rasio 4:3)"><span>IMG — Parkiran Gedung</span></div>
+          <div class="ig-overlay"><span>Parkiran Gedung</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1318,11 +1441,11 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
     <div class="wrap">
       <div class="flagship-badge reveal"><span class="flagship-badge-dot"></span> Digital Campus Tool</div>
       <h2 class="flagship-title reveal">Financial Cost Simulator</h2>
-      <p class="flagship-sub reveal">Rencanakan biaya kuliah secara transparan melalui simulasi interaktif berdasarkan program studi, jalur masuk, dan skema pembayaran.</p>
+      <p class="flagship-sub reveal">Rencanakan biaya kuliah secara transparan melalui simulasi interaktif berdasarkan program studi dan jalur masuk.</p>
       <div class="flagship-tags reveal">
         <div class="flagship-tag">Hitung Instan</div>
-        <div class="flagship-tag">Estimasi Cicilan</div>
         <div class="flagship-tag">Transparan &amp; Akurat</div>
+        <div class="flagship-tag">Terhubung ke PMB Resmi</div>
       </div>
     </div>
   </div>
@@ -1355,13 +1478,6 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
           <div class="fomo-label"><span id="fomo-text">Gelombang paling hemat</span><span id="fomo-pct">0%</span></div>
           <div class="fomo-label" style="margin-top:4px;"><span id="wave-date" style="color:var(--text2); font-weight:600; font-size:12.5px;"></span></div>
         </div>
-        <div class="calc-row" id="s2-calc-row" style="margin-bottom:0; display:none;">
-          <label>Opsi Pembayaran Paket S2</label>
-          <div class="jenjang-toggle">
-            <button class="active" data-c="18">Cicil 18x</button>
-            <button data-c="1">Bayar Lunas</button>
-          </div>
-        </div>
       </div>
 
       <div class="calc-result reveal">
@@ -1370,7 +1486,7 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
 
         <div class="rl-label" id="fase2-label" style="font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; opacity:.55; margin:22px 0 6px;">Fase 2 · Kewajiban SSP (Semester 2)</div>
         <div class="result-line" id="r-ssp-row"><span class="rl-label" id="r-ssp-label">Nilai SSP (Mulai Smt 2)</span><span class="rl-val mono" id="r-ssp">Rp 0</span></div>
-        <div class="result-line" id="r-cicilan-row"><span class="rl-label" id="r-cicilan-label">Opsi Cicilan SSP</span><span class="rl-val mono" id="r-cicilan">Rp 0</span></div>
+        <a href="https://pmbubsi.id/pmb" target="_blank" rel="noopener" style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:18px; padding:13px; border-radius:100px; background:rgba(255,255,255,0.12); color:#fff; font-weight:700; font-size:13.5px; text-decoration:none;">Cek Skema &amp; Cicilan Resmi di pmbubsi.id <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></a>
         <div class="saving-box" id="saving-box">
           <div class="sv-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="12" r="6"/><path d="M15 9.5A6 6 0 1 1 15 14.5"/><path d="M7 12h4"/></svg></div>
           <p>Estimated saving jika daftar <strong>hari ini</strong>: <strong id="r-saving">Rp 0</strong> dibanding gelombang terakhir.</p>
@@ -1398,27 +1514,28 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
     <div class="brosur-banner reveal">
       <div class="brosur-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3h8l2 2v16H6V5l2-2z"/><path d="M9 10h6M9 14h6M9 18h3"/></svg></div>
       <div class="brosur-text">
-        <div class="brosur-title">Butuh detail lengkap untuk didiskusikan bersama orang tua?</div>
-        <div class="brosur-sub">Unduh E-Brosur UBSI 2026 — rincian biaya, jurusan, dan jadwal PMB dalam satu file.</div>
+        <div class="brosur-title">Butuh rincian cicilan & skema pembayaran lengkap?</div>
+        <div class="brosur-sub">Unduh E-Brosur UBSI 2026, atau cek langsung ke laman resmi pendaftaran pmbubsi.id untuk simulasi cicilan per gelombang.</div>
       </div>
-      <a class="btn btn-primary" href="https://pmbubsi.id/brosur/E-Brosur-UBSI-2026-1.pdf" target="_blank" rel="noopener"><svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> Unduh E-Brosur</a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn btn-ghost" href="https://pmbubsi.id/pmb" target="_blank" rel="noopener">Buka pmbubsi.id</a>
+        <a class="btn btn-primary" href="https://pmbubsi.id/brosur/E-Brosur-UBSI-2026-1.pdf" target="_blank" rel="noopener"><svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> Unduh E-Brosur</a>
+      </div>
     </div>
   </div>
 </section>
 <section class="page" id="page-scholarship">
   <div class="wrap" style="padding-top:150px;">
     <div class="eyebrow reveal"><svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M9.5 12.5 8 21l4-2 4 2-1.5-8.5"/></svg> Portal Beasiswa</div>
-    <h2 class="reveal">12 Jalur Beasiswa</h2>
+    <h2 class="reveal">4 Jalur Beasiswa</h2>
     <p class="section-sub reveal">Klik "Lihat Syarat" pada tiap kartu untuk detail ketentuannya, lalu ajukan langsung.</p>
 
     <div class="sch-filters reveal" id="sch-filters">
       <button class="sch-filter active" data-t="all">Semua</button>
-      <button class="sch-filter" data-t="internal">Internal</button>
-      <button class="sch-filter" data-t="eksternal">Eksternal</button>
-      <button class="sch-filter" data-t="government">Pemerintah</button>
-      <button class="sch-filter" data-t="achievement">Prestasi</button>
-      <button class="sch-filter" data-t="religious">Keagamaan</button>
-      <button class="sch-filter" data-t="creative">Talenta Kreatif</button>
+      <button class="sch-filter" data-t="cerdas">Jalur Sekolah</button>
+      <button class="sch-filter" data-t="digital">Talenta Digital</button>
+      <button class="sch-filter" data-t="juara">Prestasi</button>
+      <button class="sch-filter" data-t="golden">Tanpa Tes</button>
     </div>
 
     <div class="sch-bento" id="sch-grid"></div>
@@ -1486,7 +1603,7 @@ footer{background:var(--blue-2); color:rgba(255,255,255,0.7); padding:70px 0 30p
       <div>
         <h5>Kontak</h5>
         <a>Kampus A: Jl. Margonda Raya No. 8</a>
-        <a>Kampus B: Jl. Margonda No. 277d</a>
+        <a>Kampus B: Jl. Margonda Raya No. 471, Pancoran Mas</a>
         <a>pmb@bsi.ac.id</a>
         <a>0812-8079-4574</a>
         <a>0895-2850-7746</a>
@@ -1577,6 +1694,63 @@ document.querySelectorAll('.loc-cards .loc-card').forEach(card=>{
 });
 
 /* ============================================================
+   FACILITY TOGGLE (Gedung A / Gedung B, fade crossfade, re-click to collapse)
+============================================================ */
+let activeFacility = 'a';
+const facilityStatusEl = document.getElementById('facility-status');
+const facilityStatusText = {
+  a: 'Menampilkan fasilitas Kampus Margonda A',
+  b: 'Menampilkan fasilitas Kampus Margonda B',
+  none: 'Pilih tombol Fasilitas di salah satu kampus untuk melihat galerinya'
+};
+function updateFacilityStatus(state){
+  if(!facilityStatusEl) return;
+  facilityStatusEl.style.opacity = '0';
+  setTimeout(()=>{
+    facilityStatusEl.textContent = facilityStatusText[state] || '';
+    facilityStatusEl.style.opacity = '1';
+  }, 180);
+}
+function hideFacility(target){
+  const panels = {a: document.getElementById('facility-panel-a'), b: document.getElementById('facility-panel-b')};
+  const panel = panels[target];
+  panel.classList.remove('active');
+  setTimeout(()=>{ panel.style.display = 'none'; }, 350);
+  activeFacility = null;
+  document.querySelectorAll('.facility-toggle-btn').forEach(btn=> btn.classList.remove('active'));
+  updateFacilityStatus('none');
+}
+function setActiveFacility(target){
+  const panels = {a: document.getElementById('facility-panel-a'), b: document.getElementById('facility-panel-b')};
+  const next = panels[target];
+  const prev = target === 'b' ? panels.a : panels.b;
+  if(prev && prev.classList.contains('active')){
+    prev.classList.remove('active');
+    setTimeout(()=>{ prev.style.display = 'none'; }, 350);
+  }
+  next.style.display = 'block';
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{ next.classList.add('active'); });
+  });
+  activeFacility = target;
+  document.querySelectorAll('.facility-toggle-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.target === target);
+  });
+  updateFacilityStatus(target);
+}
+document.querySelectorAll('.facility-toggle-btn').forEach(btn=>{
+  btn.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const target = btn.dataset.target;
+    if(activeFacility === target){
+      hideFacility(target);
+    } else {
+      setActiveFacility(target);
+    }
+  });
+});
+
+/* ============================================================
    REVEAL ON SCROLL
 ============================================================ */
 function runReveal(container){
@@ -1629,6 +1803,20 @@ function resizeBg(){
 }
 resizeBg();
 window.addEventListener('resize', resizeBg);
+
+/* Berita/kegiatan cards: measure each description's real height so the hover
+   collapse (title drops to the bottom, desc fades+collapses) animates smoothly
+   instead of snapping, and stays correct across breakpoints. */
+function syncBentoDescHeights(){
+  document.querySelectorAll('.bento-desc').forEach(el=>{
+    el.style.maxHeight = 'none';
+    const h = el.scrollHeight;
+    el.style.maxHeight = h+'px';
+  });
+}
+syncBentoDescHeights();
+window.addEventListener('resize', syncBentoDescHeights);
+
 function drawBg(){
   bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
   particles.forEach(p=>{
@@ -1707,36 +1895,124 @@ function drawSphere(){
 }
 drawSphere();
 
-/* AI orb (assistant page) — simpler pulsing radial */
+/* AI orb (assistant page) — idle: simple pulsing radial (blue). Thinking: red neural network pulse, re-randomized every time. */
 const orbCanvas = document.getElementById('ai-orb');
 const orbCtx = orbCanvas.getContext('2d');
 let orbT=0;
+let aiThinking=false;
+let orbMorph=0; // 0 = idle, 1 = full thinking-network look, eases between the two
+
+// Node count, link style, rotation direction, pulse speed and hookup pattern all get re-rolled
+// every time thinking starts, so the network never looks the same way twice.
+let neuronNodes = [];
+let netLinkDist = 118;
+let netLinkStep = 5;
+let netPulseSpeed = 2.2;
+let netDir = 1;
+function regenerateNeuronPattern(){
+  const count = 10+Math.floor(Math.random()*9); // 10-18 nodes
+  netDir = Math.random()<0.5 ? -1 : 1;
+  netLinkDist = 90+Math.random()*55;
+  netLinkStep = 2+Math.floor(Math.random()*(count-2));
+  netPulseSpeed = 1.4+Math.random()*1.8;
+  neuronNodes = Array.from({length:count}, (_,i)=>({
+    baseA: (i/count)*Math.PI*2 + Math.random()*0.6,
+    speed: netDir*(0.10+Math.random()*0.26),
+    radiusBase: 40+Math.random()*90,
+    phase: Math.random()*Math.PI*2,
+    wobble: 4+Math.random()*14
+  }));
+}
+regenerateNeuronPattern();
+function setAiThinking(on){
+  if(on && !aiThinking) regenerateNeuronPattern(); // fresh pattern every new "thinking" burst
+  aiThinking = on;
+  const glow = document.getElementById('ai-right-glow');
+  if(glow) glow.classList.toggle('active', on);
+}
+
 function drawOrb(){
   const w=orbCanvas.width, h=orbCanvas.height;
   orbCtx.clearRect(0,0,w,h);
   orbT+=0.02;
+  orbMorph += ((aiThinking?1:0) - orbMorph)*0.08;
   const cx=w/2, cy=h/2;
-  for(let ring=0;ring<3;ring++){
-    const R = 60+ring*38 + Math.sin(orbT+ring)*8;
-    orbCtx.beginPath();
-    orbCtx.arc(cx,cy,R,0,Math.PI*2);
-    orbCtx.strokeStyle = `rgba(27,47,110,${0.5-ring*0.13})`;
-    orbCtx.lineWidth=1.4;
-    orbCtx.stroke();
+
+  // --- idle ambient rings + drifting particles, blue (dims while thinking, but never fully disappears) ---
+  if(orbMorph < 0.999){
+    const idleA = 1 - orbMorph*0.7; // floors at ~0.3 so the blue pattern stays faintly visible under the red network
+    for(let ring=0;ring<3;ring++){
+      const R = 60+ring*38 + Math.sin(orbT+ring)*8;
+      orbCtx.beginPath();
+      orbCtx.arc(cx,cy,R,0,Math.PI*2);
+      orbCtx.strokeStyle = `rgba(27,47,110,${(0.5-ring*0.13)*idleA})`;
+      orbCtx.lineWidth=1.4;
+      orbCtx.stroke();
+    }
+    const coreR = 46+Math.sin(orbT*1.6)*4;
+    const grad = orbCtx.createRadialGradient(cx,cy,0,cx,cy,coreR*2.2);
+    grad.addColorStop(0,`rgba(27,47,110,${0.9*idleA})`);
+    grad.addColorStop(0.5,`rgba(255,255,255,${0.35*idleA})`);
+    grad.addColorStop(1,'rgba(27,47,110,0)');
+    orbCtx.beginPath(); orbCtx.arc(cx,cy,coreR*2.2,0,Math.PI*2); orbCtx.fillStyle=grad; orbCtx.fill();
+    for(let i=0;i<40;i++){
+      const a = (i/40)*Math.PI*2 + orbT*0.5;
+      const rr = 90+Math.sin(orbT*2+i)*14;
+      const x = cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr*0.9;
+      orbCtx.beginPath(); orbCtx.arc(x,y,1.6,0,Math.PI*2);
+      orbCtx.fillStyle=`rgba(255,255,255,${0.5*idleA})`; orbCtx.fill();
+    }
   }
-  const coreR = 46+Math.sin(orbT*1.6)*4;
-  const grad = orbCtx.createRadialGradient(cx,cy,0,cx,cy,coreR*2.2);
-  grad.addColorStop(0,'rgba(27,47,110,0.9)');
-  grad.addColorStop(0.5,'rgba(255,255,255,0.35)');
-  grad.addColorStop(1,'rgba(27,47,110,0)');
-  orbCtx.beginPath(); orbCtx.arc(cx,cy,coreR*2.2,0,Math.PI*2); orbCtx.fillStyle=grad; orbCtx.fill();
-  for(let i=0;i<40;i++){
-    const a = (i/40)*Math.PI*2 + orbT*0.5;
-    const rr = 90+Math.sin(orbT*2+i)*14;
-    const x = cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr*0.9;
-    orbCtx.beginPath(); orbCtx.arc(x,y,1.6,0,Math.PI*2);
-    orbCtx.fillStyle='rgba(255,255,255,0.5)'; orbCtx.fill();
+
+  // --- thinking network: nodes + synapse lines + traveling pulses, red (fades in while thinking) ---
+  if(orbMorph > 0.015){
+    const netA = orbMorph;
+    const pts = neuronNodes.map(n=>{
+      const a = n.baseA + orbT*n.speed;
+      const r = (n.radiusBase + Math.sin(orbT*1.3+n.phase)*n.wobble) * (0.55+0.45*orbMorph);
+      return {x: cx+Math.cos(a)*r, y: cy+Math.sin(a)*r*0.86};
+    });
+    orbCtx.lineWidth = 1;
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx = pts[i].x-pts[j].x, dy = pts[i].y-pts[j].y;
+        const dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < netLinkDist){
+          const alpha = (1-dist/netLinkDist)*0.5*netA;
+          orbCtx.beginPath();
+          orbCtx.moveTo(pts[i].x,pts[i].y);
+          orbCtx.lineTo(pts[j].x,pts[j].y);
+          orbCtx.strokeStyle = `rgba(255,255,255,${alpha})`;
+          orbCtx.stroke();
+        }
+      }
+    }
+    // traveling pulses along a subset of "synapses" — the signal-firing feel
+    for(let i=0;i<pts.length;i++){
+      const j = (i+netLinkStep)%pts.length;
+      const t = (Math.sin(orbT*netPulseSpeed+i)+1)/2;
+      const x = pts[i].x + (pts[j].x-pts[i].x)*t;
+      const y = pts[i].y + (pts[j].y-pts[i].y)*t;
+      orbCtx.beginPath(); orbCtx.arc(x,y,2,0,Math.PI*2);
+      orbCtx.fillStyle=`rgba(255,255,255,${0.9*netA})`; orbCtx.fill();
+    }
+    // node glows
+    pts.forEach((p,i)=>{
+      const pulse = 2.2+Math.sin(orbT*3+i)*1.1;
+      const g = orbCtx.createRadialGradient(p.x,p.y,0,p.x,p.y,pulse*3);
+      g.addColorStop(0,`rgba(255,255,255,${0.95*netA})`);
+      g.addColorStop(1,'rgba(255,255,255,0)');
+      orbCtx.beginPath(); orbCtx.arc(p.x,p.y,pulse,0,Math.PI*2);
+      orbCtx.fillStyle=g; orbCtx.fill();
+    });
+    // soft core glow tying the network together
+    const coreR = 18+Math.sin(orbT*2)*3;
+    const cGrad = orbCtx.createRadialGradient(cx,cy,0,cx,cy,coreR*2.6);
+    cGrad.addColorStop(0,`rgba(255,255,255,${0.5*netA})`);
+    cGrad.addColorStop(1,'rgba(255,255,255,0)');
+    orbCtx.beginPath(); orbCtx.arc(cx,cy,coreR*2.6,0,Math.PI*2); orbCtx.fillStyle=cGrad; orbCtx.fill();
   }
+
   requestAnimationFrame(drawOrb);
 }
 drawOrb();
@@ -1751,8 +2027,9 @@ const aiInput = document.getElementById('ai-input');
 
 // TODO(backend): ganti fungsi ini dengan pemanggilan API AI sesungguhnya.
 // Terima teks pertanyaan user, kembalikan teks jawaban (boleh HTML sederhana).
+// Placeholder: selalu balas hal yang sama sampai API-nya dipasang.
 function getAIResponse(userText){
-  return "Terima kasih atas pertanyaannya! Fitur jawaban AI akan aktif setelah terhubung dengan API di backend — saat ini tampilan chat masih menggunakan data contoh.";
+  return "Terima kasih atas pertanyaannya. Saat ini AI Assistant masih dalam tahap pengembangan dan belum terhubung dengan sistem jawaban otomatis — tampilan yang Anda lihat adalah demo antarmuka. Fitur ini akan aktif sepenuhnya setelah proses integrasi backend selesai. Mohon ditunggu ya.";
 }
 
 function addMsg(text, cls){
@@ -1768,9 +2045,11 @@ function botReply(text){
   think.innerHTML='<span></span><span></span><span></span>';
   aiMessages.appendChild(think);
   aiMessages.scrollTop = aiMessages.scrollHeight;
+  setAiThinking(true);
   setTimeout(()=>{
     think.remove();
     addMsg(text,'bot');
+    setAiThinking(false);
   }, 850+Math.random()*500);
 }
 document.querySelectorAll('.quick-chip').forEach(chip=>{
@@ -1973,20 +2252,17 @@ function isS2(j){ return j==='s2mm' || j==='s2ti'; }
 function updateCalc(){
   const j = calcState.jenjang;
   const waveRow = document.getElementById('wave-calc-row');
-  const s2Row = document.getElementById('s2-calc-row');
   const sspRow = document.getElementById('r-ssp-row');
   const savingBox = document.getElementById('saving-box');
   const sspLabel = document.getElementById('r-ssp-label');
-  const cicilanLabel = document.getElementById('r-cicilan-label');
   const faseLabel = document.getElementById('fase2-label');
 
   const wcPanel = document.getElementById('wave-compare-panel');
 
   if(isS2(j)){
     waveRow.style.display = 'none';
-    s2Row.style.display = 'block';
     savingBox.style.display = 'none';
-    wcPanel.style.display = 'none';
+    wcPanel.classList.add('wc-collapsed');
 
     const d = s2Data[j];
     const awal = d.pendaftaran + d.matrikulasi;
@@ -1995,19 +2271,10 @@ function updateCalc(){
     faseLabel.textContent = 'Fase 2 · Paket Kelulusan Lengkap (Tanpa SSP)';
     sspLabel.textContent = 'Total Paket Program (Lengkap)';
     document.getElementById('r-ssp').textContent = formatRp(d.total);
-
-    if(calcState.s2mode==='18'){
-      cicilanLabel.textContent = `Cicilan Paket (${d.bulan}x /bulan)`;
-      document.getElementById('r-cicilan').textContent = formatRp(d.cicilanPerBulan);
-    } else {
-      cicilanLabel.textContent = 'Dibayar Lunas (Sekaligus)';
-      document.getElementById('r-cicilan').textContent = formatRp(d.total);
-    }
   } else {
     waveRow.style.display = 'block';
-    s2Row.style.display = 'none';
     savingBox.style.display = 'flex';
-    wcPanel.style.display = 'block';
+    wcPanel.classList.remove('wc-collapsed');
 
     const d = tierData[j];
     const awal = d.pendaftaran + d.prakuliah + d.bajuLab + d.kuliah;
@@ -2017,12 +2284,6 @@ function updateCalc(){
     faseLabel.textContent = 'Fase 2 · Kewajiban SSP (Semester 2)';
     sspLabel.textContent = 'Nilai SSP (Mulai Smt 2)';
     document.getElementById('r-ssp').textContent = formatRp(ssp);
-
-    const earlyWave = calcState.wave <= 3;
-    const times = earlyWave ? 2 : 3;
-    const perCicilan = ssp/times;
-    cicilanLabel.textContent = earlyWave ? 'Cicilan SSP (2x — Smt 2 & 3)' : 'Cicilan SSP (3x — Smt 2, 3 & 4)';
-    document.getElementById('r-cicilan').textContent = formatRp(perCicilan);
 
     const lastWaveSsp = d.sspWave[5];
     const saving = lastWaveSsp - ssp;
@@ -2063,9 +2324,9 @@ function renderWaveCompare(d, wave){
     const isPast = w<wave;
     const diff = val - current;
 
-    let barBg = 'var(--border)';
-    if(isCurrent) barBg = 'linear-gradient(180deg,var(--blue),var(--blue-3))';
-    else if(isFuture) barBg = `linear-gradient(180deg, ${waveColors[i]}99, ${waveColors[i]}55)`;
+    let barBg = 'linear-gradient(180deg, #EEF1F6 0%, #E4E8F0 55%, #D8DEE9 100%)';
+    if(isCurrent) barBg = 'linear-gradient(180deg,var(--blue-3) 0%, var(--blue) 55%, var(--blue-2) 100%)';
+    else if(isFuture) barBg = `linear-gradient(180deg, ${waveColors[i]}dd 0%, ${waveColors[i]}aa 60%, ${waveColors[i]}77 100%)`;
 
     let subText = '';
     if(isCurrent) subText = 'Pilihanmu';
@@ -2076,11 +2337,18 @@ function renderWaveCompare(d, wave){
     <div class="wc-bar-col ${isCurrent?'is-current':''} ${isFuture?'is-future':''} ${isPast?'is-past':''}">
       ${isCurrent?'<div class="wc-bar-badge">Pilihanmu</div>':''}
       <div class="wc-bar-val">${formatRp(val)}</div>
-      <div class="wc-bar" style="height:${heightPct}%; background:${barBg};"></div>
+      <div class="wc-bar" data-h="${heightPct}" style="height:0%; background:${barBg}; transition-delay:${i*65}ms;"></div>
       <div class="wc-bar-label">Gel. ${w}</div>
       <div class="wc-bar-sub">${subText}</div>
     </div>`;
   }).join('');
+
+  // Grow bars in from the baseline, staggered — instead of popping straight to full height.
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      bars.querySelectorAll('.wc-bar').forEach(el=>{ el.style.height = el.dataset.h+'%'; });
+    });
+  });
 
   const lastWaveSsp = d.sspWave[5];
   const savingVsLast = lastWaveSsp - current;
@@ -2104,12 +2372,6 @@ document.querySelectorAll('.jenjang-toggle button[data-j]').forEach(b=>{
 document.querySelectorAll('.wave-btn').forEach(b=>{
   b.addEventListener('click', ()=>{ calcState.wave = parseInt(b.dataset.w,10); updateCalc(); });
 });
-document.querySelectorAll('.jenjang-toggle button[data-c]').forEach(b=>{
-  b.addEventListener('click', ()=>{
-    b.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active'); calcState.s2mode=b.dataset.c; updateCalc();
-  });
-});
 calcState.wave = detectCurrentWave();
 document.querySelectorAll('.wave-btn').forEach(b=>{
   b.classList.toggle('active', parseInt(b.dataset.w,10)===calcState.wave);
@@ -2121,27 +2383,17 @@ updateCalc();
    SCHOLARSHIPS
 ============================================================ */
 const scholarships = [
-  {name:'Beasiswa Prestasi Akademik', t:'internal', req:'IPK ≥ 3.5, tanpa nilai C'},
-  {name:'Beasiswa Yatim & Dhuafa', t:'internal', req:'Surat keterangan tidak mampu + rekomendasi'},
-  {name:'KIP Kuliah', t:'government', req:'Terdaftar di KIP-K, lolos verifikasi Kemdikbud'},
-  {name:'Beasiswa Bank Indonesia', t:'eksternal', req:'IPK ≥ 3.25, aktif organisasi'},
-  {name:'Beasiswa Juara Olimpiade', t:'achievement', req:'Juara 1-3 kompetisi nasional/internasional'},
-  {name:'Beasiswa Tahfidz & Keagamaan', t:'religious', req:'Hafalan minimal 5 juz / rekomendasi tokoh agama'},
-  {name:'Beasiswa Talenta Kreatif', t:'creative', req:'Portofolio desain/film/musik terbaik'},
-  {name:'Beasiswa Yayasan Mitra Industri', t:'eksternal', req:'Lolos seleksi mitra & wawancara'},
-  {name:'Beasiswa Anak Guru & Pegawai', t:'internal', req:'Orang tua guru/pegawai aktif mitra UBSI'},
-  {name:'Beasiswa Talenta Digital', t:'creative', req:'Youtuber / Content Creator / Startup Founder aktif dengan portofolio nyata'},
-  {name:'Beasiswa BIDIKMANIS', t:'government', req:'Warga ber-KTP Depok, program Pemerintah Kota Depok'},
-  {name:'Beasiswa Hafiz Qur\'an', t:'religious', req:'Hafalan minimal 5 juz, dibuktikan dengan sertifikat/tes tahfiz'},
+  {name:'Beasiswa Indonesia Cerdas', t:'cerdas', req:'Diberikan kepada sekolah relasi UBSI untuk siswa/i dengan nilai raport terbaik di kelas, peringkat 1 hingga 10.', img:'https://bsi.today/wp-content/uploads/2025/04/Beasiswa-Indonesia-Cerdas.png', link:'https://bsi.today/beasiswa/indonesia-cerdas/'},
+  {name:'Beasiswa Talenta Digital', t:'digital', req:'Untuk insan kreatif di dunia digital: Content Creator, Copy Writer, Digital Marketer, Influencer, Selebgram, Youtuber, Vlogger, Startup, Animator, dll.', img:'https://bsi.today/wp-content/uploads/2025/04/Beasiswa-Talenta-Digital.png', link:'https://bsi.today/beasiswa/talenta-digital/'},
+  {name:'Beasiswa Indonesia Juara', t:'juara', req:'Untuk individu berprestasi di bidang akademik maupun non-akademik, tingkat nasional atau internasional.', img:'https://bsi.today/wp-content/uploads/2025/04/Beasiswa-Indonesia-Juara.png', link:'https://bsi.today/beasiswa/juara/'},
+  {name:'Beasiswa Golden Ticket', t:'golden', req:'Untuk lulusan SMA/SMK/MA dengan prestasi luar biasa nasional maupun internasional, tanpa harus melalui tes akademik.', img:'https://bsi.today/wp-content/uploads/2025/04/Beasiswa-Golden-Ticket.png', link:'https://bsi.today/beasiswa/golden-ticket/'},
 ];
 const schGrid = document.getElementById('sch-grid');
 const schTypeMeta = {
-  internal:   {label:'Internal',   bg:'rgba(27,47,110,0.12)',  c:'var(--blue)'},
-  eksternal:  {label:'Eksternal',  bg:'rgba(27,47,110,0.20)',  c:'var(--blue-3)'},
-  government: {label:'Pemerintah', bg:'rgba(71,85,105,0.12)', c:'#334155'},
-  achievement:{label:'Prestasi',   bg:'rgba(224,32,61,0.09)',  c:'var(--red)'},
-  religious:  {label:'Keagamaan',  bg:'rgba(27,47,110,0.12)',  c:'var(--blue)'},
-  creative:   {label:'Talenta Kreatif', bg:'rgba(224,32,61,0.16)', c:'var(--red)'},
+  cerdas:  {label:'Jalur Sekolah',   bg:'rgba(27,47,110,0.12)',  c:'var(--blue)'},
+  digital: {label:'Talenta Digital', bg:'rgba(224,32,61,0.16)',  c:'var(--red)'},
+  juara:   {label:'Prestasi',        bg:'rgba(224,32,61,0.09)',  c:'var(--red)'},
+  golden:  {label:'Tanpa Tes',       bg:'rgba(71,85,105,0.12)', c:'#334155'},
 };
 function renderSch(list){
   schGrid.innerHTML = list.map(s=>{
@@ -2153,7 +2405,7 @@ function renderSch(list){
       <button class="sch-toggle" type="button">Lihat Syarat <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="sch-req">${s.req}</div>
       <div class="sch-actions">
-        <button class="btn btn-primary" style="width:100%; justify-content:center;">Apply Sekarang</button>
+        <a class="btn btn-primary" style="width:100%; justify-content:center;" href="${s.link}" target="_blank" rel="noopener">Selengkapnya</a>
       </div>
     </div>`;
   }).join('');
@@ -2179,18 +2431,18 @@ document.querySelectorAll('.sch-filter').forEach(f=>{
    STUDENT LIFE GRID + ORG MARQUEE
 ============================================================ */
 const lifeItems = [
-  {tag:'AI Workshop', grad:['#1B2F6E','#2F4FA8'], video:false},
-  {tag:'BKOT Volunteer', grad:['#E0203D','#A8112C'], video:false},
-  {tag:'HIMASI Event', grad:['#101B47','#2F4FA8'], video:true},
-  {tag:'Edufair 2026', grad:['#E0203D','#1B2F6E'], video:false},
-  {tag:'HIMA RPL Hackathon', grad:['#101B47','#E0203D'], video:true},
-  {tag:'HIMASA Gathering', grad:['#2F4FA8','#101B47'], video:false},
-  {tag:'Startup Demo Day', grad:['#1B2F6E','#E0203D'], video:true},
-  {tag:'Community Meetup', grad:['#E0203D','#2F4FA8'], video:false},
+  {tag:'Open Booth BSD', img:'https://news.bsi.ac.id/wp-content/uploads/2025/09/Falyer-Open-Booth-BSI-BSD-51.jpg', video:false},
+  {tag:'Kegiatan Universitas', img:'https://kemahasiswaan.bsi.ac.id/assets/images/berita/195universita20220912083534.jpeg', video:false},
+  {tag:'Momen Mahasiswa', img:'https://news.bsi.ac.id/wp-content/uploads/2025/06/IMG_8783.jpg', video:false},
+  {tag:'BEM UBSI', img:'https://kemahasiswaan.bsi.ac.id/assets/images/berita/182bem-ubsi-k20220928161353.jpg', video:false},
+  {tag:'Program Magang', img:'https://news.bsi.ac.id/wp-content/uploads/2026/04/magang-BSINews-3-1-1-750x430.png', video:false},
+  {tag:'BEM UBSI Terkini', img:'https://kemahasiswaan.bsi.ac.id/assets/images/berita/19520260423104814bem-ubsi-t.webp', video:false},
+  {tag:'Dosen & Mahasiswa', img:'https://kemahasiswaan.bsi.ac.id/assets/images/berita/17920251013122901dosen-dan.webp', video:false},
+  {tag:'GSA 2026 Google', img:'https://news.bsi.ac.id/wp-content/uploads/2026/09/WhatsApp-Image-2026-09-02-at-07.21.51-1-750x430.jpeg', video:false},
 ];
 document.getElementById('ig-grid').innerHTML = lifeItems.map(i=>`
   <div class="ig-item">
-    <div class="ig-bg" style="background:linear-gradient(140deg, ${i.grad[0]}, ${i.grad[1]});"></div>
+    <div class="ig-bg" style="${i.img ? `background-image:url('${i.img}');` : `background:linear-gradient(140deg, ${i.grad[0]}, ${i.grad[1]});`}"></div>
     ${i.video?'<div class="ig-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>':''}
     <div class="ig-overlay"><span>${i.tag}</span></div>
   </div>
