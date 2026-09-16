@@ -35,15 +35,14 @@
 .pmb-period-card > p:not(.period-date) { font-size: .875rem; }
 .period-date { font-size: clamp(1.3rem, 2vw, 1.8rem); font-weight: 800; margin-block: .6rem; }
 .pmb-period-card .button { margin-top: .75rem; }
-.program-preview-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
-.program-preview-card { padding: 1.5rem; border-top: 3px solid var(--color-blue); }
-.program-preview-card:nth-child(even) { border-top-color: var(--color-red); }
-.card-meta { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: 1.5rem; }
-.card-number { color: var(--color-blue-secondary); font: 600 .875rem var(--font-accent); }
-.program-preview-card h3 { font-size: 1.2rem; min-height: 3em; }
-.program-preview-card ul { list-style: none; padding: 0; margin: 0; }
-.program-preview-card li { padding-block: .5rem; border-bottom: 1px solid var(--color-border); font-size: .875rem; color: var(--color-muted); }
-.program-preview-card li:last-child { border: 0; }
+.section-heading.section-heading-stacked, .section-heading.section-heading-centered { display: block; }
+.section-heading-stacked .section-description, .section-heading-centered .section-description { max-width: 38rem; margin-bottom: 0; }
+.section-heading.section-heading-centered { text-align: center; }
+.section-heading-centered .section-description { margin-inline: auto; }
+.program-preview-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem 1.5rem; margin: 0; padding: clamp(1rem, 2.5vw, 2rem); border-top: 3px solid var(--color-blue); }
+.program-preview-list li { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-blue); font-weight: 700; }
+.program-preview-list li:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc((100% - 1.5rem) / 2); justify-self: center; }
+.program-degree { flex-shrink: 0; color: var(--color-red-dark); font: 600 .75rem var(--font-accent); }
 .section-tail { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; }
 .section-tail p { margin: 0; font-size: .875rem; color: var(--color-muted); }
 .preview-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -68,6 +67,7 @@
 .step-number { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: var(--radius-sm); color: var(--color-red-dark); background: var(--color-red-soft); font: 600 .85rem var(--font-accent); margin-bottom: 1.4rem; }
 .journey-grid h3 { font-size: 1.15rem; }
 .journey-grid p { font-size: .9rem; color: var(--color-muted); }
+.journey-action { text-align: center; }
 .campus-preview-grid { display: grid; grid-template-columns: 1.8fr 1fr; gap: 1.5rem; }
 .campus-a { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); gap: 1.5rem; padding: 1.5rem; }
 .campus-a figure { margin: 0; align-self: start; }
@@ -101,8 +101,6 @@
   .hero-inner { grid-template-columns: 1.4fr .8fr; }
   .home-hero h1 { font-size: clamp(2.5rem, 5vw, 3.75rem); }
   .sphere-badge { font-size: .65rem; padding: .6rem; }
-  .program-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .program-preview-card h3 { min-height: 0; }
   .campus-preview-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 56rem) {
@@ -128,7 +126,8 @@
   .trust-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .trust-grid > div + div { padding: 1.5rem 0 0; border-left: 0; border-top: 1px solid rgb(255 255 255 / 18%); }
   .trust-strip { padding-block: 2rem; }
-  .program-preview-grid, .preview-pair, .journey-grid, .campus-a { grid-template-columns: 1fr; }
+  .program-preview-list, .preview-pair, .journey-grid, .campus-a { grid-template-columns: 1fr; }
+  .program-preview-list li:last-child:nth-child(odd) { width: 100%; }
   .pmb-banner { gap: 1.5rem; }
   .pmb-period-card { padding: 1.25rem; }
   .about-facts { padding: 1.25rem; }

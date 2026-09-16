@@ -10,13 +10,6 @@ import { margondaAPreview } from '../data/facilities';
 import { formatCalendarDate } from '../utils/calendarDate';
 import '../styles/home.css';
 
-// Editorial groupings for this preview, not official faculty names.
-const programGroups = [
-  { label: 'Komputasi & Teknologi', ids: ['rekayasa-perangkat-lunak', 'informatika', 'teknologi-informasi', 'sistem-informasi'] },
-  { label: 'Bisnis & Manajemen', ids: ['akuntansi', 'manajemen'] },
-  { label: 'Bahasa, Komunikasi & Psikologi', ids: ['sastra-inggris', 'ilmu-komunikasi', 'psikologi'] },
-  { label: 'Teknik & Industri', ids: ['teknik-elektro', 'teknik-industri'] },
-];
 ---
 <BaseLayout title="Beranda" description="Kenali UBSI Kampus Margonda: pilihan program S1, jadwal PMB September 2026, kampus, dan panduan menuju pendaftaran resmi.">
   <section class="home-hero" aria-labelledby="page-title">
@@ -70,19 +63,15 @@ const programGroups = [
 
   <section class="home-section program-section" id="pilihan-studi" aria-labelledby="program-title">
     <div class="container">
-      <div class="section-heading">
+      <div class="section-heading section-heading-stacked">
         <div><p class="eyebrow">Program Studi</p><h2 id="program-title">Temukan bidang<br />yang ingin kamu tekuni.</h2></div>
         <p class="section-description">{margondaPrograms.programs.length} pilihan program Sarjana ({margondaPrograms.degree}) di Margonda untuk {margondaPrograms.periodLabel}. Mulai dari bidang yang paling dekat dengan minatmu.</p>
       </div>
-      <div class="program-preview-grid">
-        {programGroups.map((group, index) => (
-          <article class="card program-preview-card">
-            <div class="card-meta"><span class="card-number" aria-hidden="true">0{index + 1}</span><span class="badge">Sarjana · {margondaPrograms.degree}</span></div>
-            <h3>{group.label}</h3>
-            <ul>{margondaPrograms.programs.filter(program => group.ids.includes(program.id)).map(program => <li>{program.name}</li>)}</ul>
-          </article>
+      <ul class="card program-preview-list" role="list">
+        {margondaPrograms.programs.map(program => (
+          <li><span>{program.name}</span><span class="program-degree">{margondaPrograms.degree}</span></li>
         ))}
-      </div>
+      </ul>
       <div class="section-tail"><a class="button button-secondary" href="/program-studi">Lihat halaman Program Studi <span aria-hidden="true">→</span></a><p>Rincian program dan fitur pencarian sedang disiapkan.</p></div>
     </div>
   </section>
@@ -124,17 +113,17 @@ const programGroups = [
 
   <section class="home-section soft-surface" aria-labelledby="journey-title">
     <div class="container">
-      <div class="section-heading"><div><p class="eyebrow">Panduan PMB</p><h2 id="journey-title">Dari pendaftaran<br />hingga siap kuliah.</h2></div><p class="section-description">Gambaran singkat alur penerimaan mahasiswa baru. Proses pendaftaran berlangsung melalui PMB resmi UBSI.</p></div>
+      <div class="section-heading section-heading-centered"><div><p class="eyebrow">Panduan PMB</p><h2 id="journey-title">Dari pendaftaran<br />hingga siap kuliah.</h2></div><p class="section-description">Gambaran singkat alur penerimaan mahasiswa baru. Proses pendaftaran berlangsung melalui PMB resmi UBSI.</p></div>
       <ol class="journey-grid">
         {admissionsJourney.steps.map((step, index) => <li><span class="step-number" aria-hidden="true">0{index + 1}</span><h3>{step.title}</h3><p>{step.description}</p></li>)}
       </ol>
-      <a class="text-link" href="/pmb">Lihat jadwal & panduan PMB <span aria-hidden="true">→</span></a>
+      <div class="journey-action"><a class="text-link" href="/pmb">Lihat jadwal & panduan PMB <span aria-hidden="true">→</span></a></div>
     </div>
   </section>
 
   <section class="home-section" aria-labelledby="campus-title">
     <div class="container">
-      <div class="section-heading"><div><p class="eyebrow">Kampus & Fasilitas</p><h2 id="campus-title">Lebih dekat<br />dengan Margonda.</h2></div><p class="section-description">Kenali lokasi kampus dan ruang belajar yang tersedia sebelum menentukan pilihan.</p></div>
+      <div class="section-heading section-heading-stacked"><div><p class="eyebrow">Kampus & Fasilitas</p><h2 id="campus-title">Lebih dekat<br />dengan Margonda.</h2></div><p class="section-description">Kenali lokasi kampus dan ruang belajar yang tersedia sebelum menentukan pilihan.</p></div>
       <div class="campus-preview-grid">
         <article class="card campus-a">
           <figure><img src={margondaAPreview.image.src} alt={margondaAPreview.image.alt} width={margondaAPreview.image.width} height={margondaAPreview.image.height} loading="lazy" decoding="async" /><figcaption>Foto resmi UBSI · Margonda A</figcaption></figure>
