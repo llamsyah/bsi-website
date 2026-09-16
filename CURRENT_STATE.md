@@ -1,5 +1,17 @@
 # Current State — Website PMB Universitas BSI Margonda
 
+## Implementation update — Tasks 03–04
+
+The original audit below describes the preserved root `index.html` prototype.
+The production application now lives in Astro `src/`, with five real routes.
+Milestone 1 established the shared shell; Task 03 added the September 2026
+admissions dataset, pure date-only status engine and minimal `/pmb` integration.
+Task 04 migrates Home's visual language and verified static previews. Home and
+`/pmb` share `AdmissionsStatus.astro`; detailed program search, calculator,
+scholarships, campus interactions and full PMB guide remain deferred.
+See README.md for current file boundaries and validation. The legacy prototype
+is still unchanged and remains the migration reference.
+
 ## 1. Repository State
 
 Repository:

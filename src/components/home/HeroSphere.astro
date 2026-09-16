@@ -1,0 +1,20 @@
+---
+// Static projection of the legacy Fibonacci sphere; no perpetual canvas loop.
+const count = 90;
+const radius = 174;
+const points = Array.from({ length: count }, (_, index) => {
+  const phi = Math.acos(-1 + (2 * index) / count);
+  const theta = Math.sqrt(count * Math.PI) * phi + .4;
+  const z = radius * Math.sin(phi) * Math.sin(theta);
+  const scale = (z + radius * 1.4) / (radius * 2.4);
+  return { x: 260 + radius * Math.sin(phi) * Math.cos(theta), y: 260 + radius * Math.cos(phi) * .92, r: Math.max(1.2, 3.2 * scale), opacity: .25 + .65 * scale, z };
+}).sort((a, b) => a.z - b.z);
+---
+<svg class="hero-sphere" viewBox="0 0 520 520" fill="none" aria-hidden="true" focusable="false">
+  <g stroke="white" stroke-opacity=".18">
+    {points.filter((_, i) => i % 6 === 0).map((point, i) => (
+      <line x1={point.x} y1={point.y} x2={points[(i * 6 + 7) % count]!.x} y2={points[(i * 6 + 7) % count]!.y} />
+    ))}
+  </g>
+  {points.map(point => <circle cx={point.x} cy={point.y} r={point.r} fill="white" opacity={point.opacity} />)}
+</svg>

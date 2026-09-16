@@ -6,19 +6,27 @@ baseline; they do not imply fresh verification of a live website.
 Milestone 1 populates only shared institution, campus, admissions entry URL and
 contact data. `verification.ts` allows source, scope, date, status and optional period.
 
+Task 03 adds the explicit September 2026 admissions period and seven verified
+waves. Status is derived by `src/utils/admissionsStatus.ts`, not stored as a
+permanent current-wave value. See the root README for date/timezone conventions.
+
+Task 04 adds name-only program previews, institution accreditation, a limited
+Margonda A facility/photo preview, and the condensed verified admissions journey.
+These do not imply complete feature datasets or any verified Margonda B facilities.
+
 Create remaining domain modules when their consumers migrate, rather than export
 empty arrays that might be mistaken for confirmed absence:
 
 | Domain | Boundary / future module |
 | --- | --- |
-| institution | `institution.ts`: institution identity, later accreditation/history |
+| institution | `institution.ts`: institution identity and accreditation; history deferred |
 | campus | `campus.ts`: building identity and confirmed addresses |
-| programs | `programs.ts`: campus/period offering, degree, faculty, classes |
-| admissions | `admissions.ts`: official entry URL; later period/waves/status |
+| programs | `programs.ts`: eleven S1 names, campus/period scope; faculty, classes and profiles deferred |
+| admissions | `admissions.ts`: official entry URL, September 2026 period, waves, evidence and Home journey; detailed requirements/procedures deferred |
 | tuition | `tuition.ts`: fee components and SSP, separate from pure calculations |
 | scholarships | `scholarships.ts`: benefits, eligibility, active period and evidence |
 | certifications | `certifications.ts`: licensed LSP and verified scheme scope |
-| facilities | `facilities.ts`: building-specific inventory and real photo evidence |
+| facilities | `facilities.ts`: limited Margonda A preview and official photo provenance; full inventory deferred |
 | contact | `contact.ts`: PMB contacts; omit unresolved service hours |
 | news | `news.ts`: source, date and explicit campus/institution scope |
 

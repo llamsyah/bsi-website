@@ -1,4 +1,50 @@
 ---
-import DevelopmentPage from '../components/DevelopmentPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdmissionsStatus from '../components/AdmissionsStatus.astro';
+import { september2026 as period, registration } from '../data/admissions';
+import { formatCalendarDate } from '../utils/calendarDate';
 ---
-<DevelopmentPage title="Panduan PMB" description="Panduan PMB UBSI Margonda dalam pengembangan. Ikuti informasi dan proses pendaftaran melalui kanal PMB resmi UBSI." message="Panduan penerimaan mahasiswa baru belum tersedia pada pratinjau ini. Jadwal dan ketentuan terbaru dapat dilihat melalui PMB resmi UBSI." />
+<BaseLayout title="Panduan PMB" description="Jadwal PMB September 2026 UBSI Kampus Margonda, Gelombang I hingga Khusus, awal perkuliahan, dan tautan pendaftaran resmi.">
+  <section class="container page-section" aria-labelledby="page-title">
+    <p class="eyebrow">UBSI Kampus Margonda</p>
+    <h1 id="page-title">Panduan PMB</h1>
+    <div class="card development-card">
+      <h2>{period.label}</h2>
+      <AdmissionsStatus />
+      <p><strong>Rentang pendaftaran:</strong><br />
+        <time datetime={period.waves[0].startDate}>{formatCalendarDate(period.waves[0].startDate)}</time>
+        {' – '}<time datetime={period.waves.at(-1)!.endDate}>{formatCalendarDate(period.waves.at(-1)!.endDate)}</time>
+      </p>
+      <p><strong>Awal perkuliahan:</strong> <time datetime={period.classStart}>{formatCalendarDate(period.classStart)}</time></p>
+      <div class="actions">
+        <a class="button button-primary" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
+        <a class="button button-secondary" href="/">Kembali ke Beranda</a>
+      </div>
+    </div>
+    <section class="card development-card" aria-labelledby="waves-title">
+      <h2 id="waves-title">Jadwal gelombang</h2>
+      <p>Tanggal awal dan akhir termasuk dalam masa pendaftaran setiap gelombang.</p>
+      <ol class="wave-list">
+        {period.waves.map(wave => (
+          <li>
+            <strong>{wave.label}</strong>
+            <span><time datetime={wave.startDate}>{formatCalendarDate(wave.startDate)}</time>
+              {' – '}<time datetime={wave.endDate}>{formatCalendarDate(wave.endDate)}</time></span>
+          </li>
+        ))}
+      </ol>
+    </section>
+    <aside class="card preview-note" aria-label="Panduan dalam pengembangan">
+      <h2>Panduan lengkap sedang disiapkan</h2>
+      <p>Alur pendaftaran, persyaratan, dan dokumen akan ditambahkan pada tahap berikutnya. Untuk ketentuan pendaftaran, kunjungi PMB resmi UBSI.</p>
+    </aside>
+  </section>
+</BaseLayout>
+
+<style>
+  .wave-list { list-style: none; margin: 0; padding: 0; }
+  .wave-list li { padding-block: var(--space-sm); border-bottom: 1px solid var(--color-border); }
+  .wave-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .wave-list strong, .wave-list span { display: block; }
+  .wave-list span { color: var(--color-muted); }
+</style>

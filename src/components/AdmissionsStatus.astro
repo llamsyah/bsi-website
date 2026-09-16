@@ -1,0 +1,17 @@
+---
+import { september2026 } from '../data/admissions';
+import { formatCalendarRange } from '../utils/calendarDate';
+---
+<div class="admissions-status" data-admissions-status role="status" aria-live="polite" aria-atomic="true">
+  <p class="status-summary" data-status-summary>Jadwal pendaftaran {september2026.label}</p>
+  <p data-status-detail>{formatCalendarRange(september2026.waves[0].startDate, september2026.waves.at(-1)!.endDate)}. Lihat rincian gelombang pada panduan PMB.</p>
+  <p class="status-reference" data-status-reference>Status hari ini ditampilkan jika pembaruan otomatis tersedia. Konfirmasi pendaftaran melalui PMB resmi UBSI.</p>
+</div>
+<script>
+  import '../scripts/admissions-status';
+</script>
+<style>
+  .admissions-status { border-left: 3px solid var(--status-accent, var(--color-red)); padding-left: var(--space-sm); margin-block: var(--space-md); }
+  .status-summary { font-weight: 800; color: var(--status-color, var(--color-blue)); }
+  .status-reference { font-size: .875rem; }
+</style>

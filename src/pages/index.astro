@@ -1,21 +1,166 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AdmissionsStatus from '../components/AdmissionsStatus.astro';
+import HeroSphere from '../components/home/HeroSphere.astro';
 import { campus } from '../data/campus';
 import { institution } from '../data/institution';
-import { registration } from '../data/admissions';
+import { registration, september2026 as period, admissionsJourney } from '../data/admissions';
+import { margondaPrograms } from '../data/programs';
+import { margondaAPreview } from '../data/facilities';
+import { formatCalendarDate } from '../utils/calendarDate';
+import '../styles/home.css';
+
+// Editorial groupings for this preview, not official faculty names.
+const programGroups = [
+  { label: 'Komputasi & Teknologi', ids: ['rekayasa-perangkat-lunak', 'informatika', 'teknologi-informasi', 'sistem-informasi'] },
+  { label: 'Bisnis & Manajemen', ids: ['akuntansi', 'manajemen'] },
+  { label: 'Bahasa, Komunikasi & Psikologi', ids: ['sastra-inggris', 'ilmu-komunikasi', 'psikologi'] },
+  { label: 'Teknik & Industri', ids: ['teknik-elektro', 'teknik-industri'] },
+];
 ---
-<BaseLayout title="Beranda" description="Pratinjau portal informasi calon mahasiswa UBSI Kampus Margonda. Akses pendaftaran melalui kanal PMB resmi UBSI.">
-  <section class="container page-section home-intro" aria-labelledby="page-title">
-    <p class="eyebrow">{institution.branding}</p>
-    <h1 id="page-title">Informasi PMB<br /><span>{campus.name}</span></h1>
-    <p class="lead">Portal informasi untuk membantu calon mahasiswa mengenal Kampus Margonda sebelum melanjutkan pendaftaran melalui PMB resmi UBSI.</p>
-    <div class="actions">
-      <a class="button button-primary" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
-      <a class="button button-secondary" href="/program-studi">Lihat Program Studi</a>
+<BaseLayout title="Beranda" description="Kenali UBSI Kampus Margonda: pilihan program S1, jadwal PMB September 2026, kampus, dan panduan menuju pendaftaran resmi.">
+  <section class="home-hero" aria-labelledby="page-title">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="accent-dot" aria-hidden="true"></span>{campus.name}</p>
+        <h1 id="page-title"><span class="headline-line">Kuliah yang <span class="headline-accent">Relevan</span></span><span class="headline-line">untuk Masa Depan</span></h1>
+        <p class="hero-subhead">Kenali pilihan studimu di {institution.branding}. Temukan program yang sesuai, pahami rencana biaya, dan siapkan langkah menuju perkuliahan.</p>
+        <div class="actions hero-actions">
+          <a class="button button-primary" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
+          <a class="button button-on-dark" href="/program-studi">Lihat Program Studi<span aria-hidden="true">→</span></a>
+        </div>
+        <a class="hero-explore" href="#pilihan-studi"><span aria-hidden="true">↓</span> Kenali pilihanmu di Margonda</a>
+      </div>
+      <div class="sphere-wrap" aria-hidden="true">
+        <HeroSphere />
+        <span class="sphere-badge badge-top"><span class="badge-symbol">✦</span>{institution.branding}</span>
+        <span class="sphere-badge badge-middle"><span class="badge-symbol">◎</span>Margonda · Depok</span>
+        <span class="sphere-badge badge-bottom"><span class="badge-symbol">+</span>{margondaPrograms.programs.length} Program {margondaPrograms.degree}</span>
+      </div>
     </div>
-    <aside class="card preview-note" aria-labelledby="preview-title">
-      <h2 id="preview-title">Pratinjau website dalam pengembangan</h2>
-      <p>Informasi program studi, biaya dan beasiswa, kampus, serta panduan PMB sedang disiapkan. Fitur pencarian program dan simulasi biaya belum tersedia pada versi ini.</p>
-    </aside>
+  </section>
+
+  <section class="trust-strip" aria-label="Informasi institusi dan pilihan studi Margonda">
+    <div class="container trust-grid">
+      <div><span class="trust-caption">Akreditasi institusi · {institution.accreditation.authority}</span><p class="trust-value accreditation">{institution.accreditation.label}</p><span class="trust-note">{institution.name}</span></div>
+      <div><span class="trust-caption">Pilihan studi Margonda</span><p class="trust-value"><span class="mono">{margondaPrograms.programs.length}</span> Program {margondaPrograms.degree}</p><span class="trust-note">{margondaPrograms.periodLabel}</span></div>
+      <div><span class="trust-caption">Identitas UBSI</span><p class="trust-value">{institution.branding}</p><span class="trust-note">Kenali kampus dan pilihan studimu</span></div>
+    </div>
+  </section>
+
+  <section class="home-section admissions-section" aria-labelledby="home-pmb-title">
+    <div class="container">
+      <div class="pmb-banner">
+        <div>
+          <p class="eyebrow">Penerimaan mahasiswa baru</p>
+          <h2 id="home-pmb-title">{period.label}</h2>
+          <AdmissionsStatus />
+          <a class="text-link light-link" href="/pmb">Lihat jadwal & panduan PMB <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="pmb-period-card">
+          <span class="meta-label">Awal perkuliahan</span>
+          <p class="period-date"><time datetime={period.classStart}>{formatCalendarDate(period.classStart)}</time></p>
+          <p>Periode September · Kampus Margonda</p>
+          <a class="button button-white" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section program-section" id="pilihan-studi" aria-labelledby="program-title">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">Program Studi</p><h2 id="program-title">Temukan bidang<br />yang ingin kamu tekuni.</h2></div>
+        <p class="section-description">{margondaPrograms.programs.length} pilihan program Sarjana ({margondaPrograms.degree}) di Margonda untuk {margondaPrograms.periodLabel}. Mulai dari bidang yang paling dekat dengan minatmu.</p>
+      </div>
+      <div class="program-preview-grid">
+        {programGroups.map((group, index) => (
+          <article class="card program-preview-card">
+            <div class="card-meta"><span class="card-number" aria-hidden="true">0{index + 1}</span><span class="badge">Sarjana · {margondaPrograms.degree}</span></div>
+            <h3>{group.label}</h3>
+            <ul>{margondaPrograms.programs.filter(program => group.ids.includes(program.id)).map(program => <li>{program.name}</li>)}</ul>
+          </article>
+        ))}
+      </div>
+      <div class="section-tail"><a class="button button-secondary" href="/program-studi">Lihat halaman Program Studi <span aria-hidden="true">→</span></a><p>Rincian program dan fitur pencarian sedang disiapkan.</p></div>
+    </div>
+  </section>
+
+  <section class="home-section soft-surface" aria-labelledby="cost-title">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">Biaya & Beasiswa</p><h2 id="cost-title">Rencanakan kuliah.<br />Pahami kebutuhannya.</h2></div>
+        <p class="section-description">Pertimbangkan komponen biaya dan pilihan bantuan pendidikan sebelum melanjutkan pendaftaran.</p>
+      </div>
+      <div class="preview-pair">
+        <article class="card teaser-card">
+          <p class="meta-label">Perencanaan biaya</p><h3>Financial Cost Simulator</h3>
+          <p>Simulator biaya sedang disiapkan untuk membantu membandingkan estimasi berdasarkan program dan gelombang pendaftaran.</p>
+          <ul class="component-list"><li>Pendaftaran & prakuliah</li><li>Biaya kuliah</li><li>Sumbangan Sarana Pendidikan (SSP)</li></ul>
+          <a class="text-link" href="/biaya-beasiswa">Lihat Biaya & Beasiswa <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="card teaser-card teaser-red">
+          <p class="meta-label">Bantuan pendidikan</p><h3>Kenali pilihan beasiswa</h3>
+          <p>Pelajari persyaratan dan ketentuan setiap program sebelum mengajukan beasiswa. Informasi rinci pada halaman ini sedang disiapkan.</p>
+          <p class="preview-context">Untuk nominal biaya, pilihan beasiswa, dan ketentuan saat ini, gunakan kanal PMB resmi UBSI.</p>
+          <a class="text-link" href={registration.url}>Cek informasi PMB resmi <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="why-title">
+    <div class="container about-grid">
+      <div class="about-copy"><p class="eyebrow">Kenapa UBSI Margonda</p><h2 id="why-title">Kenali kampusnya.<br />Tentukan langkahmu.</h2><p>{campus.name} berada di Depok dan menjadi bagian dari {institution.name}, institusi dengan status {institution.accreditation.label}.</p><p>Kenali pilihan program Sarjana dan fasilitas Margonda A untuk membantu menilai kesesuaiannya dengan rencana kuliahmu.</p><a class="text-link" href="/kampus">Mengenal Kampus Margonda <span aria-hidden="true">→</span></a></div>
+      <dl class="about-facts">
+        <div><dt>Akreditasi institusi</dt><dd>Unggul <span>{institution.accreditation.authority}</span></dd></div>
+        <div><dt>Pilihan studi Margonda</dt><dd>{margondaPrograms.programs.length} program {margondaPrograms.degree}<span>{margondaPrograms.periodLabel}</span></dd></div>
+        <div><dt>Identitas UBSI</dt><dd>{institution.branding}</dd></div>
+        <div><dt>Fasilitas Margonda A</dt><dd>Laboratorium & perpustakaan</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="home-section soft-surface" aria-labelledby="journey-title">
+    <div class="container">
+      <div class="section-heading"><div><p class="eyebrow">Panduan PMB</p><h2 id="journey-title">Dari pendaftaran<br />hingga siap kuliah.</h2></div><p class="section-description">Gambaran singkat alur penerimaan mahasiswa baru. Proses pendaftaran berlangsung melalui PMB resmi UBSI.</p></div>
+      <ol class="journey-grid">
+        {admissionsJourney.steps.map((step, index) => <li><span class="step-number" aria-hidden="true">0{index + 1}</span><h3>{step.title}</h3><p>{step.description}</p></li>)}
+      </ol>
+      <a class="text-link" href="/pmb">Lihat jadwal & panduan PMB <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="campus-title">
+    <div class="container">
+      <div class="section-heading"><div><p class="eyebrow">Kampus & Fasilitas</p><h2 id="campus-title">Lebih dekat<br />dengan Margonda.</h2></div><p class="section-description">Kenali lokasi kampus dan ruang belajar yang tersedia sebelum menentukan pilihan.</p></div>
+      <div class="campus-preview-grid">
+        <article class="card campus-a">
+          <figure><img src={margondaAPreview.image.src} alt={margondaAPreview.image.alt} width={margondaAPreview.image.width} height={margondaAPreview.image.height} loading="lazy" decoding="async" /><figcaption>Foto resmi UBSI · Margonda A</figcaption></figure>
+          <div><p class="meta-label">Kampus & ruang belajar</p><h3>{campus.buildings[0].name}</h3><p>{campus.buildings[0].address}</p><ul class="facility-tags">{margondaAPreview.names.map(name => <li>{name}</li>)}</ul><a class="text-link" href="/kampus">Lihat informasi kampus <span aria-hidden="true">→</span></a></div>
+        </article>
+        <article class="card campus-b"><p class="meta-label">Lokasi kampus</p><h3>{campus.buildings[1].name}</h3><p>{campus.buildings[1].address}</p><div class="documentation-note"><strong>Kenali alamatnya terlebih dahulu.</strong><p>Foto dan informasi fasilitas Margonda B sedang dilengkapi melalui dokumentasi kampus.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section faq-section" aria-labelledby="faq-title">
+    <div class="container faq-grid">
+      <div><p class="eyebrow">Pertanyaan umum</p><h2 id="faq-title">Sebelum kamu<br />mendaftar.</h2><p class="section-description">Beberapa informasi awal untuk menyiapkan langkah berikutnya.</p></div>
+      <div class="faq-list">
+        <details><summary>Apakah pendaftaran dilakukan di website ini?</summary><p>Pendaftaran dilakukan melalui <a href={registration.url}>PMB resmi UBSI</a>. Website ini membantu kamu mengenal informasi Kampus Margonda sebelum mendaftar.</p></details>
+        <details><summary>Program apa saja yang tersedia di Margonda?</summary><p>Daftar {margondaPrograms.periodLabel} mencakup {margondaPrograms.programs.length} program {margondaPrograms.degree}. Nama program tersedia pada <a href="#pilihan-studi">preview Program Studi</a> di halaman ini.</p></details>
+        <details><summary>Kapan awal perkuliahan periode September?</summary><p>Awal perkuliahan {period.label} adalah <time datetime={period.classStart}>{formatCalendarDate(period.classStart)}</time>. Lihat <a href="/pmb">jadwal gelombang pendaftaran</a> untuk rincian waktunya.</p></details>
+        <details><summary>Apakah simulasi biaya sudah bisa digunakan?</summary><p>Simulator biaya sedang disiapkan. Untuk biaya dan ketentuan beasiswa saat ini, kunjungi <a href={registration.url}>PMB resmi UBSI</a>.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section final-section" aria-labelledby="final-title">
+    <div class="container final-cta">
+      <div><p class="eyebrow">Langkah berikutnya</p><h2 id="final-title">Pilihanmu, awal<br />perjalanan barumu.</h2><p>Kenali programnya, pahami jadwalnya, lalu lanjutkan proses pendaftaran melalui PMB resmi UBSI.</p></div>
+      <div class="final-actions"><a class="button button-primary" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a><a class="text-link light-link" href="/pmb">Lihat Panduan PMB <span aria-hidden="true">→</span></a></div>
+    </div>
   </section>
 </BaseLayout>
