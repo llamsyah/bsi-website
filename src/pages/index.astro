@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { campus } from '../data/campus';
+import { institution } from '../data/institution';
+import { registration } from '../data/admissions';
+---
+<BaseLayout title="Beranda" description="Pratinjau portal informasi calon mahasiswa UBSI Kampus Margonda. Akses pendaftaran melalui kanal PMB resmi UBSI.">
+  <section class="container page-section home-intro" aria-labelledby="page-title">
+    <p class="eyebrow">{institution.branding}</p>
+    <h1 id="page-title">Informasi PMB<br /><span>{campus.name}</span></h1>
+    <p class="lead">Portal informasi untuk membantu calon mahasiswa mengenal Kampus Margonda sebelum melanjutkan pendaftaran melalui PMB resmi UBSI.</p>
+    <div class="actions">
+      <a class="button button-primary" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
+      <a class="button button-secondary" href="/program-studi">Lihat Program Studi</a>
+    </div>
+    <aside class="card preview-note" aria-labelledby="preview-title">
+      <h2 id="preview-title">Pratinjau website dalam pengembangan</h2>
+      <p>Informasi program studi, biaya dan beasiswa, kampus, serta panduan PMB sedang disiapkan. Fitur pencarian program dan simulasi biaya belum tersedia pada versi ini.</p>
+    </aside>
+  </section>
+</BaseLayout>

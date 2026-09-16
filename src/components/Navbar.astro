@@ -1,0 +1,32 @@
+---
+import { navigation } from '../config/navigation';
+import { campus } from '../data/campus';
+import { institution } from '../data/institution';
+import { registration } from '../data/admissions';
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<header class="site-header">
+  <nav class="container site-nav" aria-label="Navigasi utama" data-navigation>
+    <a class="brand" href="/" aria-label={`${campus.name} — Beranda`}>
+      <span class="brand-name">{campus.shortName}</span>
+      <span class="brand-tagline">{institution.branding}</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-links" hidden>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+      <span data-menu-label>Menu</span>
+    </button>
+    <div class="nav-panel" id="primary-links">
+      <ul class="nav-links">
+        {navigation.map(item => (
+          <li><a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+      <a class="button button-primary nav-register" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  import '../scripts/mobile-navigation';
+</script>

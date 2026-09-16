@@ -1,0 +1,29 @@
+---
+import { navigation } from '../config/navigation';
+import { campus } from '../data/campus';
+import { institution } from '../data/institution';
+import { registration } from '../data/admissions';
+import { contact } from '../data/contact';
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-brand">{campus.name}</p>
+      <p>{institution.name}</p>
+      <p class="footer-tagline">{institution.branding}</p>
+      <a class="footer-registration" href={registration.url}>{registration.label} <span aria-hidden="true">↗</span></a>
+    </div>
+    <nav aria-label="Navigasi footer">
+      <h2 class="footer-heading">Jelajahi</h2>
+      <ul>{navigation.map(item => <li><a href={item.href}>{item.label}</a></li>)}</ul>
+    </nav>
+    <div>
+      <h2 class="footer-heading">Kampus &amp; kontak</h2>
+      <address>
+        {campus.buildings.map(building => <p><strong>{building.name}</strong><br />{building.address}</p>)}
+        <a href={contact.whatsapp.url}>WhatsApp PMB: {contact.whatsapp.label}</a>
+      </address>
+    </div>
+  </div>
+  <div class="container footer-bottom">Pratinjau pengembangan · Informasi lengkap dan pendaftaran tersedia melalui PMB resmi UBSI.</div>
+</footer>

@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { registration } from '../data/admissions';
+
+interface Props { title: string; description: string; message: string }
+const { title, description, message } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <section class="container page-section" aria-labelledby="page-title">
+    <p class="eyebrow">Dalam pengembangan</p>
+    <h1 id="page-title">{title}</h1>
+    <div class="card development-card">
+      <h2>Informasi sedang disiapkan</h2>
+      <p>{message}</p>
+      <p>Untuk informasi dan pendaftaran saat ini, kunjungi kanal PMB resmi UBSI.</p>
+      <div class="actions">
+        <a class="button button-primary" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
+        <a class="button button-secondary" href="/">Kembali ke Beranda</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
