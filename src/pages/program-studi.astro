@@ -34,12 +34,15 @@ import '../styles/programs.css';
             {Object.entries(faculties).map(([id, name]) => <option value={id}>{name}</option>)}
           </select>
         </div>
-        <button class="button button-secondary" type="reset">Reset pencarian</button>
+        <button class="program-reset" type="reset">Reset pencarian <span aria-hidden="true">↺</span></button>
       </form>
       <noscript><p>Semua program ditampilkan di bawah. Aktifkan JavaScript untuk menggunakan pencarian dan filter fakultas.</p></noscript>
-      <p class="program-results" role="status" aria-live="polite" aria-atomic="true" data-program-count>Menampilkan {margondaPrograms.programs.length} dari {margondaPrograms.programs.length} program.</p>
+      <div class="program-list-intro">
+        <p class="program-results" role="status" aria-live="polite" aria-atomic="true" data-program-count>Menampilkan {margondaPrograms.programs.length} dari {margondaPrograms.programs.length} program.</p>
+        <p class="program-list-hint">Kenali bidangnya, lalu rencanakan biayanya.</p>
+      </div>
       <div class="program-list" id="program-list">
-        {margondaPrograms.programs.map((program) => <ProgramRow program={program} />)}
+        {margondaPrograms.programs.map((program, index) => <ProgramRow program={program} index={index} />)}
       </div>
       <div class="program-empty" data-program-empty hidden>
         <h3>Program studi tidak ditemukan.</h3>
@@ -53,17 +56,31 @@ import '../styles/programs.css';
     </div>
   </section>
   <section class="page-section program-next-section" aria-labelledby="program-next-title">
-    <div class="container program-next">
-      <div>
-        <p class="eyebrow">Langkah berikutnya</p>
-        <h2 id="program-next-title">Sudah menemukan pilihanmu?</h2>
-        <p id="program-cost-note">Lihat informasi Biaya &amp; Beasiswa untuk menyiapkan rencana kuliah. Simulator biaya lengkap masih dalam pengembangan.</p>
-        <p>Pendaftaran dilanjutkan melalui PMB resmi UBSI.</p>
+    <div class="container">
+      <div class="program-next-heading">
+        <p class="eyebrow">Dari pilihan ke rencana</p>
+        <h2 id="program-next-title">Jurusan sudah dipertimbangkan.<br /> Sekarang, rencanakan langkahmu.</h2>
+        <p>Kenali pilihan studi, siapkan rencana biaya, lalu lanjutkan pendaftaran melalui PMB resmi UBSI.</p>
       </div>
-      <div class="program-next-actions">
-        <a class="button button-primary" href={registration.url}>{registration.label}</a>
-        <a class="text-link" href="/biaya-beasiswa">Lihat Biaya &amp; Beasiswa <span aria-hidden="true">→</span></a>
-      </div>
+      <ol class="program-journey" role="list" aria-label="Langkah menuju pendaftaran">
+        <li class="program-journey-current" aria-current="step">
+          <span class="program-step-number" aria-hidden="true">01</span>
+          <div><p class="program-step-label">Anda di sini</p><h3>Pilih Program</h3><p>Kenali bidang dan pilihan waktu kuliah yang sesuai dengan rencanamu.</p></div>
+        </li>
+        <li class="program-journey-next">
+          <span class="program-step-number" aria-hidden="true">02</span>
+          <div><p class="program-step-label">Langkah berikutnya</p><h3>Hitung Biaya &amp;<br />Cek Beasiswa</h3>
+            <p id="program-cost-note">Simulator biaya lengkap masih dalam pengembangan.</p>
+            <a class="program-journey-link" href="/biaya-beasiswa">Lihat Biaya &amp; Beasiswa <span aria-hidden="true">→</span></a>
+          </div>
+        </li>
+        <li>
+          <span class="program-step-number" aria-hidden="true">03</span>
+          <div><p class="program-step-label">Setelah siap</p><h3>Daftar melalui<br />PMB Resmi</h3><p>Lanjutkan pendaftaran melalui kanal resmi UBSI.</p>
+            <a class="text-link" href={registration.url}>{registration.label} <span aria-hidden="true">↗</span></a>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 </BaseLayout>

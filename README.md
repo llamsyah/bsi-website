@@ -64,7 +64,10 @@ See `src/data/README.md` for domain boundaries and deferred datasets.
 programs. Continuous rows show the name, official faculty and class availability;
 native `details` / `summary` disclose the subject overview, verified accreditation
 where available, and costs link. The degree is established once in the intro.
-The list uses no card shadows and remains compact on mobile.
+The list uses no card shadows and remains compact on mobile. Stable numbers
+01–11 retain their original positions when filtered. A lighter discovery toolbar
+leads into the index; expanded rows combine the overview and verified facts with
+a contextual cost action on one continuous surface.
 
 - `src/data/programs.ts` owns stable IDs/slugs, faculty mapping, class availability
   and provenance. The approved four-program Home sample is preserved.
@@ -83,7 +86,12 @@ The list uses no card shadows and remains compact on mobile.
   without JavaScript; all program content is present in generated HTML. Search
   controls appear only after their listeners are ready.
 - Costs links lead to the existing placeholder, with the unfinished simulator
-  disclosed on the page. Registration uses the shared official PMB destination.
+  disclosed on the page. Each expanded row links to
+  `/biaya-beasiswa?program=<program-slug>` using the dataset slug, encoded with
+  `URLSearchParams`. The costs page currently ignores this parameter; it does not
+  calculate or claim a selected price. This is the URL contract for Task 06.
+  The final three-step handoff highlights Biaya & Beasiswa after program discovery,
+  followed by registration through the shared official PMB destination.
   A future calculator should reference program IDs from this dataset rather than
   duplicate the names. No calculator logic is included here.
 - `tests/programs.test.mjs` covers the offering, faculty mapping, class rules,
@@ -101,6 +109,13 @@ Enter/Space, focus indication, costs navigation and the Home teaser link passed.
 Registration links resolve to the shared official PMB URL; the page console was
 clear. Generated HTML retains all eleven descriptions and native disclosures
 without client rendering; JavaScript-disabled browsing was not separately simulated.
+
+The visual-flow refinement was also reviewed at all four widths: numbered rows,
+expanded decision panels, discovery controls and the final handoff. At 320 px,
+closed rows are approximately 101 px tall and the handoff becomes a vertical
+sequence. All eleven contextual cost URLs retain the correct slug; navigation to
+the existing costs placeholder was verified with `program=sistem-informasi`.
+The same 39 tests, Astro check and production build passed after this refinement.
 
 ## Dependency compatibility
 
