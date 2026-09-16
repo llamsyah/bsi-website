@@ -26,3 +26,17 @@ export const margondaPrograms = {
     scope: 'campus:Margonda; undergraduate offerings', period: september2026.id,
   } satisfies VerificationMetadata,
 } as const;
+
+/** Home preview sample — diverse fields, not ranked or recommended. */
+const homePreviewIds = [
+  'rekayasa-perangkat-lunak',
+  'manajemen',
+  'ilmu-komunikasi',
+  'psikologi',
+] as const;
+
+export const homeProgramPreviewSample = homePreviewIds.map((id) => {
+  const program = margondaPrograms.programs.find((entry) => entry.id === id);
+  if (!program) throw new Error(`Missing Home preview program: ${id}`);
+  return program;
+});
