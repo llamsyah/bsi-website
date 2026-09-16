@@ -1,0 +1,24 @@
+---
+import { classTimes, faculties, type Program } from '../../data/programs';
+interface Props { program: Program }
+const { program } = Astro.props;
+---
+<article class="program-row" data-program-id={program.id} data-program-name={program.name}
+  data-program-faculty={program.facultyId} aria-labelledby={`program-${program.id}`}>
+  <details>
+    <summary>
+      <div class="program-identity">
+        <h3 id={`program-${program.id}`}>{program.name}</h3>
+        <p class="program-faculty">{faculties[program.facultyId]}</p>
+      </div>
+      <span class="program-times">{program.classes.map((time) => <span>{classTimes[time]}</span>)}</span>
+      <span class="program-toggle" aria-hidden="true">+</span>
+    </summary>
+    <div class="program-detail">
+      <p class="program-description">{program.description}</p>
+      {program.accreditation && <p class="program-accreditation">Akreditasi <strong>{program.accreditation.label}</strong></p>}
+      <a class="text-link program-cost-link" href="/biaya-beasiswa"
+        aria-label={`Lihat biaya — ${program.name}`} aria-describedby="program-cost-note">Lihat Biaya <span aria-hidden="true">→</span></a>
+    </div>
+  </details>
+</article>

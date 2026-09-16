@@ -1,0 +1,78 @@
+.programs-intro {
+  background: linear-gradient(120deg, var(--color-blue-soft), var(--color-white) 65%, var(--color-red-soft));
+  border-bottom: 1px solid var(--color-border);
+}
+.programs-intro h1 { max-width: 54rem; }
+.programs-intro .text-link { margin-top: 1rem; }
+.programs-heading { max-width: 45rem; margin-bottom: 2rem; }
+.programs-heading h2 { font-size: clamp(1.65rem, 3vw, 2.3rem); }
+.programs-heading > p:last-child { color: var(--color-muted); }
+.program-controls {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+  padding: 1.5rem;
+  background: var(--color-blue-soft);
+  border-top: 3px solid var(--color-red);
+  border-radius: 20px;
+}
+.program-field { min-width: 0; }
+.program-field label { display: block; margin-bottom: .6rem; font-size: .875rem; font-weight: 800; color: var(--color-blue); }
+.program-field input, .program-field select {
+  width: 100%; min-width: 0; min-height: 48px; padding: .7rem .8rem;
+  border: 1px solid #b3bfd6; border-radius: 10px;
+  font: inherit; font-size: 1rem; color: var(--color-text); background: var(--color-white);
+}
+.program-controls .button { background: var(--color-white); }
+.program-results { margin: 1.75rem 0 1.25rem; font-size: .9rem; color: var(--color-muted); }
+.program-list { border-top: 2px solid var(--color-blue); }
+.program-row { border-bottom: 1px solid var(--color-border); }
+.program-row summary {
+  display: grid; grid-template-columns: minmax(0, 1fr) 16rem 1.5rem;
+  align-items: center; gap: 1.5rem; padding: 1.25rem .75rem;
+  cursor: pointer; list-style: none;
+}
+.program-row summary::-webkit-details-marker { display: none; }
+.program-row summary:hover, .program-row details[open] summary { background: var(--color-blue-soft); }
+.program-row summary:focus-visible { outline-offset: -3px; }
+.program-row h3 { font-size: clamp(1rem, 1.6vw, 1.2rem); margin: 0 0 .35rem; }
+.program-faculty { margin: 0; font-size: .8rem; color: var(--color-muted); }
+.program-times { display: flex; flex-wrap: wrap; gap: .3rem 1rem; font-size: .8rem; color: var(--color-blue); }
+.program-times > span { white-space: nowrap; }
+.program-toggle { font-size: 1.5rem; line-height: 1; color: var(--color-red-dark); text-align: center; }
+.program-row details[open] .program-toggle { transform: rotate(45deg); }
+.program-detail { padding: 1rem .75rem 1.25rem; max-width: 48rem; }
+.program-description { font-size: .95rem; line-height: 1.8; color: var(--color-muted); margin: 0; }
+.program-accreditation { font-size: .85rem; color: var(--color-blue); margin: .75rem 0 0; }
+.program-cost-link { margin-top: .75rem; min-height: 44px; display: inline-flex; align-items: center; }
+.program-empty { text-align: center; padding: 3rem 1.5rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 20px; }
+.program-schedule-note { margin-top: 2.5rem; padding-left: 1.25rem; border-left: 3px solid var(--color-red); max-width: 48rem; }
+.program-schedule-note h3 { font-size: 1rem; }
+.program-schedule-note p { font-size: .9rem; color: var(--color-muted); }
+.program-next-section { padding-top: 0; }
+.program-next { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: center; padding: clamp(1.5rem, 4vw, 3rem); background: var(--color-blue-soft); border-radius: 24px; }
+.program-next h2 { font-size: clamp(1.6rem, 2.5vw, 2rem); }
+.program-next p:not(.eyebrow) { max-width: 42rem; color: var(--color-muted); }
+.program-next-actions { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+@media (max-width: 68rem) {
+
+  .program-controls { grid-template-columns: 1fr 1fr; }
+  .program-controls .button { justify-self: start; }
+}
+@media (max-width: 48rem) {
+  .program-controls, .program-next { grid-template-columns: 1fr; }
+  .program-next { gap: 1.5rem; }
+  .program-row summary { grid-template-columns: minmax(0, 1fr) 9rem 1.5rem; gap: 1rem; }
+  .program-next-actions { align-items: flex-start; }
+}
+@media (max-width: 36rem) {
+
+  .program-row summary { grid-template-columns: minmax(0, 1fr) 1.5rem; gap: .5rem; padding: 1rem .25rem; }
+  .program-times { grid-column: 1; font-size: .75rem; }
+  .program-toggle { grid-column: 2; grid-row: 1 / 3; }
+  .program-detail { padding: .75rem .25rem 1rem; }
+  .program-controls { padding: 1rem; }
+  .program-controls .button { width: 100%; }
+  .program-next-actions { align-items: stretch; }
+}

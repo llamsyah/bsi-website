@@ -1,7 +1,7 @@
 # Website PMB UBSI Margonda
 
-Astro static-first website with the migrated Home and reusable admissions status.
-Program Explorer, calculator and several detail routes remain unfinished.
+Astro static-first website with the migrated Home, Program Studi explorer and reusable admissions status.
+Calculator and several detail routes remain unfinished.
 Follow AGENTS.md and the project documents before feature migration.
 
 ## Run locally
@@ -52,11 +52,55 @@ Fonts preserve the prototype's Google Fonts loading and system fallbacks.
 
 ## Not migrated
 
-Calculator and formulas, program explorer, complete PMB guide,
+Calculator and formulas, complete PMB guide,
 scholarships, campus gallery/maps, news, Student Life, AI and complex canvas animation.
 Do not treat the development routes as feature completion.
 
 See `src/data/README.md` for domain boundaries and deferred datasets.
+
+## Task 05 — Program Studi explorer
+
+`/program-studi` renders an editorial index of the eleven verified Margonda S1
+programs. Continuous rows show the name, official faculty and class availability;
+native `details` / `summary` disclose the subject overview, verified accreditation
+where available, and costs link. The degree is established once in the intro.
+The list uses no card shadows and remains compact on mobile.
+
+- `src/data/programs.ts` owns stable IDs/slugs, faculty mapping, class availability
+  and provenance. The approved four-program Home sample is preserved.
+- Offering, schedules and accreditation follow `CONTENT_DATA.md` §§8–13. All
+  programs have day classes; only the verified three have evening classes. Friday /
+  Saturday classes are not offered for this baseline. Only Sistem Informasi shows
+  its verified program accreditation.
+- Each `overviewSource` links an official UBSI page used for a concise general
+  subject summary, checked 2026-09-16. These summaries do not establish a Margonda
+  curriculum, career guarantee or additional campus offering.
+- `src/utils/programSearch.ts` combines case-insensitive name matching with one
+  faculty filter. Unknown filters safely fall back to all faculties, retaining
+  the search query. No URL state or framework is required.
+- `src/scripts/program-explorer.ts` enhances the static rows with result counts,
+  an empty state and reset with focus returned to search. Native disclosures work
+  without JavaScript; all program content is present in generated HTML. Search
+  controls appear only after their listeners are ready.
+- Costs links lead to the existing placeholder, with the unfinished simulator
+  disclosed on the page. Registration uses the shared official PMB destination.
+  A future calculator should reference program IDs from this dataset rather than
+  duplicate the names. No calculator logic is included here.
+- `tests/programs.test.mjs` covers the offering, faculty mapping, class rules,
+  accreditation, search/filter combinations, empty results, invalid filters and
+  preservation of the Home sample. Run together with admissions tests using `npm test`.
+
+No legacy salary, unsupported certification, D3, S2, Nursing or other unverified
+program data has been migrated. The legacy prototype remains unchanged.
+
+Task 05 validation: all 39 tests passed (28 admissions + 11 programs), Astro check
+reported zero errors/warnings/hints, and the production build generated all five
+routes. Browser review at 1920, 1366, 768 and 320 px found no horizontal overflow.
+All faculty filters, combined search, empty/reset state, native disclosures with
+Enter/Space, focus indication, costs navigation and the Home teaser link passed.
+Registration links resolve to the shared official PMB URL; the page console was
+clear. Generated HTML retains all eleven descriptions and native disclosures
+without client rendering; JavaScript-disabled browsing was not separately simulated.
 
 ## Dependency compatibility
 
