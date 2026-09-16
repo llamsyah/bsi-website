@@ -163,7 +163,7 @@ or build-time current status was introduced. A condensed verified admissions
 journey was added separately from the date model.
 
 `programs.ts` holds only the eleven verified S1 names and period/scope evidence.
-Home now previews all eleven programs equally in one panel without editorial groups (Task 04B). No explorer,
+Home uses a visual teaser anchored by the eleven-program count, four equal sample labels, and a link to Program Studi. No explorer,
 salary estimates or program accreditation was added. `facilities.ts` holds a
 limited Margonda A preview and the source URL of `public/images/margonda-a.png`,
 the original official photo referenced by the prototype. The source image is

@@ -70,14 +70,18 @@ import '../styles/home.css';
         </div>
         <p class="section-description"><span class="program-count-highlight">{margondaPrograms.programs.length} Program {margondaPrograms.degree}</span> tersedia di Margonda untuk {margondaPrograms.periodLabel}. Mulai jelajahi bidang yang menarik minatmu — daftar lengkap ada di halaman Program Studi.</p>
       </div>
-      <ul class="program-sample-grid" role="list" aria-label="Contoh bidang studi di Margonda">
-        {homeProgramPreviewSample.map(program => (
-          <li class="program-sample-card"><span class="program-sample-name">{program.name}</span><span class="program-degree">{margondaPrograms.degree}</span></li>
-        ))}
-      </ul>
-      <div class="section-tail program-section-cta">
-        <a class="button button-primary" href="/program-studi">Jelajahi Program Studi <span aria-hidden="true">→</span></a>
-        <p>Beberapa contoh bidang — bukan daftar lengkap atau rekomendasi.</p>
+      <div class="program-teaser">
+        <div class="program-teaser-anchor">
+          <p class="program-total"><strong>{margondaPrograms.programs.length}</strong><span>Program {margondaPrograms.degree}</span></p>
+          <a class="button button-primary" href="/program-studi">Jelajahi Program Studi <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="program-teaser-samples">
+          <p class="meta-label">Sekilas pilihan studimu</p>
+          <ul class="program-sample-labels" role="list" aria-label="Contoh program, tanpa urutan peringkat">
+            {homeProgramPreviewSample.map(program => <li>{program.name}</li>)}
+          </ul>
+          <p class="program-more">Dan pilihan lainnya untuk kamu jelajahi <span aria-hidden="true">↗</span></p>
+        </div>
       </div>
     </div>
   </section>
