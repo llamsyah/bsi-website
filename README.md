@@ -5,6 +5,24 @@ Financial Cost Simulator, reusable admissions status and experimental Tanya BSI
 assistant. Several detail routes remain unfinished.
 Follow AGENTS.md and the project documents before feature migration.
 
+## Task 10 — Kampus Margonda
+
+`/kampus` now introduces UBSI Margonda through a photographic Margonda A hero,
+a compact campus overview, clearly separated Margonda A/B location profiles,
+the complete eight-item verified Margonda A facility gallery, an evidence-limited
+Student Life section, location/contact guidance and a primary handoff to Program
+Studi. The navigation order is now Beranda → Kampus Margonda → Program Studi →
+Biaya & Beasiswa → Panduan PMB, followed by the existing official registration
+CTA.
+
+All eight facility images were copied from the official UBSI URLs already audited
+in the legacy prototype and are served locally. No final Margonda B asset exists
+in the repository, so the page uses a prepared replacement slot and the current
+project-confirmed address. It does not assign functions or facilities to Margonda
+B. Responsive layouts keep the hero compact, distinguish both buildings, show the
+facility gallery in two columns on mobile, and condense Student Life to three
+visual moments across two rows.
+
 ## Task 09 — Complete Panduan PMB
 
 `/pmb` now answers the complete September 2026 admissions journey: scheduled
@@ -158,8 +176,8 @@ Fonts preserve the prototype's Google Fonts loading and system fallbacks.
 
 ## Not migrated
 
-Scholarship eligibility/application tools, campus gallery/maps, news, Student
-Life, generative AI/backend and complex canvas animation.
+Scholarship eligibility/application tools, final Margonda B photography, detailed
+student activity/news content, generative AI/backend and complex canvas animation.
 Do not treat the development routes as feature completion.
 
 See `src/data/README.md` for domain boundaries and deferred datasets.

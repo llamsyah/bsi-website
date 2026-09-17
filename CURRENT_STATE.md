@@ -1,6 +1,6 @@
 # Current State — Website PMB Universitas BSI Margonda
 
-## Implementation update — Tasks 03–09
+## Implementation update — Tasks 03–10
 
 The original audit below describes the preserved root `index.html` prototype.
 The production application now lives in Astro `src/`, with five real routes.
@@ -33,6 +33,14 @@ reuses the Task 03 status engine for the current wave, retains all seven waves,
 and presents the verified ten-step journey as four readable phases. The page also
 includes the documented SLTA/contact/document baseline, registration boundary,
 FAQ and official PMB handoff without claiming live quota or eligibility.
+
+Task 10 completes `/kampus` as the trust-building campus route. It distinguishes
+Margonda A and B without assigning unverified building functions, presents all
+eight verified Margonda A facilities with local copies of the official imagery,
+and reserves a clear replacement slot for the pending final Margonda B photo.
+Student Life uses only the documented learning environment, while location and
+contact actions lead into Program Studi as the primary next step. Shared desktop,
+mobile and footer navigation now follows the approved campus-first journey.
 
 ### Task 06.1 checkpoint — 17 September 2026
 

@@ -29,13 +29,13 @@ empty arrays that might be mistaken for confirmed absence:
 | Domain | Boundary / future module |
 | --- | --- |
 | institution | `institution.ts`: institution identity and accreditation; history deferred |
-| campus | `campus.ts`: building identity and confirmed addresses |
+| campus | `campus.ts`: building identity, confirmed addresses and map destinations; building functions remain unresolved |
 | programs | `programs.ts`: eleven S1 programs, faculty, classes, concise sourced overviews, verified accreditation and campus/period scope; full profiles deferred |
 | admissions | `admissions.ts`: official entry URL, September 2026 period, waves, Home journey, detailed PMB phases and verified requirement baseline; period-specific upload rules remain with official PMB |
 | tuition | `tuition.ts`: fee components and SSP, separate from pure calculations |
 | scholarships | `scholarships.ts`: verified general baseline; live eligibility and application rules deferred |
 | certifications | `certifications.ts`: licensed LSP and verified scheme scope |
-| facilities | `facilities.ts`: limited Margonda A preview and official photo provenance; full inventory deferred |
+| facilities | `facilities.ts`: eight verified Margonda A facilities with local official imagery; Margonda B remains an explicit empty/pending boundary |
 | contact | `contact.ts`: PMB contacts; omit unresolved service hours |
 | news | `news.ts`: source, date and explicit campus/institution scope |
 

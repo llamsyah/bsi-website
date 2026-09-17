@@ -47,9 +47,9 @@ Secondary audience:
 Primary navigation final:
 
 1. Beranda
-2. Program Studi
-3. Biaya & Beasiswa
-4. Kampus Margonda
+2. Kampus Margonda
+3. Program Studi
+4. Biaya & Beasiswa
 5. Panduan PMB
 6. Daftar Sekarang
 
