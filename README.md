@@ -9,8 +9,8 @@ Follow AGENTS.md and the project documents before feature migration.
 
 `/kampus` now introduces UBSI Margonda through a photographic Margonda A hero,
 a compact campus overview, clearly separated Margonda A/B location profiles,
-the complete eight-item verified Margonda A facility gallery, an evidence-limited
-Student Life section, location/contact guidance and a primary handoff to Program
+the complete eight-item Margonda A facility gallery, map access within each
+location profile, a compact PMB contact action and a primary handoff to Program
 Studi. The navigation order is now Beranda → Kampus Margonda → Program Studi →
 Biaya & Beasiswa → Panduan PMB, followed by the existing official registration
 CTA.
@@ -20,8 +20,9 @@ in the legacy prototype and are served locally. No final Margonda B asset exists
 in the repository, so the page uses a prepared replacement slot and the current
 project-confirmed address. It does not assign functions or facilities to Margonda
 B. Responsive layouts keep the hero compact, distinguish both buildings, show the
-facility gallery in two columns on mobile, and condense Student Life to three
-visual moments across two rows.
+facility gallery in two columns on mobile, and keep the Program Studi handoff
+ahead of the supporting contact actions. Student Life is intentionally deferred
+until suitable student-activity or event evidence and imagery are available.
 
 ## Task 09 — Complete Panduan PMB
 

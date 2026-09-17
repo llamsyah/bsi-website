@@ -3,19 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { registration } from '../data/admissions';
 import { campus } from '../data/campus';
 import { contact } from '../data/contact';
-import { margondaAFacilities, margondaAFacilitiesEvidence, margondaBDocumentation } from '../data/facilities';
+import { margondaAFacilities } from '../data/facilities';
 import { institution } from '../data/institution';
 import { margondaPrograms } from '../data/programs';
 import '../styles/campus.css';
 
 const [margondaA, margondaB] = campus.buildings;
-const studentLifeMoments = [
-  { label: 'Belajar', title: 'Ruang kelas yang terarah', image: '/images/facilities/ruang-kelas.jpg' },
-  { label: 'Praktik', title: 'Laboratorium untuk proses pembelajaran', image: '/images/facilities/laboratorium.jpg' },
-  { label: 'Menjelajah referensi', title: 'Perpustakaan sebagai ruang pendukung', image: '/images/facilities/perpustakaan.jpg' },
-] as const;
 ---
-<BaseLayout title="Kampus Margonda" description="Kenali dua lokasi UBSI Kampus Margonda, fasilitas terverifikasi Margonda A, pengalaman kampus, alamat, dan kontak PMB.">
+<BaseLayout title="Kampus Margonda" description="Kenali dua lokasi UBSI Kampus Margonda, fasilitas Margonda A, alamat, dan kontak PMB.">
   <section class="campus-hero" aria-labelledby="page-title">
     <div class="campus-hero-media" aria-hidden="true">
       <img src="/images/facilities/parkiran-gedung.jpg" alt="" width="1600" height="1067" fetchpriority="high" />
@@ -25,7 +20,7 @@ const studentLifeMoments = [
       <div class="campus-hero-copy">
         <p class="eyebrow">UBSI Margonda · Depok</p>
         <h1 id="page-title">Kenali tempat untuk belajar, bertumbuh, dan menentukan langkah berikutnya.</h1>
-        <p>UBSI Kampus Margonda hadir melalui dua lokasi di kawasan Margonda, dengan fasilitas Margonda A yang telah terdokumentasi.</p>
+        <p>UBSI Kampus Margonda hadir melalui dua lokasi di kawasan Margonda, dengan fasilitas Margonda A yang dapat kamu jelajahi.</p>
         <div class="campus-hero-actions">
           <a class="button button-primary" href="#dua-lokasi">Kenali dua lokasi</a>
           <a class="button button-on-dark" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>
@@ -43,7 +38,7 @@ const studentLifeMoments = [
       </div>
       <dl class="campus-facts">
         <div><dt>Lokasi</dt><dd>{campus.buildings.length}</dd><span>Margonda A &amp; B</span></div>
-        <div><dt>Program</dt><dd>{margondaPrograms.programs.length}</dd><span>Program S1 terverifikasi</span></div>
+        <div><dt>Program</dt><dd>{margondaPrograms.programs.length}</dd><span>Program S1 periode ini</span></div>
         <div><dt>Identitas</dt><dd>UBSI</dd><span>{institution.branding}</span></div>
       </dl>
     </div>
@@ -55,8 +50,8 @@ const studentLifeMoments = [
         <div>
           <p class="meta-label">Dua lokasi Margonda</p>
           <h2 id="buildings-title">Alamat yang jelas, informasi yang terukur.</h2>
+          <p>Kenali alamat masing-masing lokasi sebelum berkunjung atau membuka petanya.</p>
         </div>
-        <p>Keduanya ditampilkan sebagai lokasi UBSI Margonda. Fungsi khusus setiap gedung tidak dinyatakan karena belum memiliki bukti yang cukup.</p>
       </header>
 
       <div class="campus-building-pair">
@@ -66,28 +61,27 @@ const studentLifeMoments = [
             <figcaption>Visual resmi UBSI</figcaption>
           </figure>
           <div class="campus-building-copy">
-            <p class="campus-building-label">Lokasi 01 · Terverifikasi</p>
+            <p class="campus-building-label">Lokasi 01 · Margonda</p>
             <h3>{margondaA.name}</h3>
             <address>{margondaA.address}</address>
-            <p>{margondaAFacilities.length} fasilitas yang terdokumentasi ditampilkan pada bagian berikutnya.</p>
+            <p>Jelajahi fasilitas Margonda A pada bagian berikutnya.</p>
             <a class="text-link" href={margondaA.mapsUrl}>Lihat lokasi di peta <span aria-hidden="true">↗</span></a>
           </div>
         </article>
 
         <article class="campus-building campus-building-b">
-          <div class="campus-b-slot" role="img" aria-label="Slot foto final fasad Kampus Margonda B">
+          <div class="campus-b-slot" role="img" aria-label="Identitas visual Kampus Margonda B">
             <span class="campus-b-mark" aria-hidden="true">B</span>
             <div>
-              <span class="meta-label">Dokumentasi lapangan</span>
-              <strong>Slot foto final Margonda B</strong>
-              <p>Komposisi siap menerima foto asli tanpa mengubah struktur halaman.</p>
+              <span class="meta-label">UBSI Kampus Margonda</span>
+              <strong>Margonda B</strong>
             </div>
           </div>
           <div class="campus-building-copy">
-            <p class="campus-building-label">Lokasi 02 · Project confirmed</p>
+            <p class="campus-building-label">Lokasi 02 · Margonda</p>
             <h3>{margondaB.name}</h3>
             <address>{margondaB.address}</address>
-            <p>{margondaBDocumentation.message}</p>
+            <p>Buka peta untuk melihat posisi lokasi ini sebelum berkunjung.</p>
             <a class="text-link" href={margondaB.mapsUrl}>Lihat lokasi di peta <span aria-hidden="true">↗</span></a>
           </div>
         </article>
@@ -99,10 +93,10 @@ const studentLifeMoments = [
     <div class="container">
       <header class="campus-section-heading campus-section-heading--facilities">
         <div>
-          <p class="meta-label">Fasilitas terverifikasi</p>
+          <p class="meta-label">Fasilitas Margonda A</p>
           <h2 id="facilities-title">Ruang yang tersedia di Margonda A.</h2>
+          <p>Jelajahi ruang belajar dan fasilitas pendukung yang tersedia di lokasi Margonda A.</p>
         </div>
-        <p>Seluruh nama dan visual pada galeri ini bersumber dari dokumentasi resmi Margonda A. Daftar ini tidak diterapkan ke Margonda B.</p>
       </header>
 
       <div class="facility-gallery">
@@ -113,46 +107,6 @@ const studentLifeMoments = [
           </figure>
         ))}
       </div>
-      <p class="facility-source">Status data: {margondaAFacilitiesEvidence.verificationStatus}. Visual fasilitas berasal dari galeri resmi UBSI.</p>
-    </div>
-  </section>
-
-  <section class="campus-section campus-life" aria-labelledby="life-title">
-    <div class="container campus-life-grid">
-      <div class="campus-life-copy">
-        <p class="meta-label">Kehidupan kampus</p>
-        <h2 id="life-title">Pengalaman kampus tumbuh dari keseharian.</h2>
-        <p>Kehidupan mahasiswa tidak hanya terjadi di ruang kelas. Ruang praktik, sumber belajar, dan area bersama membentuk ritme antara belajar, menyiapkan tugas, dan berinteraksi di lingkungan kampus.</p>
-        <p class="campus-life-note">Kegiatan mahasiswa dapat berubah sepanjang periode. Bagian ini menunjukkan lingkungan yang telah terdokumentasi tanpa mengklaim komunitas atau agenda tertentu.</p>
-      </div>
-      <div class="campus-life-strip">
-        {studentLifeMoments.map(moment => (
-          <figure>
-            <img src={moment.image} alt={`${moment.title} di Kampus Margonda A`} width="600" height="600" loading="lazy" decoding="async" />
-            <figcaption><span>{moment.label}</span><strong>{moment.title}</strong></figcaption>
-          </figure>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="campus-section campus-location" aria-labelledby="location-title">
-    <div class="container campus-location-grid">
-      <div class="campus-location-copy">
-        <p class="meta-label">Lokasi &amp; kontak</p>
-        <h2 id="location-title">Temukan titik yang ingin kamu kunjungi.</h2>
-        <p>Gunakan alamat lengkap saat menuju kampus. Untuk informasi PMB sebelum berkunjung, hubungi kanal WhatsApp yang terverifikasi.</p>
-        <a class="button button-primary" href={contact.whatsapp.url}>WhatsApp PMB <span aria-hidden="true">↗</span></a>
-      </div>
-      <div class="campus-address-list">
-        {campus.buildings.map((building, index) => (
-          <article>
-            <span class="campus-address-index">0{index + 1}</span>
-            <div><h3>{building.name}</h3><address>{building.address}</address></div>
-            <a href={building.mapsUrl} aria-label={`Lihat ${building.name} di peta`}>Peta <span aria-hidden="true">↗</span></a>
-          </article>
-        ))}
-      </div>
     </div>
   </section>
 
@@ -161,11 +115,14 @@ const studentLifeMoments = [
       <div>
         <p class="meta-label">Lanjutkan perjalananmu</p>
         <h2 id="next-title">Sudah mengenal kampusnya? Temukan program yang sesuai.</h2>
-        <p>Jelajahi sebelas program S1 yang terverifikasi tersedia di UBSI Kampus Margonda.</p>
+        <p>Jelajahi sebelas program S1 yang tersedia untuk periode PMB ini di UBSI Kampus Margonda.</p>
       </div>
       <div class="campus-next-actions">
         <a class="button button-white" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>
-        <a class="campus-register-link" href={registration.url}>Daftar Sekarang <span aria-hidden="true">↗</span></a>
+        <div class="campus-secondary-actions">
+          <a class="campus-register-link" href={contact.whatsapp.url}>WhatsApp PMB <span aria-hidden="true">↗</span></a>
+          <a class="campus-register-link" href={registration.url}>Daftar Sekarang <span aria-hidden="true">↗</span></a>
+        </div>
       </div>
     </div>
   </section>

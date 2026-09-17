@@ -38,9 +38,11 @@ Task 10 completes `/kampus` as the trust-building campus route. It distinguishes
 Margonda A and B without assigning unverified building functions, presents all
 eight verified Margonda A facilities with local copies of the official imagery,
 and reserves a clear replacement slot for the pending final Margonda B photo.
-Student Life uses only the documented learning environment, while location and
-contact actions lead into Program Studi as the primary next step. Shared desktop,
-mobile and footer navigation now follows the approved campus-first journey.
+Map links now sit within the corresponding Margonda A/B profiles, while a compact
+PMB contact action follows the primary Program Studi handoff. Student Life is
+deferred until suitable student-activity or event evidence and imagery are
+available. Shared desktop, mobile and footer navigation now follows the approved
+campus-first journey.
 
 ### Task 06.1 checkpoint — 17 September 2026
 
