@@ -1,7 +1,7 @@
 # Website PMB UBSI Margonda
 
-Astro static-first website with the migrated Home, Program Studi explorer and reusable admissions status.
-Calculator and several detail routes remain unfinished.
+Astro static-first website with the migrated Home, Program Studi explorer,
+Financial Cost Simulator and reusable admissions status. Several detail routes remain unfinished.
 Follow AGENTS.md and the project documents before feature migration.
 
 ## Run locally
@@ -52,11 +52,108 @@ Fonts preserve the prototype's Google Fonts loading and system fallbacks.
 
 ## Not migrated
 
-Calculator and formulas, complete PMB guide,
-scholarships, campus gallery/maps, news, Student Life, AI and complex canvas animation.
+Complete PMB guide, scholarship eligibility/application tools,
+campus gallery/maps, news, Student Life, AI and complex canvas animation.
 Do not treat the development routes as feature completion.
 
 See `src/data/README.md` for domain boundaries and deferred datasets.
+
+## Task 06 — Financial Cost Simulator
+
+`/biaya-beasiswa` now offers program/wave selection, immediate recalculation,
+itemized costs, transparent SSP comparison, fee explanations, two scholarship
+summaries and the handoff to `/pmb` or the shared official registration URL.
+
+### Source boundaries and calculation contract
+
+- `src/data/tuition.ts`: integer-rupiah fees, surcharge IDs, seven SSP values and
+  period/evidence metadata. Factual authority: `CONTENT_DATA.md` §§19–23.
+- `src/utils/tuition.ts`: pure `calculateTuition({ programId, waveId })`, exact
+  slug resolution and date-dependent default selection. Invalid calculation IDs
+  return `null`, never a price for a different program. No HTML or internal clock.
+- `src/utils/currency.ts`: shared Indonesian rupiah formatter.
+- `src/components/TuitionCalculator.astro`, `src/scripts/tuition-calculator.ts`
+  and `src/styles/tuition.css`: static fallback, lightweight DOM enhancement and
+  isolated responsive presentation. No framework or dependency added.
+- `src/data/scholarships.ts`: general Talenta Digital / Indonesia Juara baseline
+  from `CONTENT_DATA.md` §24; current conditions link to the official PMB entry.
+- `tests/tuition.test.mjs`: calculation, scope, input, date and legacy checks.
+
+Semester tuition = Rp3.980.000 + Rp1.000.000 only for Manajemen, Akuntansi,
+Ilmu Komunikasi, Sistem Informasi, Teknologi Informasi and Informatika.
+The other five verified S1 programs use the base rate.
+
+Subtotal without SSP = Rp260.000 registration + Rp1.600.000 pre-college + one
+semester tuition. **Estimasi komponen biaya awal** = that subtotal + full SSP
+for the selected wave. This aggregate is neither an amount payable immediately
+nor the complete cost of a degree. Installment timing is intentionally not
+calculated, especially for Khusus where the official baseline needs context.
+The comparison reports `row SSP − selected SSP`, not a scholarship or discount.
+
+### Shared programs and admissions
+
+All eleven choices come from `margondaPrograms`; names and IDs are not duplicated.
+`?program=<slug>` is an exact shared-slug contract. Valid input preselects the
+program; invalid input shows a fallback explanation and selects the first shared
+program. Arbitrary query text is never inserted as HTML. Home's two obsolete
+simulator-pending messages and the Program Studi cost notes were updated only
+to reflect availability; their layout and interactions were preserved.
+
+The existing `september2026`, `getAdmissionsStatus` and Jakarta date helpers
+provide all wave labels, dates and current status. `AdmissionsStatus.astro` is
+reused unchanged. No calendar is duplicated. An active wave is selected initially;
+before opening / after closing, no wave is auto-selected. Visitors may explicitly
+inspect any historical or future wave. Their selection never changes the displayed
+current PMB status. Status refreshes at WIB midnight and on focus/history return;
+an explicit wave choice is retained. The device clock is not a live PMB service.
+
+### Legacy comparison and deliberate corrections
+
+The legacy S1 arithmetic and separate SSP concept are preserved. Tests extract
+the historical `tierData` literal without executing the legacy application and
+compare RPL / Informatika / Manajemen across I, III and VI (nine scenarios):
+
+| Scenario | Subtotal without SSP | Full SSP I / III / VI | New aggregate I / III / VI |
+| --- | --- | --- | --- |
+| RPL, old S1 Umum | Rp5.840.000 | Rp2.500.000 / Rp3.600.000 / Rp6.000.000 | Rp8.340.000 / Rp9.440.000 / Rp11.840.000 |
+| Informatika and Manajemen, old S1 Khusus | Rp6.840.000 | same | Rp9.340.000 / Rp10.440.000 / Rp12.840.000 |
+
+Program selection replaces ambiguous tier selection. Khusus is added using the
+verified SSP, equal to VI. Removed from the new calculator: D3, Nursing, S2,
+unsupported program paths, percentage urgency, seat availability claims and
+"saving today" wording. No automatic free-SSP campaign, scholarship deduction,
+payment schedule or lifetime projection is inferred. The legacy source is intact.
+
+### Validation and limits — 2026-09-17
+
+57 tests passed: 28 admissions, 11 programs and 18 calculator tests, including
+all 77 program/wave combinations, exact surcharge membership, invalid inputs,
+all valid slugs, invalid/missing slugs, every wave boundary, upcoming/closed
+defaults, formatting and nine legacy scenarios. Astro check: 33 files, zero
+errors/warnings/hints. Production build: five static routes.
+
+Browser review covered 1920, 1366, 768 and 320 px. Controls/results stack below
+896 px; all widths had no horizontal overflow, including the expanded comparison.
+Checked RPL/Khusus, Informatika/I, Manajemen/VI, Psikologi/III, keyboard selection,
+native Enter/Space disclosures, visible focus, program-to-calculator navigation
+with Sistem Informasi, invalid query fallback, blank wave handling and the
+scholarship anchor. Current Khusus status stayed separate from selected past waves.
+Console warning/error log was empty. Upcoming/closed dates were tested in the
+pure engine, not by changing the browser clock.
+
+Generated HTML includes a labelled RPL/I example, all eleven semester tariffs,
+all seven SSP values, explanations and scholarship links before client code runs.
+Controls are hidden until enhancement is ready; native fee disclosures remain
+usable without JavaScript. A separate JavaScript-disabled browser session and
+full assistive-technology audit were not performed.
+
+No live scholarship eligibility, installment calculation, payment or registration
+submission is implemented. Values are the verified September 2026 baseline, not
+a live tariff feed. No new research claims or automatic future intake are added.
+Legacy SHA-256 matches the baseline above. Work is on
+`codex/task-06-cost-simulator`, created from `origin/main` and fast-forwarded with
+the completed Task 05 commits as dependencies. No commit, push or main merge
+was performed for Task 06.
 
 ## Task 05 — Program Studi explorer
 
@@ -85,15 +182,14 @@ a contextual cost action on one continuous surface.
   an empty state and reset with focus returned to search. Native disclosures work
   without JavaScript; all program content is present in generated HTML. Search
   controls appear only after their listeners are ready.
-- Costs links lead to the existing placeholder, with the unfinished simulator
-  disclosed on the page. Each expanded row links to
+- Each expanded row links to
   `/biaya-beasiswa?program=<program-slug>` using the dataset slug, encoded with
-  `URLSearchParams`. The costs page currently ignores this parameter; it does not
-  calculate or claim a selected price. This is the URL contract for Task 06.
+  `URLSearchParams`. Task 06 now validates and consumes this parameter to
+  preselect the shared program in the simulator.
   The final three-step handoff highlights Biaya & Beasiswa after program discovery,
   followed by registration through the shared official PMB destination.
-  A future calculator should reference program IDs from this dataset rather than
-  duplicate the names. No calculator logic is included here.
+  The calculator references program IDs from this dataset without duplicating names.
+  No calculator logic is included in the explorer.
 - `tests/programs.test.mjs` covers the offering, faculty mapping, class rules,
   accreditation, search/filter combinations, empty results, invalid filters and
   preservation of the Home sample. Run together with admissions tests using `npm test`.

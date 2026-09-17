@@ -18,7 +18,10 @@ Task 05 expands `programs.ts` into the current Margonda explorer dataset, retain
 the same Home sample and stable identifiers. Faculty, class availability and
 accreditation reference CONTENT_DATA.md; per-program official overview URLs support
 only concise general subject descriptions, not campus-specific curriculum promises.
-Future tuition mapping should reference these IDs without duplicating program names.
+Task 06 tuition mapping references these IDs without duplicating program names.
+`tuition.ts` owns integer-rupiah fees and SSP keyed by admissions wave IDs;
+`scholarships.ts` owns two general scholarship summaries and baseline provenance.
+Neither module determines live eligibility, capacity or installment schedules.
 
 Create remaining domain modules when their consumers migrate, rather than export
 empty arrays that might be mistaken for confirmed absence:
@@ -30,7 +33,7 @@ empty arrays that might be mistaken for confirmed absence:
 | programs | `programs.ts`: eleven S1 programs, faculty, classes, concise sourced overviews, verified accreditation and campus/period scope; full profiles deferred |
 | admissions | `admissions.ts`: official entry URL, September 2026 period, waves, evidence and Home journey; detailed requirements/procedures deferred |
 | tuition | `tuition.ts`: fee components and SSP, separate from pure calculations |
-| scholarships | `scholarships.ts`: benefits, eligibility, active period and evidence |
+| scholarships | `scholarships.ts`: verified general baseline; live eligibility and application rules deferred |
 | certifications | `certifications.ts`: licensed LSP and verified scheme scope |
 | facilities | `facilities.ts`: limited Margonda A preview and official photo provenance; full inventory deferred |
 | contact | `contact.ts`: PMB contacts; omit unresolved service hours |
