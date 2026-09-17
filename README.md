@@ -1,7 +1,7 @@
 # Website PMB UBSI Margonda
 
-Astro static-first website with the migrated Home and reusable admissions status.
-Program Explorer, calculator and several detail routes remain unfinished.
+Astro static-first website with the migrated Home, Program Studi explorer,
+Financial Cost Simulator and reusable admissions status. Several detail routes remain unfinished.
 Follow AGENTS.md and the project documents before feature migration.
 
 ## Run locally
@@ -52,11 +52,166 @@ Fonts preserve the prototype's Google Fonts loading and system fallbacks.
 
 ## Not migrated
 
-Calculator and formulas, program explorer, complete PMB guide,
-scholarships, campus gallery/maps, news, Student Life, AI and complex canvas animation.
+Complete PMB guide, scholarship eligibility/application tools,
+campus gallery/maps, news, Student Life, AI and complex canvas animation.
 Do not treat the development routes as feature completion.
 
 See `src/data/README.md` for domain boundaries and deferred datasets.
+
+## Task 06 — Financial Cost Simulator
+
+`/biaya-beasiswa` now offers program/wave selection, immediate recalculation,
+itemized costs, transparent SSP comparison, fee explanations, two scholarship
+summaries and the handoff to `/pmb` or the shared official registration URL.
+
+### Source boundaries and calculation contract
+
+- `src/data/tuition.ts`: integer-rupiah fees, surcharge IDs, seven SSP values and
+  period/evidence metadata. Factual authority: `CONTENT_DATA.md` §§19–23.
+- `src/utils/tuition.ts`: pure `calculateTuition({ programId, waveId })`, exact
+  slug resolution and date-dependent default selection. Invalid calculation IDs
+  return `null`, never a price for a different program. No HTML or internal clock.
+- `src/utils/currency.ts`: shared Indonesian rupiah formatter.
+- `src/components/TuitionCalculator.astro`, `src/scripts/tuition-calculator.ts`
+  and `src/styles/tuition.css`: static fallback, lightweight DOM enhancement and
+  isolated responsive presentation. No framework or dependency added.
+- `src/data/scholarships.ts`: general Talenta Digital / Indonesia Juara baseline
+  from `CONTENT_DATA.md` §24; current conditions link to the official PMB entry.
+- `tests/tuition.test.mjs`: calculation, scope, input, date and legacy checks.
+
+Semester tuition = Rp3.980.000 + Rp1.000.000 only for Manajemen, Akuntansi,
+Ilmu Komunikasi, Sistem Informasi, Teknologi Informasi and Informatika.
+The other five verified S1 programs use the base rate.
+
+Subtotal without SSP = Rp260.000 registration + Rp1.600.000 pre-college + one
+semester tuition. **Estimasi komponen biaya awal** = that subtotal + full SSP
+for the selected wave. This aggregate is neither an amount payable immediately
+nor the complete cost of a degree. Installment timing is intentionally not
+calculated, especially for Khusus where the official baseline needs context.
+The comparison reports `row SSP − selected SSP`, not a scholarship or discount.
+
+### Shared programs and admissions
+
+All eleven choices come from `margondaPrograms`; names and IDs are not duplicated.
+`?program=<slug>` is an exact shared-slug contract. Valid input preselects the
+program; invalid input shows a fallback explanation and selects the first shared
+program. Arbitrary query text is never inserted as HTML. Home's two obsolete
+simulator-pending messages and the Program Studi cost notes were updated only
+to reflect availability; their layout and interactions were preserved.
+
+The existing `september2026`, `getAdmissionsStatus` and Jakarta date helpers
+provide all wave labels, dates and current status. `AdmissionsStatus.astro` is
+reused unchanged. No calendar is duplicated. An active wave is selected initially;
+before opening / after closing, no wave is auto-selected. Visitors may explicitly
+inspect any historical or future wave. Their selection never changes the displayed
+current PMB status. Status refreshes at WIB midnight and on focus/history return;
+an explicit wave choice is retained. The device clock is not a live PMB service.
+
+### Legacy comparison and deliberate corrections
+
+The legacy S1 arithmetic and separate SSP concept are preserved. Tests extract
+the historical `tierData` literal without executing the legacy application and
+compare RPL / Informatika / Manajemen across I, III and VI (nine scenarios):
+
+| Scenario | Subtotal without SSP | Full SSP I / III / VI | New aggregate I / III / VI |
+| --- | --- | --- | --- |
+| RPL, old S1 Umum | Rp5.840.000 | Rp2.500.000 / Rp3.600.000 / Rp6.000.000 | Rp8.340.000 / Rp9.440.000 / Rp11.840.000 |
+| Informatika and Manajemen, old S1 Khusus | Rp6.840.000 | same | Rp9.340.000 / Rp10.440.000 / Rp12.840.000 |
+
+Program selection replaces ambiguous tier selection. Khusus is added using the
+verified SSP, equal to VI. Removed from the new calculator: D3, Nursing, S2,
+unsupported program paths, percentage urgency, seat availability claims and
+"saving today" wording. No automatic free-SSP campaign, scholarship deduction,
+payment schedule or lifetime projection is inferred. The legacy source is intact.
+
+### Validation and limits — 2026-09-17
+
+57 tests passed: 28 admissions, 11 programs and 18 calculator tests, including
+all 77 program/wave combinations, exact surcharge membership, invalid inputs,
+all valid slugs, invalid/missing slugs, every wave boundary, upcoming/closed
+defaults, formatting and nine legacy scenarios. Astro check: 33 files, zero
+errors/warnings/hints. Production build: five static routes.
+
+Browser review covered 1920, 1366, 768 and 320 px. Controls/results stack below
+896 px; all widths had no horizontal overflow, including the expanded comparison.
+Checked RPL/Khusus, Informatika/I, Manajemen/VI, Psikologi/III, keyboard selection,
+native Enter/Space disclosures, visible focus, program-to-calculator navigation
+with Sistem Informasi, invalid query fallback, blank wave handling and the
+scholarship anchor. Current Khusus status stayed separate from selected past waves.
+Console warning/error log was empty. Upcoming/closed dates were tested in the
+pure engine, not by changing the browser clock.
+
+Generated HTML includes a labelled RPL/I example, all eleven semester tariffs,
+all seven SSP values, explanations and scholarship links before client code runs.
+Controls are hidden until enhancement is ready; native fee disclosures remain
+usable without JavaScript. A separate JavaScript-disabled browser session and
+full assistive-technology audit were not performed.
+
+No live scholarship eligibility, installment calculation, payment or registration
+submission is implemented. Values are the verified September 2026 baseline, not
+a live tariff feed. No new research claims or automatic future intake are added.
+Legacy SHA-256 matches the baseline above. Work is on
+`codex/task-06-cost-simulator`, created from `origin/main` and fast-forwarded with
+the completed Task 05 commits as dependencies. No commit, push or main merge
+was performed for Task 06.
+
+## Task 05 — Program Studi explorer
+
+`/program-studi` renders an editorial index of the eleven verified Margonda S1
+programs. Continuous rows show the name, official faculty and class availability;
+native `details` / `summary` disclose the subject overview, verified accreditation
+where available, and costs link. The degree is established once in the intro.
+The list uses no card shadows and remains compact on mobile. Stable numbers
+01–11 retain their original positions when filtered. A lighter discovery toolbar
+leads into the index; expanded rows combine the overview and verified facts with
+a contextual cost action on one continuous surface.
+
+- `src/data/programs.ts` owns stable IDs/slugs, faculty mapping, class availability
+  and provenance. The approved four-program Home sample is preserved.
+- Offering, schedules and accreditation follow `CONTENT_DATA.md` §§8–13. All
+  programs have day classes; only the verified three have evening classes. Friday /
+  Saturday classes are not offered for this baseline. Only Sistem Informasi shows
+  its verified program accreditation.
+- Each `overviewSource` links an official UBSI page used for a concise general
+  subject summary, checked 2026-09-16. These summaries do not establish a Margonda
+  curriculum, career guarantee or additional campus offering.
+- `src/utils/programSearch.ts` combines case-insensitive name matching with one
+  faculty filter. Unknown filters safely fall back to all faculties, retaining
+  the search query. No URL state or framework is required.
+- `src/scripts/program-explorer.ts` enhances the static rows with result counts,
+  an empty state and reset with focus returned to search. Native disclosures work
+  without JavaScript; all program content is present in generated HTML. Search
+  controls appear only after their listeners are ready.
+- Each expanded row links to
+  `/biaya-beasiswa?program=<program-slug>` using the dataset slug, encoded with
+  `URLSearchParams`. Task 06 now validates and consumes this parameter to
+  preselect the shared program in the simulator.
+  The final three-step handoff highlights Biaya & Beasiswa after program discovery,
+  followed by registration through the shared official PMB destination.
+  The calculator references program IDs from this dataset without duplicating names.
+  No calculator logic is included in the explorer.
+- `tests/programs.test.mjs` covers the offering, faculty mapping, class rules,
+  accreditation, search/filter combinations, empty results, invalid filters and
+  preservation of the Home sample. Run together with admissions tests using `npm test`.
+
+No legacy salary, unsupported certification, D3, S2, Nursing or other unverified
+program data has been migrated. The legacy prototype remains unchanged.
+
+Task 05 validation: all 39 tests passed (28 admissions + 11 programs), Astro check
+reported zero errors/warnings/hints, and the production build generated all five
+routes. Browser review at 1920, 1366, 768 and 320 px found no horizontal overflow.
+All faculty filters, combined search, empty/reset state, native disclosures with
+Enter/Space, focus indication, costs navigation and the Home teaser link passed.
+Registration links resolve to the shared official PMB URL; the page console was
+clear. Generated HTML retains all eleven descriptions and native disclosures
+without client rendering; JavaScript-disabled browsing was not separately simulated.
+
+The visual-flow refinement was also reviewed at all four widths: numbered rows,
+expanded decision panels, discovery controls and the final handoff. At 320 px,
+closed rows are approximately 101 px tall and the handoff becomes a vertical
+sequence. All eleven contextual cost URLs retain the correct slug; navigation to
+the existing costs placeholder was verified with `program=sistem-informasi`.
+The same 39 tests, Astro check and production build passed after this refinement.
 
 ## Dependency compatibility
 

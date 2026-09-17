@@ -1,0 +1,71 @@
+.tuition-intro { padding-block: clamp(3rem, 5vw, 5rem) 2.75rem; }
+.tuition-intro h1 { max-width: 56rem; }
+.tuition-intro h1 span { color: var(--color-red); }
+.tuition-main { padding-bottom: 4rem; }
+.tuition-tool { position: relative; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--color-border); border-radius: var(--radius-xl); background: white; }
+.tuition-config, .tuition-result { min-width: 0; padding: clamp(1.25rem, 3vw, 2.75rem); }
+.tuition-config > p:not(.meta-label) { color: var(--color-muted); max-width: 37ch; }
+.tuition-tool h2 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); }
+.tuition-form { margin-top: 1.75rem; }
+.tuition-form label { display: block; margin-bottom: .5rem; color: var(--color-blue); font-size: .9rem; font-weight: 800; }
+.tuition-form select { width: 100%; min-width: 0; min-height: 50px; padding: .75rem .6rem; border: 1px solid #8f9bb1; border-radius: var(--radius-sm); background: white; color: var(--color-text); font: inherit; font-size: .95rem; }
+.tuition-help { margin-block: .65rem 1.5rem; font-size: .8rem; color: var(--color-muted); }
+.tuition-current { border-top: 1px solid var(--color-border); padding-top: 1.5rem; margin-top: 1.5rem; font-size: .85rem; }
+.tuition-current .meta-label { margin-bottom: .5rem; }
+.tuition-current .admissions-status { margin-block: .75rem 0; }
+.tuition-current .status-reference { font-size: .75rem; }
+.tuition-result { background: var(--color-blue-soft); border-radius: 0 var(--radius-xl) var(--radius-xl) 0; border-left: 1px solid var(--color-border); }
+.tuition-selection { color: var(--color-blue); font-weight: 800; min-height: 3.3em; }
+.tuition-breakdown { margin: 1rem 0; }
+.tuition-breakdown > div { display: flex; justify-content: space-between; gap: 1rem; padding-block: .65rem; }
+.tuition-breakdown dt { color: var(--color-muted); font-size: .9rem; }
+.tuition-breakdown dd { margin: 0; font: 500 .95rem/1.65 var(--font-accent); white-space: nowrap; color: var(--color-blue-dark); }
+.tuition-breakdown .tuition-subtotal { border-block: 1px solid #ccd3e1; margin-block: .35rem; }
+.tuition-subtotal dt, .tuition-subtotal dd { font-weight: 800; }
+.tuition-surcharge, .tuition-total-note { font-size: .8rem; color: var(--color-muted); }
+.tuition-total { border-top: 3px solid var(--color-red); padding-top: 1.25rem; margin-top: 1.5rem; }
+.tuition-total p { font-size: .85rem; font-weight: 700; margin-bottom: .4rem; }
+.tuition-total strong { display: block; color: var(--color-blue); font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 1.3; letter-spacing: -.045em; font-variant-numeric: tabular-nums; margin-bottom: 1rem; }
+.tuition-empty { padding-block: 2rem; }
+.tuition-comparison { margin-top: 1.5rem; border-bottom: 1px solid var(--color-border); }
+.tuition-comparison summary, .tuition-rates summary { min-height: 48px; padding-block: 1rem; cursor: pointer; color: var(--color-blue); font-weight: 800; }
+.tuition-comparison > p { max-width: 65ch; color: var(--color-muted); font-size: .9rem; }
+.tuition-comparison table { width: 100%; max-width: 52rem; border-collapse: collapse; margin-bottom: 1.5rem; font-size: .9rem; }
+.tuition-comparison caption { text-align: left; color: var(--color-muted); padding-bottom: .75rem; }
+.tuition-comparison th, .tuition-comparison td { text-align: left; border-bottom: 1px solid var(--color-border); padding: .75rem .5rem; }
+.tuition-comparison td { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tuition-comparison .is-selected { background: var(--color-red-soft); color: var(--color-red-dark); }
+.tuition-comparison [data-wave-selected] { display: block; font-size: .7rem; }
+.tuition-components { background: var(--color-surface); }
+.tuition-components h2, .tuition-scholarships h2, .tuition-next h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+.tuition-definitions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-block: 2rem; }
+.tuition-definitions > div { border-top: 2px solid var(--color-border); padding-top: 1.25rem; }
+.tuition-definitions dt { font-weight: 800; color: var(--color-blue); margin-bottom: .75rem; }
+.tuition-definitions dd { margin: 0; color: var(--color-muted); font-size: .9rem; }
+.tuition-rates { border-block: 1px solid var(--color-border); max-width: 52rem; }
+.tuition-rates dl > div { display: flex; justify-content: space-between; gap: 1rem; padding-block: .65rem; font-size: .9rem; }
+.tuition-rates dd { margin: 0; flex-shrink: 0; }
+.tuition-baseline { max-width: 65rem; font-size: .8rem; color: var(--color-muted); margin-top: 1.5rem; }
+.tuition-scholarship-list { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-block: 2rem; }
+.tuition-scholarship-list article { border-top: 2px solid var(--color-red); padding-top: 1.5rem; }
+.tuition-scholarship-list h3 { margin-block: .65rem; font-size: 1.5rem; }
+.tuition-scholarship-list p { color: var(--color-muted); max-width: 50ch; }
+.tuition-next { background: var(--color-blue-soft); }
+.tuition-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 56rem) {
+  .tuition-tool { grid-template-columns: 1fr; }
+  .tuition-result { border-left: 0; border-top: 1px solid var(--color-border); border-radius: 0 0 var(--radius-xl) var(--radius-xl); }
+  .tuition-selection { min-height: 0; }
+  .tuition-definitions { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 36rem) {
+  .tuition-intro { padding-bottom: 2rem; }
+  .tuition-form select { font-size: .875rem; }
+  .tuition-breakdown > div { gap: .5rem; }
+  .tuition-breakdown dt, .tuition-breakdown dd { font-size: .8rem; }
+  .tuition-comparison table { font-size: .8rem; }
+  .tuition-comparison th, .tuition-comparison td { padding: .65rem .25rem; }
+  .tuition-definitions, .tuition-scholarship-list { grid-template-columns: 1fr; gap: 1.5rem; }
+  .tuition-rates dl > div { display: block; }
+  .tuition-rates dt { font-weight: 700; }
+}

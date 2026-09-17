@@ -1,14 +1,18 @@
 # Current State — Website PMB Universitas BSI Margonda
 
-## Implementation update — Tasks 03–04
+## Implementation update — Tasks 03–06
 
 The original audit below describes the preserved root `index.html` prototype.
 The production application now lives in Astro `src/`, with five real routes.
 Milestone 1 established the shared shell; Task 03 added the September 2026
 admissions dataset, pure date-only status engine and minimal `/pmb` integration.
 Task 04 migrates Home's visual language and verified static previews. Home and
-`/pmb` share `AdmissionsStatus.astro`; detailed program search, calculator,
-scholarships, campus interactions and full PMB guide remain deferred.
+`/pmb` share `AdmissionsStatus.astro`. Task 05 migrates `/program-studi` as a
+compact editorial index with native expandable rows, verified program data,
+name search and faculty filtering. Task 06 migrates `/biaya-beasiswa` with shared
+program selection, seven-wave SSP comparison, a pure tuition engine, and a limited
+verified scholarship preview. Campus interactions, scholarship application tools
+and the full PMB guide remain deferred.
 See README.md for current file boundaries and validation. The legacy prototype
 is still unchanged and remains the migration reference.
 
