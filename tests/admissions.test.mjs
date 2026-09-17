@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { september2026 as period, registration } from '../src/data/admissions.ts';
+import { admissionsGuide, september2026 as period, registration } from '../src/data/admissions.ts';
 import { getAdmissionsStatus } from '../src/utils/admissionsStatus.ts';
 import { assertCalendarDate, formatCalendarDate, getJakartaDate, millisecondsUntilJakartaMidnight } from '../src/utils/calendarDate.ts';
 
@@ -46,6 +46,25 @@ test('verified dataset retains period, campus, class start and official destinat
   assert.equal(period.waves.length, 7);
   assert.equal(period.waves.at(-1).label, 'Gelombang Khusus');
   assert.equal(period.evidence.verificationStatus, 'VERIFIED');
+});
+
+test('PMB guide preserves the complete verified journey and requirement baseline', () => {
+  assert.deepEqual(admissionsGuide.phases.flatMap(phase => phase.steps), [
+    'Registrasi online',
+    'Isi data',
+    'Pembayaran pendaftaran',
+    'Ujian Saringan Masuk online',
+    'Pilih kampus, program, dan waktu kuliah',
+    'Daftar ulang',
+    'Lengkapi dokumen',
+    'Mendapat NIM dan kelas',
+    'ORMIK/SEMOT',
+    'Mulai perkuliahan',
+  ]);
+  assert.equal(admissionsGuide.requirements.eligibility, 'Lulusan SLTA atau sederajat');
+  assert.deepEqual(admissionsGuide.requirements.contact, ['Email aktif', 'Nomor WhatsApp aktif']);
+  assert.deepEqual(admissionsGuide.requirements.documents, ['Foto', 'Ijazah', 'Transkrip atau nilai', 'KTP', 'Kartu Keluarga', 'Akta kelahiran']);
+  assert.equal(admissionsGuide.evidence.verificationStatus, 'VERIFIED');
 });
 
 test('class start does not close the special registration wave', () => {

@@ -1,50 +1,164 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AdmissionsStatus from '../components/AdmissionsStatus.astro';
-import { september2026 as period, registration } from '../data/admissions';
+import { admissionsGuide, september2026 as period, registration } from '../data/admissions';
 import { formatCalendarDate } from '../utils/calendarDate';
+import '../styles/pmb.css';
+
+const firstWave = period.waves[0];
+const lastWave = period.waves.at(-1)!;
 ---
-<BaseLayout title="Panduan PMB" description="Jadwal PMB September 2026 UBSI Kampus Margonda, Gelombang I hingga Khusus, awal perkuliahan, dan tautan pendaftaran resmi.">
-  <section class="container page-section" aria-labelledby="page-title">
-    <p class="eyebrow">UBSI Kampus Margonda</p>
-    <h1 id="page-title">Panduan PMB</h1>
-    <div class="card development-card">
-      <h2>{period.label}</h2>
-      <AdmissionsStatus />
-      <p><strong>Rentang pendaftaran:</strong><br />
-        <time datetime={period.waves[0].startDate}>{formatCalendarDate(period.waves[0].startDate)}</time>
-        {' – '}<time datetime={period.waves.at(-1)!.endDate}>{formatCalendarDate(period.waves.at(-1)!.endDate)}</time>
-      </p>
-      <p><strong>Awal perkuliahan:</strong> <time datetime={period.classStart}>{formatCalendarDate(period.classStart)}</time></p>
-      <div class="actions">
-        <a class="button button-primary" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
-        <a class="button button-secondary" href="/">Kembali ke Beranda</a>
+<BaseLayout title="Panduan PMB" description="Panduan lengkap PMB September 2026 UBSI Kampus Margonda: status pendaftaran, tujuh gelombang, alur, persiapan dokumen, dan pendaftaran resmi.">
+  <section class="pmb-hero" aria-labelledby="page-title">
+    <div class="container pmb-hero-grid">
+      <div class="pmb-hero-copy">
+        <p class="eyebrow">Panduan penerimaan mahasiswa baru</p>
+        <h1 id="page-title">Dari memilih gelombang sampai siap kuliah.</h1>
+        <p class="lead">Ikuti jadwal, siapkan data dan dokumen, lalu lanjutkan proses melalui sistem PMB resmi UBSI.</p>
+        <div class="pmb-hero-actions">
+          <a class="button button-primary" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#alur-pmb">Pelajari alurnya <span aria-hidden="true">↓</span></a>
+        </div>
       </div>
+
+      <aside class="pmb-status-panel" aria-label="Status PMB September 2026">
+        <p class="meta-label">Status berdasarkan jadwal</p>
+        <AdmissionsStatus />
+        <dl class="pmb-date-summary">
+          <div>
+            <dt>Rentang pendaftaran</dt>
+            <dd><time datetime={firstWave.startDate}>{formatCalendarDate(firstWave.startDate)}</time> – <time datetime={lastWave.endDate}>{formatCalendarDate(lastWave.endDate)}</time></dd>
+          </div>
+          <div>
+            <dt>Awal perkuliahan</dt>
+            <dd><time datetime={period.classStart}>{formatCalendarDate(period.classStart)}</time></dd>
+          </div>
+        </dl>
+      </aside>
     </div>
-    <section class="card development-card" aria-labelledby="waves-title">
-      <h2 id="waves-title">Jadwal gelombang</h2>
-      <p>Tanggal awal dan akhir termasuk dalam masa pendaftaran setiap gelombang.</p>
-      <ol class="wave-list">
-        {period.waves.map(wave => (
-          <li>
+  </section>
+
+  <section class="pmb-section pmb-schedule" aria-labelledby="schedule-title">
+    <div class="container">
+      <header class="pmb-section-heading">
+        <div>
+          <p class="meta-label">Jadwal terverifikasi</p>
+          <h2 id="schedule-title">Tujuh gelombang dalam satu periode</h2>
+        </div>
+        <p>Setiap tanggal awal dan akhir termasuk dalam masa gelombang. Penanda status diperbarui dari engine jadwal PMB yang sama dengan halaman lain.</p>
+      </header>
+
+      <ol class="pmb-wave-list">
+        {period.waves.map((wave, index) => (
+          <li data-pmb-wave={wave.id}>
+            <span class="pmb-wave-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
             <strong>{wave.label}</strong>
-            <span><time datetime={wave.startDate}>{formatCalendarDate(wave.startDate)}</time>
-              {' – '}<time datetime={wave.endDate}>{formatCalendarDate(wave.endDate)}</time></span>
+            <span class="pmb-wave-dates"><time datetime={wave.startDate}>{formatCalendarDate(wave.startDate)}</time><span aria-hidden="true">—</span><time datetime={wave.endDate}>{formatCalendarDate(wave.endDate)}</time></span>
+            <span class="pmb-wave-state" data-wave-state-label>Jadwal periode</span>
           </li>
         ))}
       </ol>
-    </section>
-    <aside class="card preview-note" aria-label="Panduan dalam pengembangan">
-      <h2>Panduan lengkap sedang disiapkan</h2>
-      <p>Alur pendaftaran, persyaratan, dan dokumen akan ditambahkan pada tahap berikutnya. Untuk ketentuan pendaftaran, kunjungi PMB resmi UBSI.</p>
-    </aside>
+
+      <p class="pmb-schedule-note"><strong>Perlu dibedakan:</strong> status ini menunjukkan periode berdasarkan tanggal, bukan ketersediaan kuota atau kelulusan calon mahasiswa.</p>
+    </div>
+  </section>
+
+  <section class="pmb-section pmb-flow-section" id="alur-pmb" aria-labelledby="flow-title">
+    <div class="container">
+      <header class="pmb-section-heading pmb-section-heading--compact">
+        <div>
+          <p class="meta-label">Alur penerimaan</p>
+          <h2 id="flow-title">Empat fase yang mudah diikuti</h2>
+        </div>
+        <p>Sepuluh langkah resmi diringkas menjadi empat fase tanpa menghilangkan urutan pentingnya.</p>
+      </header>
+
+      <ol class="pmb-flow-list">
+        {admissionsGuide.phases.map(phase => (
+          <li>
+            <div class="pmb-phase-number" aria-hidden="true">{phase.number}</div>
+            <div class="pmb-phase-content">
+              <h3>{phase.title}</h3>
+              <p>{phase.summary}</p>
+              <ul aria-label={`Rincian ${phase.title}`}>
+                {phase.steps.map(step => <li>{step}</li>)}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="pmb-section pmb-preparation" aria-labelledby="requirements-title">
+    <div class="container pmb-preparation-grid">
+      <div class="pmb-preparation-intro">
+        <p class="meta-label">Siapkan sebelum mulai</p>
+        <h2 id="requirements-title">Data yang rapi membuat proses lebih lancar.</h2>
+        <p>Baseline pendaftaran berlaku untuk {admissionsGuide.requirements.eligibility.toLowerCase()}. Gunakan kontak yang aktif agar informasi proses dapat diterima.</p>
+        <div class="pmb-contact-checks" aria-label="Kontak yang perlu disiapkan">
+          {admissionsGuide.requirements.contact.map(item => <span><span aria-hidden="true">✓</span>{item}</span>)}
+        </div>
+      </div>
+
+      <div class="pmb-document-panel">
+        <div class="pmb-document-heading">
+          <p class="meta-label">Checklist dokumen</p>
+          <p>{admissionsGuide.requirements.context}</p>
+        </div>
+        <ul class="pmb-document-list">
+          {admissionsGuide.requirements.documents.map((document, index) => (
+            <li><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{document}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="pmb-section pmb-notes" aria-labelledby="notes-title">
+    <div class="container pmb-notes-grid">
+      <div class="pmb-boundary">
+        <p class="meta-label">Batas layanan</p>
+        <h2 id="notes-title">Informasi di sini, pendaftaran di PMB resmi.</h2>
+        <p>Website Kampus Margonda membantu memahami pilihan, biaya, jadwal, dan alur. Akun pendaftaran, pembayaran, seleksi, serta administrasi mahasiswa diproses melalui sistem PMB resmi UBSI.</p>
+        <a class="text-link" href={period.registrationUrl}>Buka PMB resmi <span aria-hidden="true">↗</span></a>
+      </div>
+
+      <div class="pmb-faq" aria-labelledby="faq-title">
+        <p class="meta-label">Pertanyaan umum</p>
+        <h2 id="faq-title">Sebelum melanjutkan</h2>
+        <details>
+          <summary>Gelombang mana yang sedang berlaku?</summary>
+          <p>Status paling atas dan penanda pada jadwal diperbarui otomatis berdasarkan tanggal WIB. Tetap konfirmasi proses melalui PMB resmi UBSI.</p>
+        </details>
+        <details>
+          <summary>Kapan perkuliahan dimulai?</summary>
+          <p>Awal perkuliahan periode September 2026 dijadwalkan pada <time datetime={period.classStart}>{formatCalendarDate(period.classStart)}</time>.</p>
+        </details>
+        <details>
+          <summary>Apakah saya bisa mendaftar di website ini?</summary>
+          <p>Website ini menyediakan informasi dan alat bantu keputusan. Pendaftaran dilakukan pada sistem PMB resmi UBSI melalui tombol Daftar Sekarang.</p>
+        </details>
+        <details>
+          <summary>Apakah daftar dokumen dapat berubah?</summary>
+          <p>Daftar di atas adalah baseline yang terdokumentasi. Ikuti petunjuk pada sistem PMB resmi untuk format, tahapan unggah, dan ketentuan yang berlaku pada periode pendaftaran.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="pmb-final" aria-labelledby="final-title">
+    <div class="container pmb-final-inner">
+      <div>
+        <p class="meta-label">Langkah berikutnya</p>
+        <h2 id="final-title">Sudah siap memulai proses PMB?</h2>
+        <p>Lanjutkan ke kanal resmi untuk membuat pendaftaran dan mengikuti instruksi yang berlaku.</p>
+      </div>
+      <a class="button button-white" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
+    </div>
   </section>
 </BaseLayout>
 
-<style>
-  .wave-list { list-style: none; margin: 0; padding: 0; }
-  .wave-list li { padding-block: var(--space-sm); border-bottom: 1px solid var(--color-border); }
-  .wave-list li:last-child { border-bottom: 0; padding-bottom: 0; }
-  .wave-list strong, .wave-list span { display: block; }
-  .wave-list span { color: var(--color-muted); }
-</style>
+<script>
+  import '../scripts/pmb-guide';
+</script>

@@ -1,6 +1,6 @@
 # Current State — Website PMB Universitas BSI Margonda
 
-## Implementation update — Tasks 03–08
+## Implementation update — Tasks 03–09
 
 The original audit below describes the preserved root `index.html` prototype.
 The production application now lives in Astro `src/`, with five real routes.
@@ -11,8 +11,8 @@ Task 04 migrates Home's visual language and verified static previews. Home and
 compact editorial index with native expandable rows, verified program data,
 name search and faculty filtering. Task 06 migrates `/biaya-beasiswa` with shared
 program selection, seven-wave SSP comparison, a pure tuition engine, and a limited
-verified scholarship preview. Campus interactions, scholarship application tools
-and the full PMB guide remain deferred.
+verified scholarship preview. Campus interactions and scholarship application
+tools remain deferred.
 Task 07 adds the optional cross-site Tanya BSI dialog: an explicitly experimental
 local resolver over the same program, admissions, tuition, scholarship and campus
 data. It supports contextual navigation, safe text rendering and page-local
@@ -27,6 +27,12 @@ photographic hero using the approved Margonda A image while original Margonda B
 documentation remains unavailable. Shared navigation is more editorial, Tanya BSI
 moves into the mobile header instead of covering page controls, and mobile page
 density is reduced without changing verified data or feature logic.
+
+Task 09 completes `/pmb` as the detailed September 2026 admissions guide. It
+reuses the Task 03 status engine for the current wave, retains all seven waves,
+and presents the verified ten-step journey as four readable phases. The page also
+includes the documented SLTA/contact/document baseline, registration boundary,
+FAQ and official PMB handoff without claiming live quota or eligibility.
 
 ### Task 06.1 checkpoint — 17 September 2026
 

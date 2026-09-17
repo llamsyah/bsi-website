@@ -65,3 +65,50 @@ export const admissionsJourney = {
     verificationStatus: 'VERIFIED', scope: 'PMB procedure summary', period: september2026.id,
   } satisfies VerificationMetadata,
 } as const;
+
+/** Detailed guide content for /pmb, sourced from CONTENT_DATA.md §§17–18. */
+export const admissionsGuide = {
+  phases: [
+    {
+      id: 'register',
+      number: '01',
+      title: 'Mulai pendaftaran',
+      summary: 'Registrasi melalui sistem PMB resmi, isi data, lalu selesaikan pembayaran pendaftaran.',
+      steps: ['Registrasi online', 'Isi data', 'Pembayaran pendaftaran'],
+    },
+    {
+      id: 'selection',
+      number: '02',
+      title: 'Ikuti seleksi online',
+      summary: 'Kerjakan Ujian Saringan Masuk secara online mengikuti petunjuk pada sistem PMB.',
+      steps: ['Ujian Saringan Masuk online'],
+    },
+    {
+      id: 'choice',
+      number: '03',
+      title: 'Tetapkan pilihan kuliah',
+      summary: 'Pilih kampus, program studi, dan waktu kuliah, kemudian lanjutkan proses daftar ulang.',
+      steps: ['Pilih kampus, program, dan waktu kuliah', 'Daftar ulang'],
+    },
+    {
+      id: 'ready',
+      number: '04',
+      title: 'Siap menjadi mahasiswa',
+      summary: 'Lengkapi dokumen hingga memperoleh NIM dan kelas, ikuti ORMIK/SEMOT, lalu mulai perkuliahan.',
+      steps: ['Lengkapi dokumen', 'Mendapat NIM dan kelas', 'ORMIK/SEMOT', 'Mulai perkuliahan'],
+    },
+  ],
+  requirements: {
+    eligibility: 'Lulusan SLTA atau sederajat',
+    contact: ['Email aktif', 'Nomor WhatsApp aktif'],
+    documents: ['Foto', 'Ijazah', 'Transkrip atau nilai', 'KTP', 'Kartu Keluarga', 'Akta kelahiran'],
+    context: 'Dokumen disiapkan untuk proses yang meminta unggahan atau verifikasi. Ketentuan teknis dapat mengikuti periode dan petunjuk pada sistem PMB resmi.',
+  },
+  evidence: {
+    source: 'CONTENT_DATA.md §§17–18 — Admission Flow and Admission Requirements',
+    verifiedAt: '2026-09-15',
+    verificationStatus: 'VERIFIED',
+    scope: 'PMB procedure and requirement baseline',
+    period: september2026.id,
+  } satisfies VerificationMetadata,
+} as const;

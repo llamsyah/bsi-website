@@ -31,7 +31,7 @@ empty arrays that might be mistaken for confirmed absence:
 | institution | `institution.ts`: institution identity and accreditation; history deferred |
 | campus | `campus.ts`: building identity and confirmed addresses |
 | programs | `programs.ts`: eleven S1 programs, faculty, classes, concise sourced overviews, verified accreditation and campus/period scope; full profiles deferred |
-| admissions | `admissions.ts`: official entry URL, September 2026 period, waves, evidence and Home journey; detailed requirements/procedures deferred |
+| admissions | `admissions.ts`: official entry URL, September 2026 period, waves, Home journey, detailed PMB phases and verified requirement baseline; period-specific upload rules remain with official PMB |
 | tuition | `tuition.ts`: fee components and SSP, separate from pure calculations |
 | scholarships | `scholarships.ts`: verified general baseline; live eligibility and application rules deferred |
 | certifications | `certifications.ts`: licensed LSP and verified scheme scope |

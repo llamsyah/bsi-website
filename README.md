@@ -5,6 +5,30 @@ Financial Cost Simulator, reusable admissions status and experimental Tanya BSI
 assistant. Several detail routes remain unfinished.
 Follow AGENTS.md and the project documents before feature migration.
 
+## Task 09 — Complete Panduan PMB
+
+`/pmb` now answers the complete September 2026 admissions journey: scheduled
+availability, the current wave, all seven wave ranges, class start, ten verified
+process steps, the documented preparation baseline, common questions and the
+handoff to the official PMB system. The page reuses `september2026`,
+`getAdmissionsStatus` and the shared official registration URL; it does not keep
+a second current-wave value or recreate date rules in page markup.
+
+The ten documented steps are grouped into four editorial phases for scanning.
+Requirements cover SLTA/sederajat eligibility, active email and WhatsApp, plus
+photo, diploma, transcript/grades, KTP, family card and birth certificate. Format,
+upload timing and period-specific rules remain explicitly subject to the official
+PMB instructions. Unsupported exam detail, quotas, countdowns and live eligibility
+claims are excluded.
+
+Desktop uses a paired status hero, continuous wave index and four-phase process.
+Tablet and mobile move the status directly below the primary action, turn the flow
+into a compact vertical timeline, and keep wave dates, document checklist and CTA
+visible without hiding core information. Native FAQ disclosures preserve keyboard
+behavior. Responsive validation covers 1920, 1366, 768, 390 and 320px with no
+horizontal overflow; Tanya BSI remains in the mobile header and does not cover page
+controls.
+
 ## Run locally
 
 Use Node.js 22.12+ (an even-numbered supported release) and npm.
@@ -134,8 +158,8 @@ Fonts preserve the prototype's Google Fonts loading and system fallbacks.
 
 ## Not migrated
 
-Complete PMB guide, scholarship eligibility/application tools,
-campus gallery/maps, news, Student Life, generative AI/backend and complex canvas animation.
+Scholarship eligibility/application tools, campus gallery/maps, news, Student
+Life, generative AI/backend and complex canvas animation.
 Do not treat the development routes as feature completion.
 
 See `src/data/README.md` for domain boundaries and deferred datasets.
