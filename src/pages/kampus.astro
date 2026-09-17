@@ -9,18 +9,7 @@ import { classTimes, faculties, margondaPrograms } from '../data/programs';
 import '../styles/campus.css';
 
 const [margondaA, margondaB] = campus.buildings;
-const facultyOrder = [
-  ['teknik-informatika', 'FTI'],
-  ['ekonomi-bisnis', 'FEB'],
-  ['komunikasi-bahasa', 'FKB'],
-  ['ilmu-kesehatan', 'FIK'],
-] as const;
-const facultyGroups = facultyOrder.map(([id, shortName]) => ({
-  id,
-  shortName,
-  name: faculties[id],
-  programs: margondaPrograms.programs.filter(program => program.facultyId === id),
-}));
+const facultyCount = Object.keys(faculties).length;
 const eveningPrograms = margondaPrograms.programs.filter(program => program.classes.includes('sore-malam'));
 const accreditationNumber = institution.accreditation.reference.replace('SK BAN-PT No. ', '');
 ---
@@ -32,43 +21,27 @@ const accreditationNumber = institution.accreditation.reference.replace('SK BAN-
     <div class="campus-hero-shade"></div>
     <div class="container campus-hero-inner">
       <div class="campus-hero-copy">
-        <p class="eyebrow">UBSI Margonda · Depok</p>
-        <h1 id="page-title">Kenali tempat untuk belajar, bertumbuh, dan menentukan langkah berikutnya.</h1>
-        <p>UBSI Kampus Margonda hadir melalui dua lokasi di kawasan Margonda, dengan fasilitas Margonda A yang dapat kamu jelajahi.</p>
+        <p class="eyebrow">{institution.branding} · Depok</p>
+        <h1 id="page-title">UBSI Kampus Margonda</h1>
+        <p>{institution.name} di Margonda hadir melalui dua lokasi dengan sebelas pilihan program S1.</p>
         <div class="campus-hero-actions">
           <a class="button button-primary" href="#dua-lokasi">Kenali dua lokasi</a>
           <a class="button button-on-dark" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>
         </div>
       </div>
-      <p class="campus-photo-credit"><span>Foto resmi</span> Kampus Margonda A</p>
-    </div>
-  </section>
-
-  <section class="campus-proof" aria-labelledby="proof-title">
-    <div class="container campus-proof-inner">
-      <div class="campus-proof-identity">
-        <p class="meta-label">Universitas Bina Sarana Informatika</p>
-        <h2 id="proof-title">{institution.shortName} · {institution.branding}</h2>
-      </div>
-      <div class="campus-accreditation">
-        <span>Akreditasi institusi</span>
-        <strong>Unggul</strong>
-        <p>{institution.accreditation.authority} SK No. {accreditationNumber}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="campus-glance" aria-labelledby="glance-title">
-    <div class="container campus-glance-grid">
-      <div class="campus-glance-intro">
-        <p class="meta-label">Margonda dalam satu pandangan</p>
-        <h2 id="glance-title">Satu identitas kampus, dua titik di Depok.</h2>
-      </div>
-      <dl class="campus-facts">
-        <div><dt>Lokasi</dt><dd>{campus.buildings.length}</dd><span>Margonda A &amp; B</span></div>
-        <div><dt>Program</dt><dd>{margondaPrograms.programs.length}</dd><span>Program S1 periode ini</span></div>
-        <div><dt>Fakultas</dt><dd>{facultyGroups.length}</dd><span>Bidang keilmuan</span></div>
-      </dl>
+      <aside class="campus-hero-profile" aria-label="Ringkasan UBSI Kampus Margonda">
+        <div class="campus-accreditation">
+          <span>Akreditasi institusi</span>
+          <strong>Unggul</strong>
+          <p>{institution.accreditation.authority} SK No. {accreditationNumber}</p>
+        </div>
+        <dl class="campus-hero-facts">
+          <div><dt>Lokasi</dt><dd>{campus.buildings.length}</dd><span>Margonda A &amp; B</span></div>
+          <div><dt>Program</dt><dd>{margondaPrograms.programs.length}</dd><span>Program S1</span></div>
+          <div><dt>Fakultas</dt><dd>{facultyCount}</dd><span>Bidang keilmuan</span></div>
+        </dl>
+        <p class="campus-photo-credit"><span>Foto resmi</span> Kampus Margonda A</p>
+      </aside>
     </div>
   </section>
 
@@ -117,28 +90,16 @@ const accreditationNumber = institution.accreditation.reference.replace('SK BAN-
     </div>
   </section>
 
-  <section class="campus-section campus-programs" aria-labelledby="program-fields-title">
-    <div class="container">
-      <header class="campus-section-heading campus-section-heading--programs">
+  <section class="campus-section campus-academic" aria-labelledby="academic-title">
+    <div class="container campus-academic-inner">
+      <header class="campus-section-heading campus-section-heading--academic">
         <div>
-          <p class="meta-label">Bidang studi di Margonda</p>
-          <h2 id="program-fields-title">Pilihan lintas teknologi, bisnis, komunikasi, dan psikologi.</h2>
-          <p>Lihat cakupan program yang tersedia tanpa harus menelusuri satu per satu.</p>
+          <p class="meta-label">Pilihan akademik Margonda</p>
+          <h2 id="academic-title">{margondaPrograms.programs.length} program S1 dalam {facultyCount} fakultas.</h2>
+          <p>Bandingkan bidang studi, pilihan kelas, dan ringkasan setiap program pada halaman Program Studi.</p>
         </div>
       </header>
-
-      <div class="faculty-index">
-        {facultyGroups.map(group => (
-          <section class="faculty-row" aria-labelledby={`faculty-${group.id}`}>
-            <span class="faculty-code" aria-hidden="true">{group.shortName}</span>
-            <h3 id={`faculty-${group.id}`}>{group.name}</h3>
-            <ul class="faculty-programs">
-              {group.programs.map(program => <li>{program.name}</li>)}
-            </ul>
-          </section>
-        ))}
-      </div>
-      <a class="text-link campus-program-link" href="/program-studi">Lihat semua Program Studi <span aria-hidden="true">→</span></a>
+      <a class="button button-secondary" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
