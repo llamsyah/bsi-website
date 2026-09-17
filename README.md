@@ -22,6 +22,56 @@ Astro source lives in `src/`; production output lives in `dist/`. Only `dist/` i
 the future deployment artifact. Do not deploy the repository root. No deployment
 has been configured or performed in this milestone.
 
+## Task 06.1 — Calculator visual decision support
+
+The calculator retains the Task 06 engine and factual datasets. Its presentation
+now follows configuration → dominant initial-cost result → cost composition →
+SSP wave comparison → next action. Desktop pairs configuration with a navy result
+panel; tablet stacks them; mobile turns the seven-wave chart into horizontal rows.
+The total explicitly includes registration, precollege, one semester and full SSP;
+it is neither a degree total nor an amount due all at once.
+
+`src/utils/tuitionVisuals.ts` derives four composition fractions and seven SSP bar
+ratios from `calculateTuition` results. Differences equal each wave's SSP minus
+the selected wave's SSP. Earlier/later labels describe chronological position
+relative to the selection, not today's admissions availability. No scarcity,
+urgency, assumed scholarship deduction or alternative price formula was added.
+
+The original blue/red identity, decision/result hierarchy and comparison concept
+are preserved. The legacy fake urgency meter, misleading savings framing, stale
+wave fallback and unsupported program choices were not restored.
+
+Selection feedback uses a 180ms result fade and 320ms composition transition;
+reduced-motion rules disable these effects. Native selects, explicit text values,
+numbered component markers, focus outlines and a live announcement preserve
+nonvisual access. Query initialization hides the static example until the selected
+program is ready; a two-second failure fallback restores the labelled example.
+Without JavaScript, static example figures remain available. The existing Tanya
+BSI trigger is docked beside configuration help on this route to prevent overlap;
+its dialog, resolver and behavior on other pages are unchanged.
+
+Validation on 17 September 2026:
+
+- `npm test`: 99 passed (28 admissions, 11 programs, 18 tuition, 36 assistant,
+  six visual-data tests). Visual tests cover all 77 program/wave combinations,
+  comparison references, equal VI/Khusus amounts, blank selection and all slugs.
+- `npm run check`: 40 files, zero errors/warnings/hints.
+- `npm run build`: five static routes; `git diff --check` passed.
+- Browser matrix: RPL/I, Informatika/IV, Manajemen/VI and Sistem Informasi/Khusus
+  at each of 1920, 1366, 768 and 320px. Totals, semester costs, composition ratios,
+  all seven SSP values, selection states and differences matched the engine.
+  No horizontal overflow; desktop, tablet and mobile screenshots reviewed.
+- Query selection checked at all four widths. Actual Program Studi and Tanya BSI
+  links selected Informatika correctly. Keyboard select, focus visibility, blank
+  wave state, live announcement, assistant Escape/focus return and console checks
+  passed. The assistant trigger did not cover controls or comparisons.
+- Reduced-motion behavior and no-JavaScript fallback were reviewed in source;
+  browser preference emulation and a full assistive-technology audit were not run.
+- Legacy markup, styles and behavior were audited in source. Browser policy
+  prevented opening its local file URL, so no side-by-side rendered comparison
+  was completed. No mockup image was available; the supplied written composition
+  hierarchy guided the implementation. The root legacy SHA-256 remains unchanged.
+
 ## Legacy reference
 
 The root `index.html` remains the original single-file prototype, unchanged.

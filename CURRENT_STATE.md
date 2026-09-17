@@ -21,6 +21,21 @@ AI or an official advisor and has no connection to the separate WhatsApp/n8n bot
 See README.md for current file boundaries and validation. The legacy prototype
 is still unchanged and remains the migration reference.
 
+### Task 06.1 checkpoint — 17 September 2026
+
+The calculator now presents configuration, a dominant initial-cost estimate,
+four-component composition and seven-wave SSP comparison in that order. All
+visual amounts derive from the unchanged Task 06 engine. Comparison differences
+are relative to the selected wave, not discounts or availability claims. Desktop
+uses paired configuration/result panels; mobile uses horizontal comparison rows.
+The existing assistant trigger is docked in the calculator help area on this route.
+Other routes and the assistant service remain unchanged.
+
+Validation: 99 tests passed; Astro check reported zero errors, warnings and hints
+across 40 files; production build generated five routes. Required scenarios and
+query selection passed at 1920, 1366, 768 and 320px with no horizontal overflow.
+See the Task 06.1 README section for the validation matrix and limitations.
+
 ## 1. Repository State
 
 Repository:

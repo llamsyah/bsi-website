@@ -1,6 +1,6 @@
 import { september2026 } from '../data/admissions';
-import { tuition } from '../data/tuition';
 import { calculateTuition, getDefaultTuitionWave, resolveProgramSelection } from '../utils/tuition';
+import { getCostComposition, getSspComparison, type TuitionResult } from '../utils/tuitionVisuals';
 import { formatRupiah } from '../utils/currency';
 import { formatCalendarRange, getJakartaDate, millisecondsUntilJakartaMidnight } from '../utils/calendarDate';
 
@@ -18,6 +18,9 @@ if (root) {
     : 'Pilihan program mengikuti daftar S1 Margonda untuk periode ini.';
   let manualWave = false;
   let timer: ReturnType<typeof setTimeout>;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let resultMotion: Animation | undefined;
+  reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) resultMotion?.cancel(); });
 
   function render(announce = false) {
     if (!root) return;
@@ -39,20 +42,38 @@ if (root) {
       root.querySelector<HTMLElement>('[data-surcharge-note]')!.textContent = result.surcharge
         ? `Kuliah: tarif dasar ${formatRupiah(result.baseSemester)} + tambahan program ${formatRupiah(result.surcharge)} per semester.`
         : 'Biaya kuliah menggunakan tarif dasar, tanpa tambahan program.';
+      for (const part of getCostComposition(result)) {
+        root.querySelector<HTMLElement>(`[data-cost-segment="${part.key}"]`)!.style.flexGrow = String(part.fraction);
+      }
     }
-    document.querySelector<HTMLElement>('[data-comparison-heading]')!.hidden = !result;
+    const scenarios = september2026.waves.map(item => calculateTuition({ programId: program.value, waveId: item.id }))
+      .filter((item): item is TuitionResult => item !== null);
+    const comparison = getSspComparison(scenarios, result);
+    document.querySelector<HTMLElement>('[data-comparison-reference]')!.textContent = result
+      ? `Selisih SSP setiap gelombang dibanding ${result.wave.label} pilihanmu (${formatRupiah(result.ssp)}).`
+      : 'Pilih gelombang pada simulator untuk melihat selisih SSP.';
     document.querySelectorAll<HTMLElement>('[data-compare-wave]').forEach(row => {
-      const comparisonWave = september2026.waves.find(item => item.id === row.dataset.compareWave)!;
+      const item = comparison.find(item => item.wave.id === row.dataset.compareWave);
+      if (!item) return;
       const difference = row.querySelector<HTMLElement>('[data-wave-difference]')!;
-      const selected = !!result && comparisonWave.id === result.wave.id;
-      row.querySelector<HTMLElement>('[data-wave-selected]')!.hidden = !selected;
-      row.classList.toggle('is-selected', selected);
-      difference.hidden = !result;
-      if (result) {
-        const amount = tuition.sspByWave[comparisonWave.id] - result.ssp;
+      row.dataset.relation = item.relation;
+      row.querySelector<HTMLElement>('[data-wave-state]')!.textContent = {
+        unselected: 'Gelombang', selected: 'Pilihanmu', earlier: 'Sebelum', later: 'Sesudah',
+      }[item.relation];
+      row.querySelector<HTMLElement>('[data-wave-amount]')!.textContent = formatRupiah(item.amount);
+      row.querySelector<HTMLElement>('[data-wave-bar]')!.style.setProperty('--ssp-ratio', String(item.fraction));
+      difference.hidden = item.difference === null;
+      if (item.difference !== null) {
+        const amount = item.difference;
         difference.textContent = `${amount > 0 ? '+' : amount < 0 ? '−' : ''}${formatRupiah(Math.abs(amount))}`;
       }
     });
+    if (announce && result && !reducedMotion.matches) {
+      resultMotion?.cancel();
+      resultMotion = root.querySelector<HTMLElement>('.tuition-total')!.animate(
+        [{ opacity: .6 }, { opacity: 1 }], { duration: 180, easing: 'ease-out' },
+      );
+    }
     if (announce) announcement.textContent = result
       ? `${result.program.name}, ${result.wave.label}. Estimasi komponen biaya awal ${formatRupiah(result.initialTotal)}.`
       : 'Pilih gelombang untuk melihat estimasi biaya.';
@@ -73,6 +94,11 @@ if (root) {
   wave.addEventListener('change', () => { manualWave = true; render(true); });
   refresh();
   controls.hidden = false;
+  document.documentElement.classList.remove('tuition-pending');
+  // Keep the existing assistant trigger in a dedicated help area on this route.
+  // Its native dialog listeners and focus-return behavior remain unchanged.
+  const assistantTrigger = document.querySelector<HTMLElement>('[data-assistant-trigger]');
+  if (assistantTrigger) root.querySelector('[data-tuition-assistant-slot]')!.append(assistantTrigger);
   window.addEventListener('pageshow', refresh);
   window.addEventListener('focus', refresh);
   document.addEventListener('visibilitychange', () => {

@@ -2,11 +2,19 @@
 import AdmissionsStatus from './AdmissionsStatus.astro';
 import { september2026 } from '../data/admissions';
 import { margondaPrograms } from '../data/programs';
-import { tuition } from '../data/tuition';
 import { calculateTuition } from '../utils/tuition';
+import { getCostComposition, getSspComparison } from '../utils/tuitionVisuals';
 import { formatRupiah } from '../utils/currency';
 const example = calculateTuition({ programId: margondaPrograms.programs[0]!.id, waveId: september2026.waves[0].id })!;
+const composition = getCostComposition(example);
+const scenarios = september2026.waves.map(wave => calculateTuition({ programId: example.program.id, waveId: wave.id })!);
+const comparison = getSspComparison(scenarios, null);
 ---
+<!-- Reserve the result while the query-aware enhancement loads; failures reveal the labelled example. -->
+<script is:inline>
+  document.documentElement.classList.add('tuition-pending');
+  window.setTimeout(() => document.documentElement.classList.remove('tuition-pending'), 2000);
+</script>
 <section class="tuition-tool" aria-labelledby="simulator-title" data-tuition-calculator>
   <div class="tuition-config">
     <p class="meta-label">01 / Rencanakan biaya</p>
@@ -27,39 +35,55 @@ const example = calculateTuition({ programId: margondaPrograms.programs[0]!.id, 
     </form>
     <noscript><p class="tuition-help">Aktifkan JavaScript untuk mengganti pilihan. Contoh rincian, tarif program, dan SSP seluruh gelombang tetap tersedia di halaman ini.</p></noscript>
     <div class="tuition-current"><p class="meta-label">Status PMB saat ini</p><AdmissionsStatus /></div>
+    <div class="tuition-assistance" data-tuition-assistant-slot><p class="tuition-help">Butuh bantuan memahami biaya?</p></div>
   </div>
   <div class="tuition-result">
     <p class="meta-label">02 / Estimasi pilihanmu</p>
-    <p class="tuition-selection" data-result-label>Contoh: {example.program.name} · {example.wave.label}</p>
-    <div data-tuition-result>
-      <dl class="tuition-breakdown">
-        <div><dt>Pendaftaran</dt><dd data-fee="registration">{formatRupiah(example.registration)}</dd></div>
-        <div><dt>Prakuliah</dt><dd data-fee="preCollege">{formatRupiah(example.preCollege)}</dd></div>
-        <div><dt>Kuliah / semester</dt><dd data-fee="semesterTuition">{formatRupiah(example.semesterTuition)}</dd></div>
-        <div class="tuition-subtotal"><dt>Subtotal tanpa SSP</dt><dd data-fee="semesterOneSubtotal">{formatRupiah(example.semesterOneSubtotal)}</dd></div>
-        <div><dt>SSP penuh</dt><dd data-fee="ssp">{formatRupiah(example.ssp)}</dd></div>
-      </dl>
-      <p class="tuition-surcharge" data-surcharge-note>Biaya kuliah menggunakan tarif dasar, tanpa tambahan program.</p>
-      <div class="tuition-total"><p>Estimasi komponen biaya awal</p><strong data-fee="initialTotal">{formatRupiah(example.initialTotal)}</strong></div>
-      <p class="tuition-total-note">Pendaftaran + prakuliah + satu semester kuliah + SSP penuh. Bukan total sampai lulus atau tagihan yang harus dibayar sekaligus. Jadwal pembayaran dan cicilan mengikuti PMB resmi.</p>
+    <div class="tuition-scenario" data-tuition-scenario>
+      <p class="tuition-selection" data-result-label>Contoh: {example.program.name} · {example.wave.label}</p>
+      <div data-tuition-result>
+        <div class="tuition-total"><h3>Estimasi komponen biaya awal</h3><strong data-fee="initialTotal">{formatRupiah(example.initialTotal)}</strong></div>
+        <p class="tuition-total-note">Pendaftaran + prakuliah + satu semester kuliah + SSP penuh. Bukan total sampai lulus atau tagihan yang harus dibayar sekaligus.</p>
+        <section class="tuition-composition" aria-labelledby="composition-title">
+          <h3 id="composition-title">Biaya awal ini terdiri dari apa saja?</h3>
+          <div class="tuition-composition-bar" aria-hidden="true">
+            {composition.map(item => <span data-cost-segment={item.key} style={`flex-grow: ${item.fraction}`}></span>)}
+          </div>
+          <dl class="tuition-breakdown">
+            {composition.map((item, index) => <div data-cost-key={item.key}>
+              <dt><span class="tuition-cost-marker" aria-hidden="true">0{index + 1}</span>{item.label}</dt>
+              <dd data-fee={item.key}>{formatRupiah(item.amount)}</dd>
+            </div>)}
+            <div class="tuition-subtotal"><dt>Subtotal tanpa SSP</dt><dd data-fee="semesterOneSubtotal">{formatRupiah(example.semesterOneSubtotal)}</dd></div>
+          </dl>
+        </section>
+        <p class="tuition-surcharge" data-surcharge-note>Biaya kuliah menggunakan tarif dasar, tanpa tambahan program.</p>
+        <p class="tuition-total-note">Jadwal pembayaran dan cicilan mengikuti PMB resmi.</p>
+      </div>
+      <p class="tuition-empty" data-tuition-empty hidden>Pilih gelombang untuk melihat estimasi. Tidak ada gelombang aktif saat ini; tarif tetap dapat dibandingkan sebagai referensi periode ini.</p>
     </div>
-    <p class="tuition-empty" data-tuition-empty hidden>Pilih gelombang untuk melihat estimasi. Tidak ada gelombang aktif saat ini; tarif tetap dapat dibandingkan sebagai referensi periode ini.</p>
-    <a class="text-link" href="#beasiswa">Kenali pilihan beasiswa <span aria-hidden="true">↓</span></a>
+    <p class="tuition-loading" role="status">Menyiapkan pilihan biaya…</p>
   </div>
   <p class="tuition-sr-only" role="status" aria-live="polite" aria-atomic="true" data-tuition-announcement></p>
 </section>
-<details class="tuition-comparison">
-  <summary>Bandingkan SSP antar gelombang</summary>
-  <p>Nilai SSP berlaku untuk seluruh pilihan S1 pada simulasi ini. Selisih hanya membandingkan SSP dengan gelombang pilihanmu, bukan diskon atau informasi ketersediaan kursi.</p>
-  <table>
-    <caption>SSP · {september2026.label}</caption>
-    <thead><tr><th scope="col">Gelombang</th><th scope="col">SSP</th><th scope="col" data-comparison-heading hidden>Selisih</th></tr></thead>
-    <tbody>{september2026.waves.map(wave => <tr data-compare-wave={wave.id}>
-      <th scope="row">{wave.label}<span data-wave-selected hidden> · Pilihanmu</span></th>
-      <td>{formatRupiah(tuition.sspByWave[wave.id])}</td><td data-wave-difference hidden></td>
-    </tr>)}</tbody>
-  </table>
-</details>
+<section class="tuition-comparison" aria-labelledby="comparison-title">
+  <div class="tuition-comparison-intro">
+    <div><p class="meta-label">03 / Bandingkan gelombangnya</p><h2 id="comparison-title">Bandingkan SSP,<br />pahami selisihnya.</h2></div>
+    <p>SSP mengikuti gelombang. Biaya kuliah per semester mengikuti programmu. Acuan: {september2026.label}.</p>
+  </div>
+  <p class="tuition-comparison-reference" data-comparison-reference>Pilih gelombang pada simulator untuk melihat selisih SSP.</p>
+  <ol class="tuition-wave-chart" aria-label="Perbandingan SSP dalam urutan gelombang">
+    {comparison.map(item => <li data-compare-wave={item.wave.id} data-relation="unselected">
+      <span class="tuition-wave-state" data-wave-state>Gelombang</span>
+      <strong class="tuition-wave-amount" data-wave-amount>{formatRupiah(item.amount)}</strong>
+      <div class="tuition-wave-track" aria-hidden="true"><span class="tuition-wave-bar" style={`--ssp-ratio: ${item.fraction}`} data-wave-bar></span></div>
+      <h3 class="tuition-wave-label"><span class="tuition-sr-only">Gelombang </span>{item.wave.label.replace('Gelombang ', '')}</h3>
+      <span class="tuition-wave-difference" data-wave-difference hidden></span>
+    </li>)}
+  </ol>
+  <p class="tuition-comparison-note">“Sebelum” dan “Sesudah” menunjukkan urutan relatif terhadap pilihan simulasi, bukan status pendaftaran hari ini. Selisih membandingkan SSP, bukan diskon atau ketersediaan kursi.</p>
+  <div class="tuition-handoff"><p>Sudah punya gambaran biayanya?</p><div><a class="text-link" href="/pmb">Pahami langkah pendaftaran <span aria-hidden="true">→</span></a><a href="#beasiswa">Kenali pilihan beasiswa <span aria-hidden="true">↓</span></a></div></div>
+</section>
 <script>
   import '../scripts/tuition-calculator';
 </script>
