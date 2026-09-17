@@ -38,6 +38,9 @@ Task 10 completes `/kampus` as the trust-building campus route. It distinguishes
 Margonda A and B without assigning unverified building functions, presents all
 eight verified Margonda A facilities with local copies of the official imagery,
 and reserves a clear replacement slot for the pending final Margonda B photo.
+Institutional proof presents UBSI's Kampus Digital Kreatif positioning and Unggul
+accreditation reference, while the Margonda overview, faculty groupings and class
+options derive from the existing shared program data.
 Map links now sit within the corresponding Margonda A/B profiles, while a compact
 PMB contact action follows the primary Program Studi handoff. Student Life is
 deferred until suitable student-activity or event evidence and imagery are
