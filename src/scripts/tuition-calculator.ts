@@ -42,6 +42,9 @@ if (root) {
       root.querySelector<HTMLElement>('[data-surcharge-note]')!.textContent = result.surcharge
         ? `Kuliah: tarif dasar ${formatRupiah(result.baseSemester)} + tambahan program ${formatRupiah(result.surcharge)} per semester.`
         : 'Biaya kuliah menggunakan tarif dasar, tanpa tambahan program.';
+      root.querySelector<HTMLElement>('[data-surcharge-note-mobile]')!.textContent = result.surcharge
+        ? `Kuliah: tarif dasar ${formatRupiah(result.baseSemester)} + tambahan program ${formatRupiah(result.surcharge)} per semester.`
+        : 'Biaya kuliah menggunakan tarif dasar, tanpa tambahan program.';
       for (const part of getCostComposition(result)) {
         root.querySelector<HTMLElement>(`[data-cost-segment="${part.key}"]`)!.style.flexGrow = String(part.fraction);
       }
