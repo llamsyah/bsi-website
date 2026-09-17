@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AdmissionsStatus from '../components/AdmissionsStatus.astro';
-import HeroSphere from '../components/home/HeroSphere.astro';
 import { campus } from '../data/campus';
 import { institution } from '../data/institution';
 import { registration, september2026 as period, admissionsJourney } from '../data/admissions';
@@ -13,7 +12,6 @@ import '../styles/home.css';
 ---
 <BaseLayout title="Beranda" description="Kenali UBSI Kampus Margonda: pilihan program S1, jadwal PMB September 2026, kampus, dan panduan menuju pendaftaran resmi.">
   <section class="home-hero" aria-labelledby="page-title">
-    <div class="hero-grid" aria-hidden="true"></div>
     <div class="container hero-inner">
       <div class="hero-copy">
         <p class="eyebrow"><span class="accent-dot" aria-hidden="true"></span>{campus.name}</p>
@@ -21,16 +19,20 @@ import '../styles/home.css';
         <p class="hero-subhead">Kenali pilihan studimu di {institution.branding}. Temukan program yang sesuai, pahami rencana biaya, dan siapkan langkah menuju perkuliahan.</p>
         <div class="actions hero-actions">
           <a class="button button-primary" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
-          <a class="button button-on-dark" href="/program-studi">Lihat Program Studi<span aria-hidden="true">→</span></a>
+          <a class="button button-secondary" href="/program-studi">Lihat Program Studi<span aria-hidden="true">→</span></a>
         </div>
         <a class="hero-explore" href="#pilihan-studi"><span aria-hidden="true">↓</span> Kenali pilihanmu di Margonda</a>
       </div>
-      <div class="sphere-wrap" aria-hidden="true">
-        <HeroSphere />
-        <span class="sphere-badge badge-top"><span class="badge-symbol">✦</span>{institution.branding}</span>
-        <span class="sphere-badge badge-middle"><span class="badge-symbol">◎</span>Margonda · Depok</span>
-        <span class="sphere-badge badge-bottom"><span class="badge-symbol">+</span>{margondaPrograms.programs.length} Program {margondaPrograms.degree}</span>
-      </div>
+      <figure class="hero-campus">
+        <div class="hero-campus-image">
+          <img src={margondaAPreview.image.src} alt={margondaAPreview.image.alt} width={margondaAPreview.image.width} height={margondaAPreview.image.height} loading="eager" decoding="async" fetchpriority="high" />
+          <span class="hero-photo-label">Foto resmi UBSI</span>
+        </div>
+        <figcaption>
+          <span class="meta-label">Kampus Margonda A</span>
+          <strong>{campus.buildings[0].address}</strong>
+        </figcaption>
+      </figure>
     </div>
   </section>
 

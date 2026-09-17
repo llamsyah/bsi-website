@@ -1,6 +1,6 @@
 # Current State — Website PMB Universitas BSI Margonda
 
-## Implementation update — Tasks 03–07
+## Implementation update — Tasks 03–08
 
 The original audit below describes the preserved root `index.html` prototype.
 The production application now lives in Astro `src/`, with five real routes.
@@ -20,6 +20,13 @@ conversation through a small replaceable service interface. It is not generative
 AI or an official advisor and has no connection to the separate WhatsApp/n8n bot.
 See README.md for current file boundaries and validation. The legacy prototype
 is still unchanged and remains the migration reference.
+
+Task 08 locks the visual and responsive language of the implemented Home,
+Program Studi and Biaya & Beasiswa routes. Home now opens with an institutional,
+photographic hero using the approved Margonda A image while original Margonda B
+documentation remains unavailable. Shared navigation is more editorial, Tanya BSI
+moves into the mobile header instead of covering page controls, and mobile page
+density is reduced without changing verified data or feature logic.
 
 ### Task 06.1 checkpoint — 17 September 2026
 

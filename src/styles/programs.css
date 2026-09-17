@@ -100,6 +100,13 @@
   .program-journey p:not(.program-step-label) { max-width: 45ch; }
 }
 @media (max-width: 36rem) {
+  .programs-intro { padding-block: 2.75rem; }
+  .programs-intro h1 { font-size: 2.15rem; }
+  .programs-intro .lead { margin-top: 1rem; font-size: .95rem; }
+  .programs-section { padding-block: 2.75rem; }
+  .programs-heading { margin-bottom: 1.5rem; }
+  .programs-heading h2 { font-size: 1.75rem; }
+  .programs-heading > p:last-child { font-size: .9rem; }
   .program-controls { grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem .5rem; }
   .program-reset { grid-column: 1; }
   .program-list-intro { display: block; margin-block: 1.25rem .75rem; }
@@ -111,10 +118,14 @@
   .program-times { grid-column: 2; font-size: .7rem; gap: .25rem .6rem; padding-right: 1.25rem; }
   .program-toggle { position: absolute; right: .35rem; bottom: .4rem; min-height: 32px; }
   .program-toggle-closed, .program-row details[open] .program-toggle-open { display: none; }
-  .program-detail { padding: .5rem 1rem 1.5rem; gap: 1.25rem; }
-  .program-description { font-size: .875rem; }
+  .program-detail { padding: .35rem .85rem 1.25rem 2.1rem; gap: 1rem; }
+  .program-description { font-size: .84rem; line-height: 1.65; }
   .program-facts { margin-top: 1rem; }
+  .program-cost-action { padding-top: 1rem; }
   .program-cost-prompt { font-size: 1rem; }
+  .program-cost-link { min-height: 44px; }
+  .program-schedule-note { margin-top: 1.75rem; }
+  .program-next-section { padding-block: 3rem; }
   .program-next-heading h2 br { display: none; }
   .program-journey > li, .program-journey > li:last-child, .program-journey > .program-journey-next { padding: 1.25rem .85rem; gap: .85rem; }
 }

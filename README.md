@@ -22,6 +22,35 @@ Astro source lives in `src/`; production output lives in `dist/`. Only `dist/` i
 the future deployment artifact. Do not deploy the repository root. No deployment
 has been configured or performed in this milestone.
 
+## Task 08 — Existing pages visual and responsive lock
+
+The implemented Home, Program Studi and Biaya & Beasiswa routes now share a
+cleaner institutional and editorial visual language. Home's abstract sphere,
+constellation grid and floating technology badges were removed. Its hero uses the
+existing official Margonda A photograph as a clearly labelled temporary campus
+anchor because no final Margonda B asset is available locally. The layout provides
+a direct image replacement point when original Margonda B documentation arrives.
+
+Navigation uses a restrained active state instead of an enclosing SaaS-style pill.
+Home teaser pairs use grouped color blocks rather than repeated gradient cards.
+Program Studi keeps its compact 11-row explorer while reducing mobile spacing in
+the intro, controls and expanded detail. The calculator itself remains locked;
+only the surrounding explanatory and scholarship sections were compacted. On
+mobile, repeated component explanations use native progressive disclosure.
+
+Tanya BSI retains its Task 07 resolver and dialog. At navigation breakpoints its
+trigger occupies a dedicated header position, so it no longer covers Program
+Studi filters, expanded-row actions, Home content or registration CTAs. The
+calculator continues to dock the full trigger in its existing help area. The
+mobile footer uses a two-column navigation list to reduce unnecessary scrolling.
+
+Responsive validation covers 1920, 1366, 768, 390 and 320px. All three routes had
+no horizontal overflow; the hero crop, CTA wrapping, 11-row explorer, filters,
+empty state, program-to-calculator query handoff, seven-wave calculator, mobile
+disclosures, navigation Escape behavior, assistant dialog/focus return and footer
+were checked. The approved Margonda A source remains 263×293px, so the hero should
+receive the final original Margonda B asset when it becomes available.
+
 ## Task 06.1 — Calculator visual decision support
 
 The calculator retains the Task 06 engine and factual datasets. Its presentation

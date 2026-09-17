@@ -31,8 +31,12 @@
 .assistant-input-row button:hover { background: var(--color-blue-dark); }
 .assistant-form #assistant-input-note, .assistant-feedback { font-size: .7rem; color: var(--color-muted); line-height: 1.5; margin: .5rem 0 0; }
 .assistant-feedback:empty { display: none; }
+@media (max-width: 74rem) {
+  .assistant-trigger { z-index: 55; top: .85rem; right: 8.75rem; bottom: auto; width: 44px; min-height: 44px; padding: 0; justify-content: center; box-shadow: none; }
+  .assistant-trigger-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
 @media (max-width: 36rem) {
-  .assistant-trigger { right: .75rem; bottom: max(.75rem, env(safe-area-inset-bottom)); }
+  .assistant-trigger { right: 7.375rem; }
   .assistant-dialog { inset: calc(var(--assistant-visible-top, 0px) + .5rem) .5rem auto; width: calc(100% - 1rem); max-width: none; height: calc(var(--assistant-visible-height, 100dvh) - 1rem); border-radius: var(--radius-md); }
   .assistant-header, .assistant-scroll, .assistant-form { padding: 1rem; }
   .assistant-form { padding-bottom: max(.75rem, env(safe-area-inset-bottom)); }

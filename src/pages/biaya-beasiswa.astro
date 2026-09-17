@@ -20,12 +20,21 @@ import '../styles/tuition.css';
     <div class="container">
       <p class="meta-label">Pahami rinciannya</p>
       <h2 id="components-title">Apa saja yang dihitung?</h2>
-      <dl class="tuition-definitions">
+      <dl class="tuition-definitions tuition-definitions-desktop">
         <div><dt>Pendaftaran</dt><dd>{formatRupiah(tuition.registration)} untuk proses pendaftaran PMB.</dd></div>
         <div><dt>Prakuliah</dt><dd>Komponen biaya prakuliah S1 sebesar {formatRupiah(tuition.preCollege)}.</dd></div>
         <div><dt>Kuliah per semester</dt><dd>Tarif dasar {formatRupiah(tuition.baseSemester)}; tambahan {formatRupiah(tuition.semesterSurcharge)} hanya untuk enam program yang ditetapkan.</dd></div>
         <div><dt>SSP</dt><dd>Sumbangan Sarana Pendidikan. Nilai penuh mengikuti gelombang pendaftaran, terpisah dari biaya kuliah per semester.</dd></div>
       </dl>
+      <details class="tuition-definitions-mobile">
+        <summary>Penjelasan empat komponen biaya</summary>
+        <dl class="tuition-definitions">
+          <div><dt>Pendaftaran</dt><dd>{formatRupiah(tuition.registration)} untuk proses pendaftaran PMB.</dd></div>
+          <div><dt>Prakuliah</dt><dd>Komponen biaya prakuliah S1 sebesar {formatRupiah(tuition.preCollege)}.</dd></div>
+          <div><dt>Kuliah per semester</dt><dd>Tarif dasar {formatRupiah(tuition.baseSemester)}; tambahan {formatRupiah(tuition.semesterSurcharge)} hanya untuk enam program yang ditetapkan.</dd></div>
+          <div><dt>SSP</dt><dd>Sumbangan Sarana Pendidikan. Nilai penuh mengikuti gelombang pendaftaran, terpisah dari biaya kuliah per semester.</dd></div>
+        </dl>
+      </details>
       <details class="tuition-rates">
         <summary>Lihat tarif kuliah seluruh program</summary>
         <dl>{margondaPrograms.programs.map(program => <div><dt>{program.name}</dt><dd>{formatRupiah(calculateTuition({ programId: program.id, waveId: september2026.waves[0].id })!.semesterTuition)} / semester</dd></div>)}</dl>
