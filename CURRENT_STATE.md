@@ -1,6 +1,6 @@
 # Current State — Website PMB Universitas BSI Margonda
 
-## Implementation update — Tasks 03–06
+## Implementation update — Tasks 03–07
 
 The original audit below describes the preserved root `index.html` prototype.
 The production application now lives in Astro `src/`, with five real routes.
@@ -13,6 +13,11 @@ name search and faculty filtering. Task 06 migrates `/biaya-beasiswa` with share
 program selection, seven-wave SSP comparison, a pure tuition engine, and a limited
 verified scholarship preview. Campus interactions, scholarship application tools
 and the full PMB guide remain deferred.
+Task 07 adds the optional cross-site Tanya BSI dialog: an explicitly experimental
+local resolver over the same program, admissions, tuition, scholarship and campus
+data. It supports contextual navigation, safe text rendering and page-local
+conversation through a small replaceable service interface. It is not generative
+AI or an official advisor and has no connection to the separate WhatsApp/n8n bot.
 See README.md for current file boundaries and validation. The legacy prototype
 is still unchanged and remains the migration reference.
 

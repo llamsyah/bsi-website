@@ -782,6 +782,16 @@ mengarah ke official PMB destination.
 
 # 35. AI Assistant Integration
 
+Task 07 implementation checkpoint: `components/assistant/Assistant.astro`
+dipasang sebagai utility opsional melalui `BaseLayout.astro`, tanpa primary nav
+baru. `scripts/assistant.ts` mengelola native dialog dan conversation lokal.
+Boundary: UI → `assistant/service.ts` (`AssistantService`) → local resolver →
+shared datasets dan pure helpers yang sudah dipakai website. Respons berupa
+text/actions/sourceContext/status; renderer memakai DOM nodes dan `textContent`.
+Service menjadi titik penggantian untuk backend yang kelak disetujui terpisah.
+Saat ini tidak ada generative API, persistent memory, atau integrasi WhatsApp,
+n8n, Evolution API, Redis maupun Postgres. Lihat README untuk batas PoC dan tes.
+
 AI Assistant tidak menjadi bagian core architecture.
 
 Jika dipertahankan:

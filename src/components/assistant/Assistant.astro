@@ -1,0 +1,36 @@
+---
+import '../../styles/assistant.css';
+---
+<button class="assistant-trigger" type="button" aria-haspopup="dialog" aria-controls="assistant-dialog" data-assistant-trigger hidden>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8H5l-3 2v-10a9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="1.7"/><path d="M7 10h8M7 14h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+  Tanya BSI
+</button>
+<dialog class="assistant-dialog" id="assistant-dialog" aria-labelledby="assistant-title" aria-describedby="assistant-disclosure">
+  <header class="assistant-header">
+    <div><p class="assistant-label">AI Assistant · Eksperimen</p><h2 id="assistant-title">Tanya BSI</h2></div>
+    <button class="assistant-close" type="button" aria-label="Tutup Tanya BSI" autofocus data-assistant-close><span aria-hidden="true">×</span></button>
+  </header>
+  <div class="assistant-scroll" data-assistant-scroll>
+    <p class="assistant-disclosure" id="assistant-disclosure">Asisten dengan jawaban terbatas dari informasi website. Belum terhubung ke AI generatif atau petugas PMB.</p>
+    <div class="assistant-welcome">
+      <p class="assistant-greeting">Halo! Mau mulai dari mana?</p>
+      <p>Tanyakan satu topik tentang program, biaya, PMB, atau kampus. Setiap pertanyaan dijawab sendiri, tanpa mengingat konteks sebelumnya.</p>
+    </div>
+    <div class="assistant-suggestions" aria-label="Contoh pertanyaan" data-assistant-suggestions>
+      <button type="button">Program apa saja di Margonda?</button>
+      <button type="button">Biaya kuliah Informatika berapa?</button>
+      <button type="button">Pendaftaran masih dibuka?</button>
+      <button type="button">Alamat Margonda A</button>
+    </div>
+    <div class="assistant-messages" role="log" aria-label="Percakapan Tanya BSI" aria-live="polite" aria-relevant="additions" data-assistant-messages></div>
+  </div>
+  <form class="assistant-form" data-assistant-form>
+    <label for="assistant-question">Pertanyaanmu</label>
+    <div class="assistant-input-row"><input id="assistant-question" name="question" type="text" maxlength="500" autocomplete="off" placeholder="Tanya tentang UBSI Margonda" required aria-describedby="assistant-input-note" /><button type="submit">Kirim <span aria-hidden="true">↑</span></button></div>
+    <p id="assistant-input-note">Maks. 500 karakter. Jangan kirim data pribadi. Percakapan hilang saat halaman dimuat ulang.</p>
+    <p class="assistant-feedback" role="status" data-assistant-feedback></p>
+  </form>
+</dialog>
+<script>
+  import '../../scripts/assistant';
+</script>

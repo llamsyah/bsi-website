@@ -1,7 +1,8 @@
 # Website PMB UBSI Margonda
 
 Astro static-first website with the migrated Home, Program Studi explorer,
-Financial Cost Simulator and reusable admissions status. Several detail routes remain unfinished.
+Financial Cost Simulator, reusable admissions status and experimental Tanya BSI
+assistant. Several detail routes remain unfinished.
 Follow AGENTS.md and the project documents before feature migration.
 
 ## Run locally
@@ -41,6 +42,8 @@ SHA-256 at the start of Milestone 1:
 - `src/utils/`: pure admissions status calculation and calendar-date helpers.
 - `src/config/navigation.ts`: shared internal navigation.
 - `src/data/`: minimal shared facts, official PMB entry and verification metadata.
+- `src/assistant/`: structured response contract, local service/resolver and safe
+  message renderer; the optional panel lives in `src/components/assistant/`.
 
 Mobile navigation progressively enhances visible links: with JavaScript disabled,
 links remain available. With JavaScript enabled, the button supports Enter/Space,
@@ -53,10 +56,125 @@ Fonts preserve the prototype's Google Fonts loading and system fallbacks.
 ## Not migrated
 
 Complete PMB guide, scholarship eligibility/application tools,
-campus gallery/maps, news, Student Life, AI and complex canvas animation.
+campus gallery/maps, news, Student Life, generative AI/backend and complex canvas animation.
 Do not treat the development routes as feature completion.
 
 See `src/data/README.md` for domain boundaries and deferred datasets.
+
+## Task 07 — Tanya BSI experimental website assistant
+
+Task 06 commit `3c93779` was verified in approved `origin/main` (`4eabc47`)
+before creating `codex/task-07-ai-assistant`. This checkpoint adds an optional
+floating utility to all five routes, without changing primary navigation or the
+approved Home, Program Studi and calculator designs.
+
+### Legacy audit and migration decisions
+
+The original `#page-ai` is a fake SPA destination reached from the navbar, Home,
+footer and floating guide. Its white chat shell, friendly greeting, suggested
+questions, Enter/send interaction and page-local conversation informed this PoC.
+The old two-column shell becomes one narrow native dialog, near-full-screen on
+mobile, with explicit close/Escape and focus restoration.
+
+Intentionally not migrated:
+
+- `addMsg` assigns raw user text to `innerHTML`; the new renderer only creates
+  DOM nodes and assigns `textContent` for messages, labels and source context.
+- `getAIResponse` always returns the same disconnected-demo response. Fake
+  random typing delays, thinking orb state and continuous canvas animation do
+  not represent an actual service and have been removed from the migrated UI.
+- Real-time/online/24-hour AI and broad career/accreditation capability claims,
+  guide recommendations and unsupported scholarship counts are not retained.
+- Nonfunctional history/upload/voice controls, automatic guide popups and the
+  clickable-div entry point are replaced by a labelled secondary button.
+
+The preserved prototype itself has not been edited.
+
+### Capability and shared sources
+
+The panel says **AI Assistant · Eksperimen** and explains that it uses limited
+website information, with no generative AI or live PMB officer connection.
+It answers one supported topic at a time:
+
+- Programs, faculty membership and class availability: `src/data/programs.ts`.
+- Current/upcoming/closed PMB status, seven wave schedules, class start and
+  registration steps: `admissions.ts`, `getAdmissionsStatus` and calendar helpers.
+  Each question gets the visitor device's current date converted to WIB; status
+  is schedule-based, never a live capacity or eligibility determination.
+- Semester tuition, program surcharge and SSP: `tuition.ts` and the existing
+  `calculateTuition`, with the same initial-cost meaning as Task 06. Outside an
+  active wave, an unqualified cost query gives semester tuition and asks users
+  to choose a reference wave in the simulator; it never invents an active wave.
+- General scholarship descriptions: `scholarships.ts`; no eligibility, award
+  amount or automatic deduction from the calculator.
+- Campus A/B addresses: `campus.ts`; the limited A facility preview:
+  `facilities.ts`. No facility inventory is invented for Margonda B.
+- Official registration destination: the existing shared `registration.url`.
+
+Responses attach relevant routes, including `/biaya-beasiswa?program=<slug>`.
+They do not duplicate fee formulas, program lists or temporal datasets.
+
+### Architecture, safety and limitations
+
+`Assistant.astro` + `assistant.ts` → `AssistantService` / `askAssistant` →
+`resolveAssistant` → shared data and pure domain helpers.
+
+`types.ts` defines `{ text, actions, sourceContext?, status }`, with explicit
+answered/clarify/unsupported outcomes. The small async service in `service.ts`
+is the future replacement point for a separately authorized backend. A future
+API would need response validation, server-side secrets and error/timeout rules;
+there is no API, fetch request, credential or new package in this implementation.
+
+The resolver uses normalized words/phrases, not natural-language reasoning.
+Unknown topics and unsupported claims fall back safely; ambiguous costs/classes
+ask for a program. Paraphrases and multi-topic requests may not be understood.
+There is no conversational entity memory: each question must name its subject.
+Each input is limited to 500 characters. Answers cannot establish eligibility,
+personal recommendations, installment plans, future intakes or live availability.
+
+Messages are literal text; actions are limited to known site routes or the exact
+official PMB URL. Conversation exists only in the current page DOM, survives
+close/reopen, and resets on refresh or route navigation. No account, persistent
+chat history, tracking profile or personal-data collection is added.
+
+The labelled native modal moves focus to close, provides visible focus styles,
+Escape and return to the trigger, and makes underlying page controls inert.
+Messages use a polite live log. The entry stays hidden until its JavaScript and
+native dialog support are ready; all core content and links remain independent.
+There are no assistant animations. Mobile sizing follows the visual viewport so
+the composer can fit above an on-screen keyboard.
+
+**WhatsApp separation:** this website PoC is not connected to the separate
+WhatsApp/n8n chatbot. No Evolution API, Redis, Postgres, WhatsApp messaging or
+external LLM integration was added. Existing footer contact links are unchanged.
+
+### Validation — 2026-09-17
+
+- `npm test`: 93 passing tests (36 assistant, 57 existing). Assistant tests cover
+  all programs and fee mappings, all SSP waves, class rules, admissions boundary
+  states, addresses, facility scope, scholarships, ambiguity/fallback, the async
+  service contract, URL restrictions and the actual safe message renderer.
+- Astro check: 39 files, zero errors, warnings or hints. Production build:
+  all five routes successful; no dependencies added.
+- Production browser review: 1920×1080 and 1366×768 on Biaya & Beasiswa,
+  768×1024 on Program Studi, 320×700 on Home, PMB and Kampus. Entry/opening was
+  exercised on all five pages. No horizontal page or dialog overflow observed.
+- Suggested prompts, Enter/send, empty-input rejection, repeated questions,
+  scrolling older messages, close/reopen history, Escape and focus restoration
+  passed. Native modal keyboard navigation excludes background page controls;
+  browser chrome can still receive focus at the tab boundary.
+- Informatika fee answer matched the rendered calculator; its action selected
+  Informatika correctly. PMB dates, evening-class rules, campus navigation,
+  scholarship links and same-page anchor closure were verified.
+- HTML/script-like input produced literal text and zero injected image/script
+  nodes. A 500-character unbroken input wrapped without overflow. No browser
+  warning/error logs were observed.
+- At 320×400 with focused input, the composer remained visible and messages
+  scrolled. This is reduced-height browser testing, not a physical mobile
+  keyboard or screen-reader certification. JavaScript-disabled behavior was
+  inspected in static markup/styles, not simulated in the browser.
+- Legacy SHA-256 still matches the baseline above. Shared datasets, existing
+  domain engines, page files, navbar and footer were left unchanged.
 
 ## Task 06 — Financial Cost Simulator
 
