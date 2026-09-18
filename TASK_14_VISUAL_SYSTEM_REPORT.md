@@ -122,3 +122,23 @@ rights-cleared campus activity photography while preserving the Task 13 structur
 
 Commit and push the existing Task 14 branch after validation; do not merge to main.
 The final delivery response records the resulting SHA and verified remote status.
+
+## 10. Centered composition refinement
+
+A focused follow-up strengthens the centered framing for four sections without
+changing their detailed content layout:
+
+- The S1 Program Studi intro remains centered at every viewport, while the
+  explorer eyebrow, heading and supporting copy now form a centered editorial
+  frame above the unchanged search controls and continuous program rows.
+- The Campus `Dua lokasi Margonda`, `Pilihan waktu kuliah`, and `Fasilitas`
+  introductions use the same bounded centered frame and a restrained red divider.
+  Campus cards, class availability rows, gallery grid, map links and labels retain
+  their existing alignment and behavior.
+
+The follow-up was checked at 1920, 1366, 768, 390 and 320px. Every framed header
+remains centered, no horizontal overflow was found, and browser console output was
+clean. Explorer search returned one result for `Informatika`; keyboard Enter opened
+its native disclosure with visible focus. The two map links, two class options and
+all eight Margonda A facilities remain present. The complete 115-test suite, Astro
+check (zero diagnostics), and five-route production build pass.

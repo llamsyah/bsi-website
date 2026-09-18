@@ -27,6 +27,21 @@
 .campus-section-heading { max-width: 49rem; margin-bottom: 2.5rem; }
 .campus-section-heading h2, .campus-next h2 { max-width: 18ch; font-size: clamp(2.1rem, 3.8vw, 3.4rem); }
 .campus-section-heading > div > p:not(.meta-label) { max-width: 43rem; margin: 0; color: var(--color-muted); }
+.campus-section-heading--centered {
+  max-width: 52rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.campus-section-heading--centered h2,
+.campus-section-heading--centered > div > p:not(.meta-label) { margin-inline: auto; }
+.campus-section-heading--centered::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin: 1.5rem auto 0;
+  background: var(--color-red);
+}
 .campus-buildings { background: var(--color-surface); }
 .campus-building-pair { display: grid; grid-template-columns: 1.25fr .75fr; gap: 1.5rem; }
 .campus-building { overflow: hidden; border: 1px solid #d9dfeb; border-radius: var(--radius-xl); background: white; }

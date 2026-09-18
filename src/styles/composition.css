@@ -26,6 +26,7 @@
 .academic-route .programs-intro h1, .academic-route .tuition-intro h1, .academic-route .graduate-intro h1 { max-width: 25ch; font-size: clamp(2rem, 3.6vw, 3.25rem); }
 .academic-route .programs-intro .container { max-width: 58rem; text-align: center; }
 .academic-route .programs-intro h1, .academic-route .programs-intro .lead { margin-inline: auto; }
+.academic-route [data-degree-panel="S1"] .programs-intro .container { text-align: center; }
 .academic-route .graduate-body { max-width: 68rem; }
 .academic-route .graduate-intro { max-width: 68rem; }
 .academic-route .graduate-handoff { padding: 1.5rem; background: var(--color-blue-soft); border-top: 2px solid var(--color-blue); }
@@ -94,6 +95,7 @@
   .home-pmb .home-pmb-next { align-items: stretch; }
   .home-pmb .home-pmb-next .text-link { justify-content: flex-start; }
   .academic-route .programs-intro .container { text-align: left; }
+  .academic-route [data-degree-panel="S1"] .programs-intro .container { text-align: center; }
   .academic-route .programs-intro h1, .academic-route .tuition-intro h1, .academic-route .graduate-intro h1 { font-size: 2rem; }
 }
 
