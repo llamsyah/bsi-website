@@ -25,6 +25,9 @@
 .home-hero h1 { max-width: 50rem; font-size: clamp(2.6rem, 5.1vw, 4.6rem); line-height: 1.04; letter-spacing: -.04em; color: var(--color-blue-dark); }
 .headline-line { display: block; }
 .headline-accent { color: var(--color-red); }
+.hero-identity { margin: 1rem 0 0; color: var(--color-blue); font-size: .88rem; font-weight: 800; }
+.hero-offering { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin: .75rem 0 0; color: var(--color-blue-dark); font-size: .82rem; }
+.hero-offering span { color: var(--color-red); }
 .hero-subhead { max-width: 39rem; margin-top: 1.25rem; color: var(--color-muted); font-size: 1.08rem; line-height: 1.7; }
 .hero-actions { margin-top: 1.75rem; }
 .hero-explore { display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; margin-top: 1.35rem; color: var(--color-blue); font-size: .8rem; font-weight: 700; text-decoration: none; }
@@ -70,6 +73,7 @@
 .program-period { margin: .5rem 0 1.35rem; color: var(--color-muted); font-size: .78rem; }
 .program-sample-labels { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem 1.25rem; margin: 1rem 0 0; padding: 0; list-style: none; }
 .program-sample-labels li { padding-top: .65rem; border-top: 1px solid #cbd4e5; color: var(--color-blue-dark); font-size: .85rem; font-weight: 700; }
+.program-teaser-cta { margin-top: 1.25rem; }
 
 .home-graduate-strip { display: grid; grid-template-columns: minmax(14rem, 1.25fr) minmax(15rem, 1fr) auto auto; align-items: center; gap: 1rem clamp(1.25rem, 3vw, 2.5rem); margin-top: 1rem; padding: 1.05rem 1.3rem; border: 1px solid #d9dfef; border-left: 4px solid var(--color-blue); border-radius: var(--radius-lg); background: white; }
 .home-graduate-copy .meta-label { color: var(--color-red-dark); }
@@ -166,16 +170,21 @@
 }
 
 @media (max-width: 36rem) {
-  .home-hero { padding-block: 2.5rem 1.75rem; }
-  .home-hero h1 { font-size: clamp(2rem, 8.6vw, 3rem); }
-  .hero-subhead { font-size: .96rem; }
-  .hero-explore { margin-top: .85rem; }
+  .home-hero { padding-block: 1.65rem 1.25rem; }
+  .hero-inner { gap: 1.35rem; }
+  .home-hero h1 { max-width: 12ch; margin-bottom: 0; font-size: clamp(2rem, 9.5vw, 2.75rem); }
+  .hero-identity { margin-top: .7rem; font-size: .78rem; line-height: 1.45; }
+  .hero-offering { margin-top: .55rem; font-size: .76rem; }
+  .hero-subhead { margin-top: .75rem; font-size: .9rem; line-height: 1.55; }
+  .hero-actions { margin-top: 1rem; gap: .65rem 1rem; }
+  .hero-actions .button { min-height: 44px; padding: .65rem .9rem; }
+  .hero-actions .text-link { font-size: .8rem; }
   .hero-campus { padding: .6rem; border-radius: var(--radius-lg); }
-  .hero-campus-image { min-height: 0; aspect-ratio: 16 / 9; border-radius: calc(var(--radius-lg) - .35rem); }
+  .hero-campus-image { min-height: 0; aspect-ratio: 2 / 1; border-radius: calc(var(--radius-lg) - .35rem); }
   .hero-campus img { min-height: 0; object-position: center 18%; }
   .hero-photo-label { left: .6rem; bottom: .6rem; font-size: .56rem; }
-  .hero-campus figcaption { display: block; padding: .7rem .1rem .05rem; }
-  .hero-campus figcaption strong { display: block; padding: .35rem 0 0; border: 0; font-size: .7rem; }
+  .hero-campus figcaption { display: flex; justify-content: space-between; gap: .5rem; padding: .55rem .1rem 0; }
+  .hero-campus figcaption strong { padding: 0; border: 0; font-size: .65rem; }
   .trust-strip { padding-block: 1.5rem; }
   .trust-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
   .trust-grid > div:first-child { grid-column: 1 / -1; }
@@ -191,9 +200,9 @@
   .program-intro h2 { font-size: clamp(1.9rem, 9vw, 2.5rem); }
   .program-teaser { padding: 1.25rem; }
   .program-total strong { font-size: 4.5rem; }
-  .program-teaser-anchor .button { width: 100%; }
   .program-sample-labels { grid-template-columns: 1fr; gap: .35rem; }
   .program-sample-labels li { padding-top: .45rem; font-size: .8rem; }
+  .program-teaser-cta { width: 100%; margin-top: .9rem; }
   .home-graduate-strip { grid-template-columns: 1fr; gap: .7rem; padding: .95rem; }
   .home-graduate-programs, .home-graduate-link { grid-column: auto; }
   .home-graduate-programs { display: grid; gap: .2rem; font-size: .8rem; }

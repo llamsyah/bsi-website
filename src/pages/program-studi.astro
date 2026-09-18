@@ -6,7 +6,10 @@ import ProgramRow from '../components/programs/ProgramRow.astro';
 import { faculties, margondaPrograms } from '../data/programs';
 import { campus } from '../data/campus';
 import { registration } from '../data/admissions';
+import { groupProgramsByFaculty } from '../utils/programSearch';
 import '../styles/programs.css';
+
+const facultyGroups = groupProgramsByFaculty(margondaPrograms.programs, Object.keys(faculties));
 ---
 <BaseLayout title="Program Studi" description="Jelajahi program Sarjana dan Pascasarjana UBSI Margonda untuk September 2026. Kenali program, kelas, biaya, dan panduan pendaftaran.">
   <div class="academic-route">
@@ -27,32 +30,20 @@ import '../styles/programs.css';
         <h2 id="explorer-title">Mulai dari bidang yang kamu minati.</h2>
         <p>Semua program di bawah tersedia untuk {margondaPrograms.periodLabel}. Buka nama program untuk mengenali bidangnya dan melihat langkah berikutnya.</p>
       </div>
-      <form class="program-controls" aria-label="Pencarian dan filter program studi" hidden>
-        <div class="program-field">
-          <label for="program-search">Cari program studi</label>
-          <input id="program-search" type="search" placeholder="Contoh: Informatika" autocomplete="off" aria-controls="program-list" />
-        </div>
-        <div class="program-field">
-          <label for="faculty-filter">Fakultas</label>
-          <select id="faculty-filter" aria-controls="program-list">
-            <option value="all">Semua fakultas</option>
-            {Object.entries(faculties).map(([id, name]) => <option value={id}>{name}</option>)}
-          </select>
-        </div>
-        <button class="program-reset" type="reset">Reset pencarian <span aria-hidden="true">↺</span></button>
-      </form>
-      <noscript><p>Semua program ditampilkan di bawah. Aktifkan JavaScript untuk menggunakan pencarian dan filter fakultas.</p></noscript>
       <div class="program-list-intro">
-        <p class="program-results" role="status" aria-live="polite" aria-atomic="true" data-program-count>Menampilkan {margondaPrograms.programs.length} dari {margondaPrograms.programs.length} program.</p>
-        <p class="program-list-hint">Kenali bidangnya, lalu rencanakan biayanya.</p>
+        <p class="program-results">{Object.keys(faculties).length} fakultas · {margondaPrograms.programs.length} program S1</p>
+        <p class="program-list-hint">Buka fakultas, lalu buka program yang ingin dikenali.</p>
       </div>
-      <div class="program-list" id="program-list">
-        {margondaPrograms.programs.map((program, index) => <ProgramRow program={program} index={index} />)}
-      </div>
-      <div class="program-empty" data-program-empty hidden>
-        <h3>Program studi tidak ditemukan.</h3>
-        <p>Coba nama program lain atau tampilkan kembali semua fakultas.</p>
-        <button class="button button-secondary" type="button" data-program-reset>Tampilkan semua program</button>
+      <div class="program-faculty-list" id="program-list">
+        {facultyGroups.map(group => <details class="program-faculty-group" data-faculty-group={group.facultyId}>
+          <summary>
+            <span><strong>{faculties[group.facultyId as keyof typeof faculties]}</strong><small>{group.programs.length} program</small></span>
+            <span class="program-faculty-toggle" aria-hidden="true">Buka <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <div class="program-list">
+            {group.programs.map(program => <ProgramRow program={program} index={margondaPrograms.programs.findIndex(item => item.id === program.id)} />)}
+          </div>
+        </details>)}
       </div>
       <aside class="program-schedule-note" aria-labelledby="schedule-note-title">
         <h3 id="schedule-note-title">Tentang pilihan waktu kuliah</h3>

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { margondaPrograms, faculties, homeProgramPreviewSample } from '../src/data/programs.ts';
-import { filterPrograms } from '../src/utils/programSearch.ts';
+import { filterPrograms, groupProgramsByFaculty } from '../src/utils/programSearch.ts';
 
 const programs = margondaPrograms.programs;
 const expectedFaculties = {
@@ -17,6 +17,13 @@ test('current Margonda offering contains exactly the eleven verified S1 programs
   assert.deepEqual(ids(programs).sort(), Object.values(expectedFaculties).flat().sort());
   assert.equal(new Set(ids(programs)).size, 11);
   assert.ok(programs.every((program) => program.degree === 'S1' && program.slug === program.id));
+});
+
+test('faculty accordions preserve the documented order and cover each program once', () => {
+  const groups = groupProgramsByFaculty(programs, Object.keys(faculties));
+  assert.deepEqual(groups.map(group => group.facultyId), Object.keys(expectedFaculties));
+  assert.deepEqual(groups.map(group => ids(group.programs)), Object.values(expectedFaculties));
+  assert.equal(groups.flatMap(group => group.programs).length, programs.length);
 });
 
 for (const [faculty, expectedIds] of Object.entries(expectedFaculties)) {

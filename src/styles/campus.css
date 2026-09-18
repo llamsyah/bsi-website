@@ -175,20 +175,25 @@
 @media (max-width: 36rem) {
   .campus-hero { min-height: 0; }
   .campus-hero-media img { object-position: 58% center; }
-  .campus-hero-inner { gap: 1.5rem; padding-block: 2rem; }
-  .campus-hero h1 { font-size: clamp(2rem, 10vw, 2.45rem); }
-  .campus-hero-copy > p:not(.eyebrow) { font-size: .9rem; }
-  .campus-hero-actions { display: grid; grid-template-columns: 1fr; margin-top: 1.5rem; }
-  .campus-hero-profile { padding: 1.15rem; }
-  .campus-accreditation strong { font-size: 1.3rem; }
-  .campus-hero-facts { margin-top: 1rem; padding-top: 1rem; }
-  .campus-hero-facts div { padding-inline: .55rem; }
-  .campus-hero-facts dd { font-size: 1.35rem; }
+  .campus-hero-inner { gap: 1rem; padding-block: 1.5rem; }
+  .campus-hero h1 { margin-bottom: .65rem; font-size: clamp(1.9rem, 9vw, 2.3rem); }
+  .campus-hero-copy > p:not(.eyebrow) { margin-bottom: 0; font-size: .85rem; line-height: 1.5; }
+  .campus-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem 1rem; margin-top: 1rem; }
+  .campus-hero-actions .button { min-height: 42px; width: auto; padding: .6rem .8rem; font-size: .78rem; }
+  .campus-hero-actions .text-link { font-size: .78rem; }
+  .campus-hero-profile { padding: .85rem; border-radius: var(--radius-lg); }
+  .campus-accreditation { padding-left: .75rem; }
+  .campus-accreditation strong { font-size: 1.15rem; }
+  .campus-accreditation p { font-size: .62rem; line-height: 1.4; }
+  .campus-hero-facts { margin-top: .7rem; padding-top: .7rem; }
+  .campus-hero-facts div { padding-inline: .4rem; }
+  .campus-hero-facts dt { font-size: .52rem; }
+  .campus-hero-facts dd { margin-top: .15rem; font-size: 1.15rem; }
   .campus-hero-facts span { font-size: .56rem; line-height: 1.35; }
   .campus-photo-credit { display: none; }
-  .campus-section { padding-block: 3.75rem; }
+  .campus-section { padding-block: 3rem; }
   .campus-section-heading h2, .campus-next h2 { font-size: clamp(1.85rem, 9vw, 2.4rem); }
-  .campus-academic { padding-block: 3.25rem; }
+  .campus-academic { padding-block: 2.75rem; }
   .campus-academic .button { width: 100%; }
   .class-option-grid { grid-template-columns: 1fr; }
   .class-option-grid article { padding: 1.25rem 0; }

@@ -14,3 +14,13 @@ export function filterPrograms<T extends SearchableProgram>(
     (!knownFaculty || program.facultyId === faculty)
     && program.name.toLocaleLowerCase('id').includes(normalizedQuery));
 }
+
+/** Keeps faculty order explicit and omits empty groups without mutating program data. */
+export function groupProgramsByFaculty<T extends SearchableProgram>(
+  programs: readonly T[], facultyOrder: readonly string[],
+) {
+  return facultyOrder.map((facultyId) => ({
+    facultyId,
+    programs: programs.filter((program) => program.facultyId === facultyId),
+  })).filter((group) => group.programs.length > 0);
+}

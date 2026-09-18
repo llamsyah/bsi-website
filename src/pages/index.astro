@@ -23,14 +23,15 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
   <section class="home-hero" aria-labelledby="page-title">
     <div class="container hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="accent-dot" aria-hidden="true"></span>{campus.name}</p>
-        <h1 id="page-title"><span class="headline-line">Kuliah yang <span class="headline-accent">Relevan</span></span><span class="headline-line">untuk Masa Depan</span></h1>
-        <p class="hero-subhead">Kenali pilihan studimu di {institution.branding}. Temukan program yang sesuai, pahami rencana biaya, dan siapkan langkah menuju perkuliahan.</p>
+        <p class="eyebrow"><span class="accent-dot" aria-hidden="true"></span>{margondaPrograms.periodLabel}</p>
+        <h1 id="page-title">UBSI Kampus <span class="headline-accent">Margonda</span></h1>
+        <p class="hero-identity">{institution.name} · {institution.branding}</p>
+        <p class="hero-offering"><strong>{margondaPrograms.programs.length} Program S1</strong><span aria-hidden="true">·</span><strong>{graduatePrograms.length} Program Magister</strong></p>
+        <p class="hero-subhead">Kenali pilihan studi, kampus, biaya, dan langkah PMB untuk menentukan rencana kuliahmu.</p>
         <div class="actions hero-actions">
-          <a class="button button-primary" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="/program-studi">Lihat Program Studi<span aria-hidden="true">→</span></a>
+          <a class="button button-secondary" href="/program-studi">Lihat Program Studi<span aria-hidden="true">→</span></a>
+          <a class="text-link" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
         </div>
-        <a class="hero-explore" href="#pilihan-studi"><span aria-hidden="true">↓</span> Kenali pilihanmu di Margonda</a>
       </div>
       <figure class="hero-campus">
         <div class="hero-campus-image">
@@ -39,7 +40,7 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
         </div>
         <figcaption>
           <span class="meta-label">Kampus Margonda A</span>
-          <strong>{campus.buildings[0].address}</strong>
+          <strong>Depok</strong>
         </figcaption>
       </figure>
     </div>
@@ -81,13 +82,13 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
         <div class="program-teaser-anchor">
           <p class="program-total"><strong>{margondaPrograms.programs.length}</strong><span>Program {margondaPrograms.degree}</span></p>
           <p class="program-period">{margondaPrograms.periodLabel} · Kampus Margonda</p>
-          <a class="button button-secondary" href="/program-studi?jenjang=s1">Jelajahi Program S1 <span aria-hidden="true">→</span></a>
         </div>
         <div class="program-teaser-samples">
           <p class="meta-label">Ruang studi yang tersedia</p>
           <ul class="program-sample-labels" role="list" aria-label={`${Object.keys(faculties).length} fakultas pada pilihan S1 Margonda`}>
             {Object.values(faculties).map(faculty => <li>{faculty}</li>)}
           </ul>
+          <a class="button button-secondary program-teaser-cta" href="/program-studi?jenjang=s1">Jelajahi Program S1 <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <aside class="home-graduate-strip" aria-labelledby="home-graduate-title">

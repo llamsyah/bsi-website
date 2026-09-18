@@ -10,6 +10,13 @@ import { scholarships } from '../data/scholarships';
 import { calculateTuition } from '../utils/tuition';
 import { formatRupiah } from '../utils/currency';
 import '../styles/tuition.css';
+
+const tuitionRateMap = new Map<number, string[]>();
+for (const program of margondaPrograms.programs) {
+  const amount = calculateTuition({ programId: program.id, waveId: september2026.waves[0].id })!.semesterTuition;
+  tuitionRateMap.set(amount, [...(tuitionRateMap.get(amount) ?? []), program.name]);
+}
+const tuitionRateGroups = [...tuitionRateMap.entries()].sort(([left], [right]) => right - left);
 ---
 <BaseLayout title="Biaya & Beasiswa" description="Rencanakan biaya S1 dan S2 UBSI Margonda: simulator S1 dan perbandingan struktur pembayaran pascasarjana.">
   <div class="academic-route">
@@ -31,8 +38,14 @@ import '../styles/tuition.css';
         <div><dt>Kuliah per semester</dt><dd>Tarif dasar {formatRupiah(tuition.baseSemester)}; tambahan {formatRupiah(tuition.semesterSurcharge)} hanya untuk enam program yang ditetapkan.</dd></div>
         <div><dt>SSP</dt><dd>Sumbangan Sarana Pendidikan. Nilai penuh mengikuti gelombang pendaftaran, terpisah dari biaya kuliah per semester.</dd></div>
       </dl>
+      <dl class="tuition-component-summary" aria-label="Ringkasan empat komponen biaya S1">
+        <div><dt>Pendaftaran</dt><dd>{formatRupiah(tuition.registration)}</dd></div>
+        <div><dt>Prakuliah</dt><dd>{formatRupiah(tuition.preCollege)}</dd></div>
+        <div><dt>Kuliah / semester</dt><dd>{formatRupiah(tuition.baseSemester)}–{formatRupiah(tuition.baseSemester + tuition.semesterSurcharge)}</dd></div>
+        <div><dt>SSP</dt><dd>Sesuai gelombang</dd></div>
+      </dl>
       <details class="tuition-definitions-mobile">
-        <summary>Penjelasan empat komponen biaya</summary>
+        <summary>Pelajari komponen biaya</summary>
         <dl class="tuition-definitions">
           <div><dt>Pendaftaran</dt><dd>{formatRupiah(tuition.registration)} untuk proses pendaftaran PMB.</dd></div>
           <div><dt>Prakuliah</dt><dd>Komponen biaya prakuliah S1 sebesar {formatRupiah(tuition.preCollege)}.</dd></div>
@@ -42,9 +55,10 @@ import '../styles/tuition.css';
       </details>
       <details class="tuition-rates">
         <summary>Lihat tarif kuliah seluruh program</summary>
-        <dl>{margondaPrograms.programs.map(program => <div><dt>{program.name}</dt><dd>{formatRupiah(calculateTuition({ programId: program.id, waveId: september2026.waves[0].id })!.semesterTuition)} / semester</dd></div>)}</dl>
+        <dl>{tuitionRateGroups.map(([amount, programNames]) => <div><dt><strong>{programNames.length} program</strong><span>{programNames.join(', ')}</span></dt><dd>{formatRupiah(amount)} / semester</dd></div>)}</dl>
       </details>
-      <p class="tuition-baseline">Acuan biaya diverifikasi 15 September 2026 untuk periode ini. Simulasi belum memperhitungkan beasiswa atau promo. Konfirmasi ketentuan pembayaran melalui <a href={registration.url}>PMB resmi UBSI</a>.</p>
+      <p class="tuition-baseline tuition-baseline-desktop">Acuan biaya diverifikasi 15 September 2026 untuk periode ini. Simulasi belum memperhitungkan beasiswa atau promo. Konfirmasi ketentuan pembayaran melalui <a href={registration.url}>PMB resmi UBSI</a>.</p>
+      <details class="tuition-reference-mobile"><summary>Acuan estimasi biaya</summary><p>Acuan biaya diverifikasi 15 September 2026 untuk periode ini. Simulasi belum memperhitungkan beasiswa atau promo. Konfirmasi ketentuan pembayaran melalui <a href={registration.url}>PMB resmi UBSI</a>.</p></details>
     </div>
   </section>
   <section class="page-section tuition-scholarships" id="beasiswa" aria-labelledby="scholarships-title">

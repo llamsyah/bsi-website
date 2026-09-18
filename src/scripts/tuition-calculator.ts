@@ -101,9 +101,6 @@ if (root) {
   refresh();
   controls.hidden = false;
   document.documentElement.classList.remove('tuition-pending');
-  // Keep the existing assistant trigger in a dedicated help area on this route.
-  // Its native dialog listeners and focus-return behavior remain unchanged.
-  const assistantTrigger = document.querySelector<HTMLElement>('[data-assistant-trigger]');
   function synchronizeAcademicSelection() {
     const state = parseAcademicSelection(location.search);
     if (state.degreeLevel === 'S1') {
@@ -115,8 +112,6 @@ if (root) {
     document.querySelectorAll<HTMLAnchorElement>('[data-academic-handoff]').forEach(link => {
       link.href = academicHref(link.dataset.academicHandoff!, { degreeLevel: 'S1', programId: program.value });
     });
-    const slot = document.querySelector(state.degreeLevel === 'S2' ? '[data-graduate-assistant-slot]' : '[data-tuition-assistant-slot]');
-    if (assistantTrigger && slot) slot.append(assistantTrigger);
   }
   synchronizeAcademicSelection();
   window.addEventListener('academic-selection-change', synchronizeAcademicSelection);

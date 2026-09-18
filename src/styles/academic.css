@@ -47,13 +47,23 @@
 @media (max-width: 767px) {
   .graduate-intro { padding-block: 1.6rem; }
   .graduate-intro h1 { font-size: clamp(1.8rem, 5.5vw, 2.5rem); }
-  .graduate-payment-options { grid-template-columns: 1fr; }
+  .graduate-payment-options { grid-template-columns: 1fr 1fr; margin-block: 1rem; }
+  .graduate-payment-options .graduate-published { grid-column: 1 / -1; }
   .graduate-payment-options > div { padding: 1rem; }
-  .graduate-payment-options > div + div { border-bottom: 1px solid var(--color-border); }
-  .graduate-payment-options dd { font-size: 1.45rem; }
+  .graduate-payment-options > div + div { border-bottom: 0; }
+  .graduate-payment-options > div:last-child { border-left: 1px solid var(--color-border); }
+  .graduate-payment-options dt { margin-bottom: .4rem; font-size: .74rem; line-height: 1.35; }
+  .graduate-payment-options dd { margin-bottom: .35rem; font-size: clamp(1.05rem, 5vw, 1.35rem); }
+  .graduate-payment-options span { font-size: .7rem; line-height: 1.45; }
+  .graduate-cost { padding-block: 1.25rem; }
+  .graduate-cost > .academic-note { font-size: .78rem; line-height: 1.55; }
+  .academic-source { margin-top: .8rem; font-size: .75rem; line-height: 1.55; }
   .graduate-availability { grid-template-columns: 1fr; gap: .5rem; }
   .graduate-program { grid-template-columns: 1.5rem 1fr; gap: .7rem; padding: 1.2rem 0; }
-  .graduate-handoff { align-items: flex-start; flex-direction: column; padding-top: 1.4rem; }
+  .graduate-handoff { align-items: flex-start; flex-direction: column; gap: .75rem; margin-top: 1.25rem; padding-top: 1rem; }
+  .graduate-handoff h2 { margin-bottom: .35rem; }
+  .graduate-handoff p { margin: 0; font-size: .82rem; }
+  .graduate-handoff .button { min-height: 44px; padding-block: .65rem; }
   .graduate-body { padding-bottom: 2.5rem; }
 }
 @media (max-width: 400px) {
@@ -61,7 +71,6 @@
   .degree-options a { flex-wrap: wrap; padding: .7rem; font-size: .82rem; }
   .graduate-fees > div { flex-direction: column; gap: .2rem; }
   .academic-message { padding: .8rem; font-size: .87rem; }
+  .graduate-payment-options > div { padding: .85rem .7rem; }
+  .graduate-payment-options dd { font-size: 1rem; }
 }
-
-.graduate-help .assistant-trigger { position: static; width: auto; min-width: 44px; padding: .65rem 1rem; margin-top: 1rem; }
-.graduate-help .assistant-trigger-label { position: static; width: auto; height: auto; clip-path: none; }
