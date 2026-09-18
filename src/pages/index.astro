@@ -28,6 +28,10 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
         <p class="hero-identity">{institution.name} · {institution.branding}</p>
         <p class="hero-offering"><strong>{margondaPrograms.programs.length} Program S1</strong><span aria-hidden="true">·</span><strong>{graduatePrograms.length} Program Magister</strong></p>
         <p class="hero-subhead">Kenali pilihan studi, kampus, biaya, dan langkah PMB untuk menentukan rencana kuliahmu.</p>
+        <div class="actions hero-actions-desktop">
+          <a class="button button-secondary" href="/program-studi">Lihat Program Studi<span aria-hidden="true">→</span></a>
+          <a class="text-link" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
+        </div>
       </div>
       <figure class="hero-campus">
         <div class="hero-campus-image">
@@ -35,15 +39,6 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
         </div>
         <figcaption>Kampus Margonda A · Depok</figcaption>
       </figure>
-      <div class="hero-transition">
-        <div class="hero-transition-inner">
-          <p>Jelajahi pilihan studi sebelum melanjutkan pendaftaran.</p>
-          <div class="actions hero-transition-actions">
-            <a class="button button-on-dark" href="/program-studi">Lihat Program Studi<span aria-hidden="true">→</span></a>
-            <a class="text-link light-link" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -70,6 +65,16 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
       <div><strong>{margondaPrograms.programs.length} S1</strong><span>Program Sarjana</span></div>
       <div><strong>{graduatePrograms.length} S2</strong><span>Program Magister</span></div>
       <div><strong>{campus.buildings.length} Lokasi</strong><span>Margonda A &amp; B</span></div>
+    </div>
+  </section>
+
+  <section class="hero-mobile-actions" aria-label="Langkah berikutnya">
+    <div class="container hero-mobile-actions-inner">
+      <p>Jelajahi pilihan studi sebelum melanjutkan pendaftaran.</p>
+      <div class="actions">
+        <a class="button button-on-dark" href="/program-studi">Lihat Program Studi<span aria-hidden="true">→</span></a>
+        <a class="text-link light-link" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </section>
 
