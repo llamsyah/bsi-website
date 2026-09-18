@@ -28,7 +28,6 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
         <p class="hero-identity">{institution.name} · {institution.branding}</p>
         <p class="hero-offering"><strong>{margondaPrograms.programs.length} Program S1</strong><span aria-hidden="true">·</span><strong>{graduatePrograms.length} Program Magister</strong></p>
         <p class="hero-subhead">Kenali pilihan studi, kampus, biaya, dan langkah PMB untuk menentukan rencana kuliahmu.</p>
-        <p class="hero-trust"><span><strong>{institution.accreditation.label}</strong></span><span>{campus.buildings.length} Lokasi di Margonda</span></p>
       </div>
       <figure class="hero-campus">
         <div class="hero-campus-image">
@@ -45,6 +44,32 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="trust-strip" aria-label="Fakta utama UBSI Kampus Margonda">
+    <div class="container trust-grid trust-grid-desktop">
+      <div>
+        <span class="trust-caption">Akreditasi institusi</span>
+        <p class="trust-value accreditation">{institution.accreditation.label}</p>
+        <span class="trust-note">{institution.name}</span>
+      </div>
+      <div>
+        <span class="trust-caption">Pilihan studi Margonda</span>
+        <p class="trust-value">{margondaPrograms.programs.length} Program S1 <span aria-hidden="true">·</span> {graduatePrograms.length} Program Magister</p>
+        <span class="trust-note">{margondaPrograms.periodLabel}</span>
+      </div>
+      <div>
+        <span class="trust-caption">Kampus Margonda</span>
+        <p class="trust-value">{campus.buildings.length} Lokasi di Margonda</p>
+        <span class="trust-note">Margonda A <span aria-hidden="true">·</span> Margonda B</span>
+      </div>
+    </div>
+    <div class="container trust-grid-mobile">
+      <div><strong class="accreditation">Unggul</strong><span>Akreditasi Institusi</span></div>
+      <div><strong>{margondaPrograms.programs.length} S1</strong><span>Program Sarjana</span></div>
+      <div><strong>{graduatePrograms.length} S2</strong><span>Program Magister</span></div>
+      <div><strong>{campus.buildings.length} Lokasi</strong><span>Margonda A &amp; B</span></div>
     </div>
   </section>
 
