@@ -74,6 +74,15 @@ because their dedicated routes own that detail. Student Life and Margonda activi
 collections have a typed publication boundary but remain unrendered until verified
 Margonda-specific copy, sources and suitable non-facility imagery are available.
 
+Task 13 publishes the verified human/content layer. Home renders a compact
+`Terkini di Margonda` section for the time-sensitive SEMOT, ORMIK and Digital
+Creative Workshop stories. `/kampus` adds the evergreen `Campus Experience`
+wrapper with separate Student Life and Stories & Achievements hierarchies. One
+shared typed dataset owns both placements, and a Jakarta-aware helper derives
+event status instead of storing permanent “upcoming” copy. Approved event and
+people photography is not yet available, so every editorial visual is an explicit
+branded placeholder rather than a reused facility image or fabricated photograph.
+
 ## 1. Repository State
 
 Repository:

@@ -1256,6 +1256,20 @@ Safe examples include:
 * Workshop Digital Kreatif involving AI
 * other activities explicitly mentioning Margonda/Depok
 
+Task 13 verified editorial baseline (official BSINews sources, checked 18 September 2026):
+
+* SEMOT UBSI 2026 — institution-wide, 20 September 2026; never label it Margonda-only.
+* ORMIK UBSI 2026 — institution-wide period 16–19 September 2026 with a separate Margonda orientation context; do not invent a Margonda session time.
+* Workshop Digital Kreatif Margonda — announced for 12 September 2026; the referenced article is an announcement and does not prove completion.
+* BSI Entrepreneur Fair 2026 — Margonda A, 15–24 June 2026; students from multiple programs managed booths and presented/marketed products.
+* CineSprint 2026 — project-based creative media work with documented Margonda class achievements; do not expand the competition scope.
+* Nur Badarul Nashiroh — S1 Manajemen Margonda student, International Student Mobility at University of Northern Philippines.
+* Inas Zhafirah — Ilmu Komunikasi Margonda alumna, graduated 2025, journalist at Garuda TV.
+* Yoel Alfianto Siregar — Ilmu Komunikasi Margonda student and part of LavAni during the team's Proliga 2026 championship; attribute the title to the team.
+
+Official article images are not approved project assets by default. Use an explicit
+editorial placeholder until reuse rights or a suitable project-owned image exists.
+
 ---
 
 ## News Scope Rule
@@ -1431,7 +1445,7 @@ instead of:
 
 Research baseline:
 
-**15 September 2026**
+**18 September 2026**
 
 Any PMB or campaign data should be considered valid relative to this baseline unless subsequently reverified.
 

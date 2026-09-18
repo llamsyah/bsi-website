@@ -629,3 +629,33 @@ withheld editorial sections do not render. Keyboard focus remained visible throu
 the skip link, navigation and Home actions. Home height fell from 7,404 to 3,803px
 at 1920px and from 10,897 to 5,250px at 320px, a reduction of approximately 49%
 and 52% respectively. No S1/S2, tuition, admissions or Tanya BSI logic changed.
+
+## Task 13 — Terkini di Margonda and Campus Experience
+
+Home now includes one compact, asymmetric `Terkini di Margonda` composition: SEMOT
+2026 is the featured institution-wide agenda, while Margonda ORMIK and the Digital
+Creative Workshop appear as compact supporting stories. Event labels are derived
+at runtime from date-only fields in the Jakarta timezone, with a tested transition
+from upcoming/current to recent/past. This prevents time-sensitive copy from
+becoming a permanent claim.
+
+`/kampus` now transitions from its verified physical campus and facilities into a
+single `Campus Experience` wrapper. `Student Life` features Entrepreneur Fair 2026
+with CineSprint and Nur Badarul Nashiroh's student mobility as supporting stories.
+`Stories & Achievements` features Inas Zhafirah's alumni journey and correctly
+attributes the Proliga 2026 title to the LavAni team that included Yoel Alfianto
+Siregar. Each story links to its official BSINews source with an explicit label.
+
+The shared `homeEditorial.ts` model owns scope, content kind, publication/event
+dates, placement, source, verification state and visual state for both pages.
+Official article photography was not copied because reuse rights were not
+established. Branded local placeholders are explicitly marked in data and can be
+swapped for approved project-owned assets without changing either page structure.
+
+Task 13 validation on 18 September 2026: all 115 tests passed, including four new
+editorial status tests; Astro check reported zero errors, warnings and hints across
+52 files; production build generated all five routes. Browser checks at 1920,
+1366, 768, 390 and 320px found no horizontal overflow, console errors or Tanya BSI
+control overlap. Home height is 4,816px at 1920px and 6,778px at 320px, remaining
+well below the pre-Task-12 7,404px and 10,897px baselines while adding one editorial
+section. Mobile navigation expands correctly and keyboard focus remains visible.

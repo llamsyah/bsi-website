@@ -39,11 +39,15 @@ empty arrays that might be mistaken for confirmed absence:
 | contact | `contact.ts`: PMB contacts; omit unresolved service hours |
 | news | `news.ts`: source, date and explicit campus/institution scope |
 
-Task 12 adds `homeEditorial.ts` as the publication boundary for curated Student
-Life and Margonda activity highlights. Both collections stay explicitly withheld
-and render nothing while suitable Margonda-specific copy, source URLs and
-non-facility imagery are unavailable. Future additions must provide those fields
-together; Home is limited to the first three verified items in each collection.
+Task 12 adds `homeEditorial.ts` as the publication boundary for curated content.
+Task 13 extends that boundary into the shared source for Home's three-item
+`Terkini di Margonda` composition and Campus Experience's Student Life and
+Stories & Achievements hierarchies. Each record carries content kind, explicit
+Margonda/institution scope, publication and optional event dates, source URL,
+placement, verification and visual state. All current visuals are branded local
+placeholders because reuse rights for official article images are not established.
+`editorialStatus.ts` derives upcoming/current/recent/past states from Jakarta
+calendar dates; temporal wording must not be stored as permanent article copy.
 
 Do not import the legacy 24-program catalogue, salary fields, six-wave fallback,
 scholarship counts or facility B placeholders. The older research report records

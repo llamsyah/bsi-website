@@ -7,12 +7,16 @@ import { contact } from '../data/contact';
 import { margondaAFacilities } from '../data/facilities';
 import { institution } from '../data/institution';
 import { classTimes, faculties, margondaPrograms } from '../data/programs';
+import { campusExperienceContent } from '../data/homeEditorial';
+import { formatCalendarRange } from '../utils/calendarDate';
 import '../styles/campus.css';
 
 const [margondaA, margondaB] = campus.buildings;
 const facultyCount = Object.keys(faculties).length;
 const eveningPrograms = margondaPrograms.programs.filter(program => program.classes.includes('sore-malam'));
 const accreditationNumber = institution.accreditation.reference.replace('SK BAN-PT No. ', '');
+const fair = campusExperienceContent.studentLife.featured;
+const fairDate = fair.eventStart && fair.eventEnd ? formatCalendarRange(fair.eventStart, fair.eventEnd) : '';
 ---
 <BaseLayout title="Kampus Margonda" description="Kenali UBSI, dua lokasi Kampus Margonda, bidang studi, pilihan kelas, fasilitas Margonda A, alamat, dan kontak PMB.">
   <section class="campus-hero" aria-labelledby="page-title">
@@ -166,6 +170,69 @@ const accreditationNumber = institution.accreditation.reference.replace('SK BAN-
           </figure>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="campus-experience" aria-labelledby="experience-title">
+    <div class="container">
+      <header class="campus-experience-heading">
+        <p class="meta-label">Campus Experience</p>
+        <h2 id="experience-title">Lebih dari ruang kelas dan fasilitas.</h2>
+        <p>Kenali pengalaman, karya, kesempatan, dan perjalanan orang-orang yang tumbuh bersama UBSI Kampus Margonda.</p>
+      </header>
+
+      <section class="experience-group" aria-labelledby="student-life-title">
+        <header class="experience-subheading">
+          <span>01</span><div><p class="meta-label">Student Life</p><h3 id="student-life-title">Belajar melalui pengalaman nyata.</h3></div>
+        </header>
+        <article class="experience-feature experience-feature--student">
+          <div class:list={['experience-placeholder', `experience-placeholder--${fair.visual.motif}`]} role="img" aria-label={fair.visual.label}>
+            <span>UBSI Margonda</span><strong>IDE<br />JADI<br />AKSI</strong><small>Student Life · 2026</small>
+          </div>
+          <div class="experience-feature-copy">
+            <p class="experience-meta"><span>{fair.category}</span><time datetime={fair.eventStart}>{fairDate}</time></p>
+            <h4>{fair.title}</h4>
+            <p>{fair.summary}</p>
+            <p class="experience-scope">{fair.scopeLabel}</p>
+            <a class="text-link" href={fair.sourceUrl} target="_blank" rel="noopener noreferrer">{fair.sourceLabel} <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <div class="experience-supporting">
+          {campusExperienceContent.studentLife.supporting.map((item, index) => (
+            <article>
+              <span class="experience-index">0{index + 2}</span>
+              <div><p class="meta-label">{item.category}</p><h4>{item.title}</h4><p>{item.summary}</p><a class="text-link" href={item.sourceUrl} target="_blank" rel="noopener noreferrer">{item.sourceLabel} <span aria-hidden="true">↗</span></a></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="experience-group experience-group--people" aria-labelledby="stories-title">
+        <header class="experience-subheading">
+          <span>02</span><div><p class="meta-label">Stories &amp; Achievements</p><h3 id="stories-title">Cerita manusia di balik perjalanan kampus.</h3></div>
+        </header>
+        <div class="people-composition">
+          <article class="experience-feature experience-feature--people">
+            <div class:list={['experience-placeholder', `experience-placeholder--${campusExperienceContent.stories.featured.visual.motif}`]} role="img" aria-label={campusExperienceContent.stories.featured.visual.label}>
+              <span>Alumni · 2025</span><strong>INAS<br />ZHAFIRAH</strong><small>Ilmu Komunikasi Margonda</small>
+            </div>
+            <div class="experience-feature-copy">
+              <p class="experience-meta"><span>{campusExperienceContent.stories.featured.category}</span><span>{campusExperienceContent.stories.featured.scopeLabel}</span></p>
+              <h4>{campusExperienceContent.stories.featured.title}</h4>
+              <p>{campusExperienceContent.stories.featured.summary}</p>
+              <a class="text-link" href={campusExperienceContent.stories.featured.sourceUrl} target="_blank" rel="noopener noreferrer">{campusExperienceContent.stories.featured.sourceLabel} <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <div class="people-supporting">
+            {campusExperienceContent.stories.supporting.map(item => (
+              <article>
+                <p class="meta-label">{item.category}</p><h4>{item.title}</h4><p>{item.summary}</p>
+                <a class="text-link" href={item.sourceUrl} target="_blank" rel="noopener noreferrer">{item.sourceLabel} <span aria-hidden="true">↗</span></a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   </section>
 
