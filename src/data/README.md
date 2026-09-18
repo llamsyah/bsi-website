@@ -39,6 +39,12 @@ empty arrays that might be mistaken for confirmed absence:
 | contact | `contact.ts`: PMB contacts; omit unresolved service hours |
 | news | `news.ts`: source, date and explicit campus/institution scope |
 
+Task 12 adds `homeEditorial.ts` as the publication boundary for curated Student
+Life and Margonda activity highlights. Both collections stay explicitly withheld
+and render nothing while suitable Margonda-specific copy, source URLs and
+non-facility imagery are unavailable. Future additions must provide those fields
+together; Home is limited to the first three verified items in each collection.
+
 Do not import the legacy 24-program catalogue, salary fields, six-wave fallback,
 scholarship counts or facility B placeholders. The older research report records
 an address conflict for B; CONTENT_DATA.md resolves the current address through

@@ -599,3 +599,33 @@ Home/Campus offer compact S2 discovery links. HI/Ilmu Hukum, unverified payment 
 - Unchanged against base: legacy `index.html`, S1 program/admissions/tuition datasets, S1 tuition/date engines and approved calculator stylesheet. Static build retains both degree sections for no-JavaScript access; JavaScript chooses the URL-requested section.
 
 Changed-file groups: academic/graduate data and helpers; degree selector/graduate presentation/CSS; page integration in all five routes; calculator and explorer integration scripts; assistant context/resolver; academic tests and explicit S1 test queries; CONTENT_DATA, CURRENT_STATE, this README, and the preserved Task 11A audit report. No dependencies added.
+
+## Task 12 — Home curation and scroll density
+
+Home now acts as a curated entry page. The public flow is: photographic hero,
+compact institutional proof, one Campus Margonda teaser, S1/S2 academic discovery,
+a compact cost handoff, current PMB context, final registration action and footer.
+The former large cost/scholarship preview, duplicated campus facts/profiles,
+four-step PMB journey and FAQ were removed from Home because their dedicated
+routes own those details.
+
+S1 remains the primary academic treatment with the 11-program and four-faculty
+summary and a degree-specific deep link. S2 remains a distinct compact strip with
+both Magister programs, September 2026 intake and Friday/Saturday schedule. The
+cost handoff links to the existing route without copying calculator or graduate
+payment details.
+
+`src/data/homeEditorial.ts` defines a strict publication boundary for Student Life
+and curated Margonda activities. Both collections are intentionally withheld and
+render nothing until Margonda-specific copy, source URLs and suitable non-facility
+imagery are available together. This prevents facility photos or unsupported
+events from appearing as student experience.
+
+Task 12 validation on 18 September 2026: all 111 tests passed; Astro check reported
+zero errors, warnings and hints across 50 files; production build generated all
+five routes. Browser checks at 1920, 1366, 768, 390 and 320px found no horizontal
+overflow or console errors, verified the S1/S2 deep links and confirmed the two
+withheld editorial sections do not render. Keyboard focus remained visible through
+the skip link, navigation and Home actions. Home height fell from 7,404 to 3,803px
+at 1920px and from 10,897 to 5,250px at 320px, a reduction of approximately 49%
+and 52% respectively. No S1/S2, tuition, admissions or Tanya BSI logic changed.

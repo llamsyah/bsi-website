@@ -65,6 +65,15 @@ See the Task 06.1 README section for the validation matrix and limitations.
 
 Task 11B adds separate S2 discovery, payment alternatives and PMB guidance using the Task 11A audit. S1 compatibility data and calculation/date engines remain unchanged. URL degree/program state and page-local assistant context connect the journeys; unknown S2 dates and the MM payment discrepancy remain explicit.
 
+Task 12 curates Home as an overview rather than a duplicate of the inner routes.
+The page now moves from the photographic hero and compact institutional proof to
+one Campus teaser, concise S1/S2 discovery, a compact cost handoff, current PMB
+status and the official registration action. The full PMB journey, duplicated
+campus profiles/facilities, scholarship explanation and FAQ are removed from Home
+because their dedicated routes own that detail. Student Life and Margonda activity
+collections have a typed publication boundary but remain unrendered until verified
+Margonda-specific copy, sources and suitable non-facility imagery are available.
+
 ## 1. Repository State
 
 Repository:
