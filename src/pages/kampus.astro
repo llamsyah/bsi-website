@@ -98,10 +98,28 @@ const accreditationNumber = institution.accreditation.reference.replace('SK BAN-
           <p class="meta-label">Pilihan akademik Margonda</p>
           <h2 id="academic-title">{margondaPrograms.programs.length} program S1 dalam {facultyCount} fakultas.</h2>
           <p>Bandingkan bidang studi, pilihan kelas, dan ringkasan setiap program pada halaman Program Studi.</p>
-          <p>Pascasarjana juga tersedia: {graduatePrograms.map(program => program.name).join(" dan ")}. Intake {graduateIntake.label}, kelas {graduateIntake.classLabel}. <a class="text-link" href="/program-studi?jenjang=s2">Kenali program S2 →</a></p>
         </div>
       </header>
       <a class="button button-secondary" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="campus-graduate" aria-labelledby="campus-graduate-title">
+    <div class="container">
+      <div class="campus-graduate-strip">
+        <div class="campus-graduate-copy">
+          <p class="meta-label">Pascasarjana di Margonda</p>
+          <h2 id="campus-graduate-title">Dua pilihan program Magister.</h2>
+        </div>
+        <ul class="campus-graduate-programs" role="list">
+          {graduatePrograms.map(program => <li>{program.name}</li>)}
+        </ul>
+        <div class="campus-graduate-meta" aria-label="Jadwal Pascasarjana">
+          <span><strong>Intake</strong>{graduateIntake.label}</span>
+          <span><strong>Kelas</strong>{graduateIntake.classLabel}</span>
+        </div>
+        <a class="text-link campus-graduate-link" href="/program-studi?jenjang=s2">Lihat Pascasarjana <span aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 
