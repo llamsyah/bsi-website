@@ -28,9 +28,9 @@ const fairDate = fair.eventStart && fair.eventEnd ? formatCalendarRange(fair.eve
       <div class="campus-hero-copy">
         <p class="eyebrow">{institution.branding} · Depok</p>
         <h1 id="page-title">UBSI Kampus Margonda</h1>
-        <p>{institution.name} di Margonda hadir melalui dua lokasi dengan {margondaPrograms.programs.length} pilihan program S1.</p>
+        <p>{institution.name} di Margonda hadir melalui dua lokasi, dengan {margondaPrograms.programs.length} program S1 dan {graduatePrograms.length} program Magister.</p>
         <div class="campus-hero-actions">
-          <a class="button button-primary" href="#dua-lokasi">Kenali dua lokasi</a>
+          <a class="text-link light-link" href="#dua-lokasi">Kenali dua lokasi <span aria-hidden="true">↓</span></a>
           <a class="button button-on-dark" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>
         </div>
       </div>
@@ -43,7 +43,7 @@ const fairDate = fair.eventStart && fair.eventEnd ? formatCalendarRange(fair.eve
         <dl class="campus-hero-facts">
           <div><dt>Lokasi</dt><dd>{campus.buildings.length}</dd><span>Margonda A &amp; B</span></div>
           <div><dt>Program</dt><dd>{margondaPrograms.programs.length}</dd><span>Program S1</span></div>
-          <div><dt>Fakultas</dt><dd>{facultyCount}</dd><span>Bidang keilmuan</span></div>
+          <div><dt>Pascasarjana</dt><dd>{graduatePrograms.length}</dd><span>Program Magister</span></div>
         </dl>
         <p class="campus-photo-credit"><span>Foto resmi</span> Kampus Margonda A</p>
       </aside>
@@ -96,34 +96,17 @@ const fairDate = fair.eventStart && fair.eventEnd ? formatCalendarRange(fair.eve
   </section>
 
   <section class="campus-section campus-academic" aria-labelledby="academic-title">
-    <div class="container campus-academic-inner">
-      <header class="campus-section-heading campus-section-heading--academic">
-        <div>
-          <p class="meta-label">Pilihan akademik Margonda</p>
-          <h2 id="academic-title">{margondaPrograms.programs.length} program S1 dalam {facultyCount} fakultas.</h2>
-          <p>Bandingkan bidang studi, pilihan kelas, dan ringkasan setiap program pada halaman Program Studi.</p>
-        </div>
+    <div class="container campus-academic-overview">
+      <header class="heading-overview">
+        <p class="meta-label">Pilihan akademik Margonda</p>
+        <h2 id="academic-title">Dari Sarjana hingga Pascasarjana.</h2>
+        <p>Temukan jenjang yang sesuai dengan rencana studimu.</p>
       </header>
-      <a class="button button-secondary" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>
-    </div>
-  </section>
-
-  <section class="campus-graduate" aria-labelledby="campus-graduate-title">
-    <div class="container">
-      <div class="campus-graduate-strip">
-        <div class="campus-graduate-copy">
-          <p class="meta-label">Pascasarjana di Margonda</p>
-          <h2 id="campus-graduate-title">Dua pilihan program Magister.</h2>
-        </div>
-        <ul class="campus-graduate-programs" role="list">
-          {graduatePrograms.map(program => <li>{program.name}</li>)}
-        </ul>
-        <div class="campus-graduate-meta" aria-label="Jadwal Pascasarjana">
-          <span><strong>Intake</strong>{graduateIntake.label}</span>
-          <span><strong>Kelas</strong>{graduateIntake.classLabel}</span>
-        </div>
-        <a class="text-link campus-graduate-link" href="/program-studi?jenjang=s2">Lihat Pascasarjana <span aria-hidden="true">→</span></a>
+      <div class="academic-pathways">
+        <div><p class="academic-pathway-total"><strong>{margondaPrograms.programs.length}</strong> Program S1</p><p>{facultyCount} fakultas · {margondaPrograms.periodLabel}</p></div>
+        <div><p class="academic-pathway-total"><strong>{graduatePrograms.length}</strong> Program Magister</p><p>{graduateIntake.classLabel} · {graduateIntake.label}</p><p class="academic-pathway-names">{graduatePrograms.map(program => program.name).join(' · ')}</p></div>
       </div>
+      <a class="text-link" href="/program-studi">Jelajahi Program Studi <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
@@ -133,7 +116,7 @@ const fairDate = fair.eventStart && fair.eventEnd ? formatCalendarRange(fair.eve
         <div>
           <p class="meta-label">Pilihan waktu kuliah</p>
           <h2 id="classes-title">Pilih kelas sesuai program yang tersedia.</h2>
-          <p>Pilihan waktu mengikuti program pada periode PMB Margonda saat ini.</p>
+          <p>Pilihan waktu Sarjana (S1) mengikuti program pada periode PMB Margonda saat ini.</p>
         </div>
       </header>
 
@@ -236,12 +219,12 @@ const fairDate = fair.eventStart && fair.eventEnd ? formatCalendarRange(fair.eve
     </div>
   </section>
 
-  <section class="campus-next" aria-labelledby="next-title">
+  <section class="campus-next journey-bridge" aria-labelledby="next-title">
     <div class="container campus-next-inner">
       <div>
         <p class="meta-label">Lanjutkan perjalananmu</p>
         <h2 id="next-title">Sudah mengenal kampusnya? Temukan program yang sesuai.</h2>
-        <p>Jelajahi {margondaPrograms.programs.length} program S1 yang tersedia untuk periode PMB ini di UBSI Kampus Margonda.</p>
+        <p>Jelajahi {margondaPrograms.programs.length} program S1 dan {graduatePrograms.length} program Magister di UBSI Kampus Margonda.</p>
       </div>
       <div class="campus-next-actions">
         <a class="button button-white" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>

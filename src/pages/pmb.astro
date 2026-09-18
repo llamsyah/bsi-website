@@ -11,6 +11,7 @@ const firstWave = period.waves[0];
 const lastWave = period.waves.at(-1)!;
 ---
 <BaseLayout title="Panduan PMB" description="Panduan PMB Sarjana dan Pascasarjana UBSI Margonda: informasi periode September 2026, persiapan, dan pendaftaran resmi.">
+  <div class="academic-route">
   <DegreeSelector />
   <div data-degree-panel="S1" id="sarjana">
   <section class="pmb-hero" aria-labelledby="page-title">
@@ -20,7 +21,7 @@ const lastWave = period.waves.at(-1)!;
         <h1 id="page-title">Dari memilih gelombang sampai siap kuliah.</h1>
         <p class="lead">Ikuti jadwal, siapkan data dan dokumen, lalu lanjutkan proses melalui sistem PMB resmi UBSI.</p>
         <div class="pmb-hero-actions">
-          <a class="button button-primary" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
+          <a class="text-link" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
           <a class="text-link" href="#alur-pmb">Pelajari alurnya <span aria-hidden="true">↓</span></a>
         </div>
       </div>
@@ -69,7 +70,7 @@ const lastWave = period.waves.at(-1)!;
 
   <section class="pmb-section pmb-flow-section" id="alur-pmb" aria-labelledby="flow-title">
     <div class="container">
-      <header class="pmb-section-heading pmb-section-heading--compact">
+      <header class="pmb-section-heading pmb-section-heading--compact heading-overview">
         <div>
           <p class="meta-label">Alur penerimaan</p>
           <h2 id="flow-title">Empat fase yang mudah diikuti</h2>
@@ -151,18 +152,19 @@ const lastWave = period.waves.at(-1)!;
     </div>
   </section>
 
-  <section class="pmb-final" aria-labelledby="final-title">
+  <section class="pmb-final journey-bridge" aria-labelledby="final-title">
     <div class="container pmb-final-inner">
       <div>
         <p class="meta-label">Langkah berikutnya</p>
         <h2 id="final-title">Sudah siap memulai proses PMB?</h2>
         <p>Lanjutkan ke kanal resmi untuk membuat pendaftaran dan mengikuti instruksi yang berlaku.</p>
       </div>
-      <a class="button button-white" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
+      <a class="button button-primary" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
     </div>
   </section>
   </div>
   <GraduateContent view="pmb" />
+  </div>
 </BaseLayout>
 
 <script>

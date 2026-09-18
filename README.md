@@ -659,3 +659,17 @@ editorial status tests; Astro check reported zero errors, warnings and hints acr
 control overlap. Home height is 4,816px at 1920px and 6,778px at 320px, remaining
 well below the pre-Task-12 7,404px and 10,897px baselines while adding one editorial
 section. Mobile navigation expands correctly and keyboard focus remains visible.
+
+
+## Task 14 — Cross-site visual rhythm
+
+Home now combines PMB context and final registration. Campus represents 11 S1 and
+2 Magister in its identity and unified academic overview. Degree selectors and
+academic introductions share one visual treatment; supporting content and journey
+bridges use a scoped composition layer. Existing functional and editorial anchors
+remain intact.
+
+Validation: 115 tests passed; Astro check: 52 files, zero diagnostics; production
+build: five routes. All five routes and three S2 views checked at 1920, 1366, 768,
+390 and 320px without horizontal overflow. Details and measurements:
+[TASK_14_VISUAL_SYSTEM_REPORT.md](TASK_14_VISUAL_SYSTEM_REPORT.md).

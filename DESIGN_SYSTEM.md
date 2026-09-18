@@ -1131,3 +1131,23 @@ It should impress because:
 Design priority:
 
 **clarity → trust → action → polish**
+
+
+## Task 14 — Cross-site composition (18 September 2026)
+
+`src/styles/composition.css` layers scoped composition roles over existing page
+styles, without replacing functional component styling:
+
+- Anchors retain their identity: photography, explorer, calculator, status, editorial.
+- Content uses `--rhythm-content` and `--heading-section` for controlled spacing.
+- `heading-overview` centers bounded introductions above balanced content. On phones
+  these become left-aligned except the intentional Campus academic comparison.
+- `heading-utility` provides a smaller heading above functional content.
+- `journey-bridge` uses restrained spacing, a separator and pale surface rather
+  than another large campaign. Red emphasizes conversion; blue/neutral buttons
+  lead deeper into the journey; descriptive text links support exploration.
+- Academic routes share compact introductions and underlined degree navigation.
+
+Apply these roles selectively. Home ends with one PMB/conversion anchor. Campus
+presents 11 S1 and 2 Magister together, with four faculties explicitly scoped to
+S1. No global heading replacement, new dependencies or new JavaScript.

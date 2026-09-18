@@ -1,0 +1,108 @@
+/* Composition roles: anchors retain their identity; content and journey bridges
+   share a quieter rhythm. Interactive components keep their own styles. */
+:root {
+  --rhythm-content: clamp(2.75rem, 5vw, 4.5rem);
+  --rhythm-bridge: clamp(2rem, 3.5vw, 3rem);
+  --heading-section: clamp(1.85rem, 3vw, 2.65rem);
+}
+.heading-overview.heading-overview { display: block; max-width: 52rem; margin-inline: auto; text-align: center; }
+.heading-overview.heading-overview h2 { max-width: 26ch; margin-inline: auto; font-size: var(--heading-section); }
+.heading-overview.heading-overview > p { max-width: 62ch; margin-inline: auto; }
+.heading-utility.heading-utility h2 { font-size: clamp(1.6rem, 2.5vw, 2.1rem); }
+.journey-bridge.journey-bridge { padding-block: var(--rhythm-bridge); background: var(--color-blue-soft); color: var(--color-blue-dark); border-top: 1px solid var(--color-border); }
+.journey-bridge.journey-bridge h2 { color: var(--color-blue-dark); font-size: clamp(1.75rem, 2.6vw, 2.4rem); }
+.journey-bridge.journey-bridge p:not(.meta-label) { color: var(--color-muted); }
+.journey-bridge.journey-bridge .meta-label { color: var(--color-red-dark); }
+.journey-bridge.journey-bridge .light-link { color: var(--color-blue); }
+.journey-bridge.journey-bridge :focus-visible { outline-color: var(--color-red); }
+
+/* Degree navigation belongs to the intro, with a persistent active underline. */
+.academic-route .degree-nav { padding-top: 1.5rem; padding-bottom: 0; display: flex; align-items: center; gap: 1.5rem; border-bottom: 1px solid var(--color-border); }
+.academic-route .degree-nav > .meta-label { margin: 0; }
+.academic-route .degree-options { gap: 1rem; }
+.academic-route .degree-options a { border: 0; border-bottom: 3px solid transparent; border-radius: 0; padding: .85rem .25rem; background: transparent; color: var(--color-muted); }
+.academic-route .degree-options a[aria-current="true"] { color: var(--color-blue); border-bottom-color: var(--color-red); }
+.academic-route .programs-intro, .academic-route .tuition-intro, .academic-route .graduate-intro { padding-block: 2.5rem; background: white; }
+.academic-route .programs-intro h1, .academic-route .tuition-intro h1, .academic-route .graduate-intro h1 { max-width: 25ch; font-size: clamp(2rem, 3.6vw, 3.25rem); }
+.academic-route .programs-intro .container { max-width: 58rem; text-align: center; }
+.academic-route .programs-intro h1, .academic-route .programs-intro .lead { margin-inline: auto; }
+.academic-route .graduate-body { max-width: 68rem; }
+.academic-route .graduate-intro { max-width: 68rem; }
+.academic-route .graduate-handoff { padding: 1.5rem; background: var(--color-blue-soft); border-top: 2px solid var(--color-blue); }
+.academic-route .graduate-program { padding-block: 1.5rem; }
+.academic-route .graduate-program .actions { margin-top: .5rem; }
+.academic-route .graduate-checklist { max-width: none; }
+
+/* Home: one conversion anchor, quieter discovery and cost transitions. */
+.home-section.home-section { padding-block: var(--rhythm-content); }
+.trust-grid .trust-value { font-size: clamp(1rem, 1.6vw, 1.35rem); }
+.trust-degree-divider { color: #b7c8e7; margin-inline: .2rem; }
+.home-section .cost-handoff { background: white; color: var(--color-blue); border-block: 1px solid var(--color-border); border-radius: 0; padding-block: 1.5rem; }
+.home-section .cost-handoff h3, .home-section .cost-handoff .text-link { color: var(--color-blue); }
+.home-section .cost-handoff > p { color: var(--color-muted); }
+.home-section.home-pmb { background: var(--color-blue-dark); }
+.home-pmb .home-pmb-next { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
+.home-pmb .home-pmb-next .text-link { color: white; }
+
+/* Campus: a single, compact academic overview, scoped S1 class context. */
+.campus-section.campus-section { padding-block: var(--rhythm-content); }
+.campus-academic .campus-academic-overview { display: block; text-align: center; }
+.campus-academic .heading-overview { margin-bottom: 1.5rem; }
+.academic-pathways { display: grid; grid-template-columns: 1fr 1fr; max-width: 50rem; margin: 0 auto 1rem; }
+.academic-pathways > div { padding: .5rem 1.5rem; min-width: 0; }
+.academic-pathways > div + div { border-left: 1px solid var(--color-border); }
+.academic-pathways p { font-size: .9rem; color: var(--color-muted); margin: .4rem 0; }
+.academic-pathways .academic-pathway-total { color: var(--color-blue); font-weight: 800; font-size: 1rem; }
+.academic-pathway-total strong { display: block; font-size: 2.75rem; line-height: 1.2; }
+.academic-pathways .academic-pathway-names { font-size: .8rem; }
+.campus-classes.campus-classes { padding-block: var(--rhythm-bridge); background: white; border-block: 1px solid var(--color-border); }
+.campus-section .campus-section-heading h2 { font-size: var(--heading-section); max-width: 25ch; }
+.campus-section .campus-section-heading { margin-bottom: 2rem; }
+.campus-experience.campus-experience { padding-block: var(--rhythm-content); }
+.campus-experience .campus-experience-heading { margin-bottom: 2.5rem; }
+.campus-experience .campus-experience-heading h2 { font-size: var(--heading-section); }
+.campus-next .campus-next-inner { gap: 2rem; }
+.campus-next .campus-next-actions .button-white { background: var(--color-blue); color: white; }
+.campus-next .campus-next-actions a:not(.button) { color: var(--color-blue); }
+
+/* Functional pages: content supports the explorer/calculator/status anchors. */
+.academic-route .programs-section, .academic-route .program-next-section, .academic-route .pmb-section { padding-block: var(--rhythm-content); }
+.academic-route .pmb-hero { padding-block: 2.5rem; background: white; }
+.academic-route .pmb-hero-copy h1 { max-width: 20ch; font-size: clamp(2rem, 3.6vw, 3.25rem); }
+.academic-route .pmb-status-panel { box-shadow: none; border-radius: var(--radius-md); }
+.academic-route .pmb-section-heading { display: block; max-width: 52rem; margin-bottom: 2rem; }
+.academic-route .pmb-section-heading h2, .academic-route .pmb-preparation h2, .academic-route .pmb-notes h2 { font-size: var(--heading-section); }
+.academic-route .pmb-section-heading > p { max-width: 65ch; }
+.academic-route .pmb-document-heading { background: var(--color-blue-soft); color: var(--color-blue); }
+.academic-route .pmb-document-heading .meta-label { color: var(--color-blue); }
+@media (max-width: 48rem) {
+  .academic-route .degree-nav { display: block; padding-top: 1rem; }
+  .academic-route .degree-nav > .meta-label { font-size: .65rem; margin-bottom: .2rem; }
+  .academic-route .degree-options { display: flex; gap: 1rem; }
+  .academic-route .degree-options a { min-height: 44px; font-size: .85rem; padding-block: .65rem; }
+  .academic-route .programs-intro, .academic-route .tuition-intro, .academic-route .graduate-intro, .academic-route .pmb-hero { padding-block: 1.75rem; }
+  .academic-route .graduate-handoff { padding: 1.25rem; }
+}
+@media (max-width: 36rem) {
+  .heading-overview.heading-overview { text-align: left; }
+  .campus-academic .heading-overview { text-align: center; }
+  .academic-pathways > div { padding: .25rem .65rem; }
+  .academic-pathways p { font-size: .78rem; }
+  .academic-pathways .academic-pathway-total { font-size: .85rem; }
+  .academic-pathway-total strong { font-size: 2.25rem; }
+  .academic-pathways .academic-pathway-names { font-size: .75rem; }
+  .home-pmb .home-pmb-next { align-items: stretch; }
+  .home-pmb .home-pmb-next .text-link { justify-content: flex-start; }
+  .academic-route .programs-intro .container { text-align: left; }
+  .academic-route .programs-intro h1, .academic-route .tuition-intro h1, .academic-route .graduate-intro h1 { font-size: 2rem; }
+}
+
+.home-section .cost-handoff .meta-label { color: var(--color-red-dark); }
+@media (min-width: 48.01rem) {
+  .academic-route .graduate-program-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .academic-route .graduate-checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+}
+@media (max-width: 36rem) {
+  .academic-route .pmb-hero-actions { flex-direction: row; gap: .5rem 1.25rem; margin-top: 1rem; }
+  .academic-route .pmb-hero-actions .text-link { width: auto; justify-content: flex-start; }
+}

@@ -9,6 +9,7 @@ import { registration } from '../data/admissions';
 import '../styles/programs.css';
 ---
 <BaseLayout title="Program Studi" description="Jelajahi program Sarjana dan Pascasarjana UBSI Margonda untuk September 2026. Kenali program, kelas, biaya, dan panduan pendaftaran.">
+  <div class="academic-route">
   <DegreeSelector />
   <div data-degree-panel="S1" id="sarjana">
   <section class="page-section programs-intro">
@@ -21,7 +22,7 @@ import '../styles/programs.css';
   </section>
   <section class="page-section programs-section" id="program-explorer" aria-labelledby="explorer-title">
     <div class="container" data-program-explorer>
-      <div class="programs-heading">
+      <div class="programs-heading heading-utility">
         <p class="eyebrow">Pilihan studi di Margonda</p>
         <h2 id="explorer-title">Mulai dari bidang yang kamu minati.</h2>
         <p>Semua program di bawah tersedia untuk {margondaPrograms.periodLabel}. Buka nama program untuk mengenali bidangnya dan melihat langkah berikutnya.</p>
@@ -61,7 +62,7 @@ import '../styles/programs.css';
   </section>
   <section class="page-section program-next-section" aria-labelledby="program-next-title">
     <div class="container">
-      <div class="program-next-heading">
+      <div class="program-next-heading heading-overview">
         <p class="eyebrow">Dari pilihan ke rencana</p>
         <h2 id="program-next-title">Jurusan sudah dipertimbangkan.<br /> Sekarang, rencanakan langkahmu.</h2>
         <p>Kenali pilihan studi, siapkan rencana biaya, lalu lanjutkan pendaftaran melalui PMB resmi UBSI.</p>
@@ -89,6 +90,7 @@ import '../styles/programs.css';
   </section>
   </div>
   <GraduateContent view="programs" />
+  </div>
 </BaseLayout>
 <script>
   import '../scripts/program-explorer';

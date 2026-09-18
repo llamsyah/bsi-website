@@ -12,6 +12,7 @@ import { formatRupiah } from '../utils/currency';
 import '../styles/tuition.css';
 ---
 <BaseLayout title="Biaya & Beasiswa" description="Rencanakan biaya S1 dan S2 UBSI Margonda: simulator S1 dan perbandingan struktur pembayaran pascasarjana.">
+  <div class="academic-route">
   <DegreeSelector />
   <div data-degree-panel="S1" id="sarjana">
   <header class="tuition-intro container">
@@ -48,9 +49,11 @@ import '../styles/tuition.css';
   </section>
   <section class="page-section tuition-scholarships" id="beasiswa" aria-labelledby="scholarships-title">
     <div class="container">
+      <header class="heading-overview">
       <p class="eyebrow">Dukungan untuk potensimu</p>
       <h2 id="scholarships-title">Kenali pilihan beasiswa.</h2>
       <p class="lead">Peluang bantuan dipertimbangkan terpisah dari estimasi biaya. Penerimaan dan manfaat mengikuti penilaian serta ketentuan resmi.</p>
+      </header>
       <div class="tuition-scholarship-list">{scholarships.items.map((item, index) => <article>
         <span class="meta-label" aria-hidden="true">0{index + 1}</span><h3>{item.name}</h3><p>{item.description}</p>
         <a class="text-link" href={scholarships.informationUrl}>Cek ketentuan {item.name} <span aria-hidden="true">↗</span></a>
@@ -58,14 +61,15 @@ import '../styles/tuition.css';
       <p class="tuition-baseline">Informasi program mengacu pada baseline 15 September 2026. Ketersediaan pengajuan, syarat, dan besaran bantuan perlu dikonfirmasi di PMB resmi.</p>
     </div>
   </section>
-  <section class="page-section tuition-next" aria-labelledby="tuition-next-title">
+  <section class="page-section tuition-next journey-bridge" aria-labelledby="tuition-next-title">
     <div class="container">
       <p class="meta-label">Langkah berikutnya</p>
       <h2 id="tuition-next-title">Rencana biaya sudah lebih jelas?</h2>
       <p>Pahami alur PMB sebelum melanjutkan pendaftaran melalui kanal resmi UBSI.</p>
-      <div class="actions"><a class="button button-secondary" href="/pmb" data-academic-handoff="/pmb">Lihat Panduan PMB <span aria-hidden="true">→</span></a><a class="button button-primary" href={registration.url}>{registration.label} <span aria-hidden="true">↗</span></a></div>
+      <div class="actions"><a class="button button-secondary" href="/pmb" data-academic-handoff="/pmb">Lihat Panduan PMB <span aria-hidden="true">→</span></a><a class="text-link" href={registration.url}>{registration.label} <span aria-hidden="true">↗</span></a></div>
     </div>
   </section>
   </div>
   <GraduateContent view="costs" />
+  </div>
 </BaseLayout>
