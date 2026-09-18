@@ -1,4 +1,5 @@
 ---
+import { graduatePrograms, graduateIntake } from '../data/graduate';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { registration } from '../data/admissions';
 import { campus } from '../data/campus';
@@ -23,7 +24,7 @@ const accreditationNumber = institution.accreditation.reference.replace('SK BAN-
       <div class="campus-hero-copy">
         <p class="eyebrow">{institution.branding} · Depok</p>
         <h1 id="page-title">UBSI Kampus Margonda</h1>
-        <p>{institution.name} di Margonda hadir melalui dua lokasi dengan sebelas pilihan program S1.</p>
+        <p>{institution.name} di Margonda hadir melalui dua lokasi dengan {margondaPrograms.programs.length} pilihan program S1.</p>
         <div class="campus-hero-actions">
           <a class="button button-primary" href="#dua-lokasi">Kenali dua lokasi</a>
           <a class="button button-on-dark" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>
@@ -97,6 +98,7 @@ const accreditationNumber = institution.accreditation.reference.replace('SK BAN-
           <p class="meta-label">Pilihan akademik Margonda</p>
           <h2 id="academic-title">{margondaPrograms.programs.length} program S1 dalam {facultyCount} fakultas.</h2>
           <p>Bandingkan bidang studi, pilihan kelas, dan ringkasan setiap program pada halaman Program Studi.</p>
+          <p>Pascasarjana juga tersedia: {graduatePrograms.map(program => program.name).join(" dan ")}. Intake {graduateIntake.label}, kelas {graduateIntake.classLabel}. <a class="text-link" href="/program-studi?jenjang=s2">Kenali program S2 →</a></p>
         </div>
       </header>
       <a class="button button-secondary" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>
@@ -154,7 +156,7 @@ const accreditationNumber = institution.accreditation.reference.replace('SK BAN-
       <div>
         <p class="meta-label">Lanjutkan perjalananmu</p>
         <h2 id="next-title">Sudah mengenal kampusnya? Temukan program yang sesuai.</h2>
-        <p>Jelajahi sebelas program S1 yang tersedia untuk periode PMB ini di UBSI Kampus Margonda.</p>
+        <p>Jelajahi {margondaPrograms.programs.length} program S1 yang tersedia untuk periode PMB ini di UBSI Kampus Margonda.</p>
       </div>
       <div class="campus-next-actions">
         <a class="button button-white" href="/program-studi">Lihat Program Studi <span aria-hidden="true">→</span></a>

@@ -1,6 +1,6 @@
 # Current State — Website PMB Universitas BSI Margonda
 
-## Implementation update — Tasks 03–10
+## Implementation update — Tasks 03–11B
 
 The original audit below describes the preserved root `index.html` prototype.
 The production application now lives in Astro `src/`, with five real routes.
@@ -62,6 +62,8 @@ Validation: 99 tests passed; Astro check reported zero errors, warnings and hint
 across 40 files; production build generated five routes. Required scenarios and
 query selection passed at 1920, 1366, 768 and 320px with no horizontal overflow.
 See the Task 06.1 README section for the validation matrix and limitations.
+
+Task 11B adds separate S2 discovery, payment alternatives and PMB guidance using the Task 11A audit. S1 compatibility data and calculation/date engines remain unchanged. URL degree/program state and page-local assistant context connect the journeys; unknown S2 dates and the MM payment discrepancy remain explicit.
 
 ## 1. Repository State
 

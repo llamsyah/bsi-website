@@ -1,3 +1,4 @@
+import { parseAcademicSelection, type AcademicContext } from '../utils/academicSelection';
 import { askAssistant } from '../assistant/service';
 import { createAssistantMessage } from '../assistant/render';
 import { MAX_QUESTION_LENGTH } from '../assistant/resolver';
@@ -14,6 +15,12 @@ if (trigger && dialog && typeof dialog.showModal === 'function') {
   const scroll = dialog.querySelector<HTMLElement>('[data-assistant-scroll]')!;
   const suggestions = dialog.querySelector<HTMLElement>('[data-assistant-suggestions]')!;
   const feedback = dialog.querySelector<HTMLElement>('[data-assistant-feedback]')!;
+  const initialSelection = parseAcademicSelection(location.search);
+  let academicContext: AcademicContext | undefined = initialSelection.error ? undefined : { degreeLevel: initialSelection.degreeLevel, programId: initialSelection.program?.id };
+  window.addEventListener('academic-selection-change', () => {
+    const selection = parseAcademicSelection(location.search);
+    academicContext = selection.error ? undefined : { degreeLevel: selection.degreeLevel, programId: selection.program?.id };
+  });
   let pending = false;
   let previousOverflow = '';
   input.maxLength = MAX_QUESTION_LENGTH;
@@ -57,7 +64,8 @@ if (trigger && dialog && typeof dialog.showModal === 'function') {
     // Keep the start of the new exchange readable, including long answers on mobile.
     const exchangeTop = messages.lastElementChild!.getBoundingClientRect().top - scroll.getBoundingClientRect().top + scroll.scrollTop;
     try {
-      const response = await askAssistant({ question: text, referenceDate: getJakartaDate(new Date()) });
+      const response = await askAssistant({ question: text, referenceDate: getJakartaDate(new Date()), context: academicContext });
+      academicContext = response.context ?? academicContext;
       messages.append(createAssistantMessage(document, response.text, response));
       feedback.textContent = '';
     } catch {

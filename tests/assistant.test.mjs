@@ -29,7 +29,7 @@ test('program existence answers use shared description; invalid programs never g
   for (const name of ['Informatika', 'Psikologi']) {
     assert.match(ask(`ada ${name}?`).text, /tercantum dalam daftar program Margonda/);
   }
-  for (const name of ['Astronomi', 'Kedokteran', 'D3', 'S2 Manajemen', 'Keperawatan', 'Ilmu Hukum']) {
+  for (const name of ['Astronomi', 'Kedokteran', 'D3', 'Keperawatan', 'Ilmu Hukum']) {
     assert.equal(ask(`ada ${name}?`).status, 'unsupported');
   }
   assert.equal(ask('gaji lulusan Informatika?').status, 'unsupported');
@@ -47,18 +47,18 @@ for (const [id, name] of Object.entries(faculties)) {
 
 test('classes come from the shared offering, no invented evening/weekend classes', () => {
   for (const program of margondaPrograms.programs) {
-    const result = ask(`${program.name} ada kelas malam?`);
+    const result = ask(`S1 ${program.name} ada kelas malam?`);
     assert.equal(result.status, program.classes.includes('sore-malam') ? 'answered' : 'unsupported');
     for (const time of program.classes) assert.ok(result.text.includes(classTimes[time]));
   }
   assert.match(ask('kelas Jumat Sabtu?').text, /tidak dibuka/);
   assert.equal(ask('kelas malam?').status, 'clarify');
-  assert.equal(ask('biaya kelas malam Manajemen?').status, 'unsupported');
+  assert.equal(ask('biaya kelas malam S1 Manajemen?').status, 'unsupported');
 });
 
 for (const program of margondaPrograms.programs) {
   test(`${program.name} cost response agrees with Task 06, including URL`, () => {
-    const result = ask(`biaya kuliah ${program.name} berapa?`);
+    const result = ask(`biaya kuliah S1 ${program.name} berapa?`);
     const expected = calculateTuition({ programId: program.id, waveId: 'khusus' });
     assert.equal(result.status, 'answered');
     assert.ok(result.text.includes(formatRupiah(expected.semesterTuition)));

@@ -1,3 +1,6 @@
+import { resolveGraduate } from './graduateResolver.ts';
+import { validAcademicContext } from '../utils/academicSelection.ts';
+import { academicPrograms } from '../data/academic.ts';
 import { admissionsJourney, registration, september2026 } from '../data/admissions.ts';
 import { campus } from '../data/campus.ts';
 import { margondaAPreview } from '../data/facilities.ts';
@@ -33,8 +36,8 @@ function fallback(action = pmbAction) {
   return answer('Aku belum punya informasi terverifikasi untuk pertanyaan itu. Aku bisa membantu soal program, kelas, biaya, jadwal PMB, alamat kampus, dan informasi umum beasiswa Margonda. Untuk ketentuan lain, konfirmasikan melalui PMB resmi UBSI.', [action, registrationAction], undefined, 'unsupported');
 }
 
-/** Deterministic, deliberately limited topic matching; no conversation memory or generated facts. */
-export function resolveAssistant({ question, referenceDate }: AssistantRequest): AssistantResponse {
+/** Existing S1 topic resolver; isolated from graduate admission and fee rules. */
+function resolveS1({ question, referenceDate }: AssistantRequest): AssistantResponse {
   const query = normalize(question);
   if (!query) return answer('Apa yang ingin kamu ketahui tentang UBSI Margonda?', [], undefined, 'clarify');
   if (question.length > MAX_QUESTION_LENGTH) return answer(`Tulis pertanyaan singkat, maksimal ${MAX_QUESTION_LENGTH} karakter.`, [], undefined, 'clarify');
@@ -127,4 +130,32 @@ export function resolveAssistant({ question, referenceDate }: AssistantRequest):
     return answer(`${program.name} (${program.degree}) tercantum dalam daftar program Margonda. ${program.description}`, [programsAction], programContext);
   }
   return fallback();
+}
+
+/** Degree and program context are explicit request/response data, never hidden global state. */
+export function resolveAssistant(request: AssistantRequest): AssistantResponse {
+  const query = normalize(request.question);
+  const prior = validAcademicContext(request.context);
+  if (!query || request.question.length > MAX_QUESTION_LENGTH || /[<>]/.test(request.question)
+      || (query.match(/\b20\d{2}\b/g) ?? []).some(year => year !== '2026')) return resolveS1(request);
+  if (/\b(d3|hukum|hubungan internasional|keperawatan|kedokteran)\b/.test(query)) return fallback();
+  const explicitS2 = /\b(s2|magister|pascasarjana)\b/.test(query);
+  const explicitS1 = /\b(s1|sarjana)\b/.test(query) && !/lulusan|lulus|syarat/.test(query);
+  if (explicitS1 && explicitS2) return answer('Pilih satu jenjang dahulu: Sarjana (S1) atau Pascasarjana (S2).', [programsAction], undefined, 'clarify');
+  const s1Only = margondaPrograms.programs.find(item => !['manajemen', 'teknologi-informasi'].includes(item.id) && containsPhrase(query, item.name));
+  const degreeLevel = explicitS2 ? 'S2' : explicitS1 || s1Only ? 'S1' : prior?.degreeLevel;
+  const mentionsManagement = /\b(manajemen|mm)\b/.test(query);
+  const mentionsTI = /\b(teknologi informasi|ti|mti)\b/.test(query);
+  if (!degreeLevel && (mentionsManagement || mentionsTI)) return answer('Maksudmu Sarjana (S1) atau Pascasarjana (S2)? Sebutkan jenjang agar rincian program dan biayanya sesuai.', [programsAction], undefined, 'clarify');
+  if (degreeLevel === 'S2') {
+    if (s1Only || (mentionsManagement && mentionsTI)) return { ...answer('Sebutkan satu program S2: Magister Manajemen atau Magister Teknologi Informasi.', [{ label: 'Pilihan S2', href: '/program-studi?jenjang=s2' }], undefined, 'clarify'), context: { degreeLevel: 'S2' } };
+    const programId = mentionsManagement ? 'magister-manajemen' : mentionsTI ? 'magister-teknologi-informasi' : prior?.degreeLevel === 'S2' ? prior.programId : undefined;
+    return resolveGraduate(query, { degreeLevel: 'S2', ...(programId ? { programId } : {}) });
+  }
+  const mentioned = margondaPrograms.programs.filter(item => containsPhrase(query, item.name));
+  const previousProgram = prior?.degreeLevel === 'S1' ? academicPrograms.find(item => item.id === prior.programId) : undefined;
+  const program = mentioned.length === 1 ? mentioned[0] : mentioned.length === 0 ? previousProgram : undefined;
+  const followup = !mentioned.length && program && /\b(biaya|biayanya|kelas|tarif)\b/.test(query);
+  const response = resolveS1({ ...request, question: followup ? `${request.question} ${program.name}` : request.question });
+  return { ...response, context: { degreeLevel: 'S1', ...(program ? { programId: program.id } : {}) } };
 }

@@ -1,4 +1,6 @@
 ---
+import DegreeSelector from '../components/DegreeSelector.astro';
+import GraduateContent from '../components/GraduateContent.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProgramRow from '../components/programs/ProgramRow.astro';
 import { faculties, margondaPrograms } from '../data/programs';
@@ -6,7 +8,9 @@ import { campus } from '../data/campus';
 import { registration } from '../data/admissions';
 import '../styles/programs.css';
 ---
-<BaseLayout title="Program Studi" description="Jelajahi 11 program S1 UBSI Kampus Margonda untuk PMB September 2026. Cari program, pilih fakultas, dan kenali pilihan waktu kuliah.">
+<BaseLayout title="Program Studi" description="Jelajahi program Sarjana dan Pascasarjana UBSI Margonda untuk September 2026. Kenali program, kelas, biaya, dan panduan pendaftaran.">
+  <DegreeSelector />
+  <div data-degree-panel="S1" id="sarjana">
   <section class="page-section programs-intro">
     <div class="container">
       <p class="eyebrow">{campus.name} · {margondaPrograms.periodLabel}</p>
@@ -51,7 +55,7 @@ import '../styles/programs.css';
       </div>
       <aside class="program-schedule-note" aria-labelledby="schedule-note-title">
         <h3 id="schedule-note-title">Tentang pilihan waktu kuliah</h3>
-        <p>Pilihan kelas mengikuti {margondaPrograms.periodLabel} di Margonda. Waktu yang tersedia ditampilkan pada setiap program. {!margondaPrograms.fridaySaturdayAvailable && 'Kelas Jumat / Sabtu tidak dibuka pada periode ini.'}</p>
+        <p>Pilihan kelas mengikuti {margondaPrograms.periodLabel} di Margonda. Waktu yang tersedia ditampilkan pada setiap program. {!margondaPrograms.fridaySaturdayAvailable && 'Kelas Jumat / Sabtu tidak dibuka untuk daftar S1 ini.'}</p>
       </aside>
     </div>
   </section>
@@ -83,6 +87,8 @@ import '../styles/programs.css';
       </ol>
     </div>
   </section>
+  </div>
+  <GraduateContent view="programs" />
 </BaseLayout>
 <script>
   import '../scripts/program-explorer';

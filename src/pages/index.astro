@@ -1,4 +1,5 @@
 ---
+import { graduatePrograms, graduateIntake } from '../data/graduate';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AdmissionsStatus from '../components/AdmissionsStatus.astro';
 import { campus } from '../data/campus';
@@ -82,7 +83,7 @@ import '../styles/home.css';
           <ul class="program-sample-labels" role="list" aria-label="Contoh program, tanpa urutan peringkat">
             {homeProgramPreviewSample.map(program => <li>{program.name}</li>)}
           </ul>
-          <p class="program-more">Dan pilihan lainnya untuk kamu jelajahi <span aria-hidden="true">↗</span></p>
+          <p class="program-more"><a class="text-link" href="/program-studi?jenjang=s2">Juga tersedia {graduatePrograms.length} program Pascasarjana · {graduateIntake.label} →</a></p>
         </div>
       </div>
     </div>
@@ -159,7 +160,7 @@ import '../styles/home.css';
         <details><summary>Apakah pendaftaran dilakukan di website ini?</summary><p>Pendaftaran dilakukan melalui <a href={registration.url}>PMB resmi UBSI</a>. Website ini membantu kamu mengenal informasi Kampus Margonda sebelum mendaftar.</p></details>
         <details><summary>Program apa saja yang tersedia di Margonda?</summary><p>Daftar {margondaPrograms.periodLabel} mencakup {margondaPrograms.programs.length} program {margondaPrograms.degree}. Lihat <a href="/program-studi">halaman Program Studi</a> untuk daftar lengkap.</p></details>
         <details><summary>Kapan awal perkuliahan periode September?</summary><p>Awal perkuliahan {period.label} adalah <time datetime={period.classStart}>{formatCalendarDate(period.classStart)}</time>. Lihat <a href="/pmb">jadwal gelombang pendaftaran</a> untuk rincian waktunya.</p></details>
-        <details><summary>Apakah simulasi biaya sudah bisa digunakan?</summary><p>Ya, gunakan <a href="/biaya-beasiswa">simulator biaya</a> untuk estimasi 11 program S1 Margonda pada PMB September 2026. Konfirmasi ketentuan pembayaran dan beasiswa melalui <a href={registration.url}>PMB resmi UBSI</a>.</p></details>
+        <details><summary>Apakah simulasi biaya sudah bisa digunakan?</summary><p>Ya, gunakan <a href="/biaya-beasiswa">simulator biaya</a> untuk estimasi {margondaPrograms.programs.length} program S1 Margonda pada PMB September 2026. Konfirmasi ketentuan pembayaran dan beasiswa melalui <a href={registration.url}>PMB resmi UBSI</a>.</p></details>
       </div>
     </div>
   </section>

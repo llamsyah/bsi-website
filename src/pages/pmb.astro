@@ -1,4 +1,6 @@
 ---
+import DegreeSelector from '../components/DegreeSelector.astro';
+import GraduateContent from '../components/GraduateContent.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AdmissionsStatus from '../components/AdmissionsStatus.astro';
 import { admissionsGuide, september2026 as period, registration } from '../data/admissions';
@@ -8,7 +10,9 @@ import '../styles/pmb.css';
 const firstWave = period.waves[0];
 const lastWave = period.waves.at(-1)!;
 ---
-<BaseLayout title="Panduan PMB" description="Panduan lengkap PMB September 2026 UBSI Kampus Margonda: status pendaftaran, tujuh gelombang, alur, persiapan dokumen, dan pendaftaran resmi.">
+<BaseLayout title="Panduan PMB" description="Panduan PMB Sarjana dan Pascasarjana UBSI Margonda: informasi periode September 2026, persiapan, dan pendaftaran resmi.">
+  <DegreeSelector />
+  <div data-degree-panel="S1" id="sarjana">
   <section class="pmb-hero" aria-labelledby="page-title">
     <div class="container pmb-hero-grid">
       <div class="pmb-hero-copy">
@@ -157,6 +161,8 @@ const lastWave = period.waves.at(-1)!;
       <a class="button button-white" href={period.registrationUrl}>{registration.label}<span aria-hidden="true">↗</span></a>
     </div>
   </section>
+  </div>
+  <GraduateContent view="pmb" />
 </BaseLayout>
 
 <script>

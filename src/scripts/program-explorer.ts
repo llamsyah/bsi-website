@@ -33,6 +33,11 @@ if (root && form && search && faculty && count && empty) {
   form.addEventListener('reset', (event) => { event.preventDefault(); resetResults(); });
   root.querySelector('[data-program-reset]')?.addEventListener('click', resetResults);
   window.addEventListener('pageshow', updateResults);
+  window.addEventListener('academic-selection-change', () => {
+    if (new URLSearchParams(location.search).get('jenjang') === 's2') {
+      search.value = ''; faculty.value = 'all'; updateResults();
+    }
+  });
   updateResults();
   form.hidden = false;
 }

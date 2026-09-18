@@ -1,4 +1,6 @@
 ---
+import DegreeSelector from '../components/DegreeSelector.astro';
+import GraduateContent from '../components/GraduateContent.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TuitionCalculator from '../components/TuitionCalculator.astro';
 import { registration, september2026 } from '../data/admissions';
@@ -9,7 +11,9 @@ import { calculateTuition } from '../utils/tuition';
 import { formatRupiah } from '../utils/currency';
 import '../styles/tuition.css';
 ---
-<BaseLayout title="Biaya & Beasiswa" description="Simulasikan biaya 11 program S1 UBSI Margonda, bandingkan SSP tujuh gelombang PMB September 2026, dan kenali pilihan beasiswa.">
+<BaseLayout title="Biaya & Beasiswa" description="Rencanakan biaya S1 dan S2 UBSI Margonda: simulator S1 dan perbandingan struktur pembayaran pascasarjana.">
+  <DegreeSelector />
+  <div data-degree-panel="S1" id="sarjana">
   <header class="tuition-intro container">
     <p class="eyebrow">Biaya &amp; Beasiswa · S1 Margonda</p>
     <h1>Kenali biayanya.<br /><span>Rencanakan langkahmu.</span></h1>
@@ -59,7 +63,9 @@ import '../styles/tuition.css';
       <p class="meta-label">Langkah berikutnya</p>
       <h2 id="tuition-next-title">Rencana biaya sudah lebih jelas?</h2>
       <p>Pahami alur PMB sebelum melanjutkan pendaftaran melalui kanal resmi UBSI.</p>
-      <div class="actions"><a class="button button-secondary" href="/pmb">Lihat Panduan PMB <span aria-hidden="true">→</span></a><a class="button button-primary" href={registration.url}>{registration.label} <span aria-hidden="true">↗</span></a></div>
+      <div class="actions"><a class="button button-secondary" href="/pmb" data-academic-handoff="/pmb">Lihat Panduan PMB <span aria-hidden="true">→</span></a><a class="button button-primary" href={registration.url}>{registration.label} <span aria-hidden="true">↗</span></a></div>
     </div>
   </section>
+  </div>
+  <GraduateContent view="costs" />
 </BaseLayout>

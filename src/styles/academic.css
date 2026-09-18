@@ -1,0 +1,67 @@
+[data-degree-panel][hidden], [data-graduate-program][hidden] { display: none !important; }
+[data-degree-announcement] { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.degree-nav { padding-top: 1.5rem; padding-bottom: .5rem; }
+.degree-nav > .meta-label { display: block; margin-bottom: .55rem; }
+.degree-options { display: flex; flex-wrap: wrap; gap: .4rem; }
+.degree-options a { display: inline-flex; align-items: center; gap: .3em; padding: .8rem 1.1rem; border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-blue); font-weight: 800; text-decoration: none; }
+.degree-options a[aria-current="true"] { background: var(--color-blue); color: white; border-bottom: 3px solid var(--color-red); }
+.degree-options a:focus-visible, .graduate-body a:focus-visible, .graduate-body summary:focus-visible, .graduate-select select:focus-visible { outline: 3px solid var(--color-red); outline-offset: 4px; }
+.graduate-intro { padding-top: clamp(2rem, 4vw, 3.5rem); padding-bottom: 2rem; }
+.graduate-intro h1 { max-width: 22ch; font-size: clamp(2rem, 3.5vw, 3.4rem); line-height: 1.13; margin-bottom: 1rem; }
+.graduate-intro .lead { max-width: 66ch; }
+.graduate-body { padding-bottom: 4rem; }
+.graduate-body h2 { font-size: clamp(1.25rem, 2.2vw, 1.85rem); line-height: 1.3; }
+.graduate-program { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.75rem 0; border-top: 1px solid var(--color-border); }
+.graduate-program h2, .graduate-cost h2 { margin: 0 0 .7rem; }
+.graduate-program p { margin: .5rem 0; }
+.graduate-program .actions { margin-top: 1rem; gap: 1rem 2rem; }
+.academic-note, .academic-source { color: var(--color-muted); font-size: .9rem; line-height: 1.7; max-width: 85ch; }
+.academic-message { border-left: 3px solid var(--color-red); background: var(--color-red-soft); padding: 1rem 1.2rem; line-height: 1.7; margin: 1.25rem 0; max-width: 90ch; }
+.graduate-select { max-width: 34rem; margin: 0 0 1.7rem; }
+.graduate-select label { display: block; font-weight: 800; margin-bottom: .5rem; }
+.graduate-select select { width: 100%; min-height: 48px; padding: .7rem; border: 1px solid var(--color-border); border-radius: 8px; background: white; color: var(--color-blue); font: inherit; }
+.graduate-cost { border-top: 2px solid var(--color-blue); padding: 1.7rem 0; }
+.graduate-payment-options { display: grid; grid-template-columns: 1.15fr 1fr 1fr; margin: 1.5rem 0; background: var(--color-blue-soft); }
+.graduate-payment-options > div { padding: 1.5rem; min-width: 0; }
+.graduate-payment-options dt { font-size: .85rem; margin-bottom: .7rem; }
+.graduate-payment-options dd { margin: 0 0 .6rem; color: var(--color-blue); font-size: clamp(1.1rem, 1.9vw, 1.75rem); font-weight: 800; }
+.graduate-payment-options small { font-size: .8rem; font-weight: 500; }
+.graduate-payment-options span { font-size: .8rem; line-height: 1.6; color: var(--color-muted); display: block; }
+.graduate-payment-options .graduate-published { background: var(--color-blue); color: white; border-bottom: 3px solid var(--color-red); }
+.graduate-published dd { color: white; }
+.graduate-breakdown { border-block: 1px solid var(--color-border); padding: .9rem 0; }
+.graduate-breakdown summary { cursor: pointer; font-weight: 800; color: var(--color-blue); min-height: 30px; }
+.graduate-breakdown p { max-width: 75ch; font-size: .9rem; }
+.graduate-fees { max-width: 42rem; }
+.graduate-fees > div { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--color-border); }
+.graduate-fees dd { margin: 0; white-space: nowrap; }
+.graduate-availability { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.graduate-availability article { border-top: 2px solid var(--color-blue); padding: 1rem 0; }
+.graduate-checklist { list-style: none; padding: 0; max-width: 60rem; }
+.graduate-checklist li { padding: 1rem 0 1rem 1.5rem; border-bottom: 1px solid var(--color-border); position: relative; line-height: 1.7; }
+.graduate-checklist li::before { content: '✓'; position: absolute; left: 0; color: var(--color-red); }
+.graduate-preparation-title { margin-top: 2rem; }
+.graduate-handoff { margin-top: 2rem; padding: 2rem 0 0; border-top: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.graduate-handoff p { max-width: 55ch; }
+.graduate-handoff .button { flex-shrink: 0; }
+@media (max-width: 767px) {
+  .graduate-intro { padding-block: 1.6rem; }
+  .graduate-intro h1 { font-size: clamp(1.8rem, 5.5vw, 2.5rem); }
+  .graduate-payment-options { grid-template-columns: 1fr; }
+  .graduate-payment-options > div { padding: 1rem; }
+  .graduate-payment-options > div + div { border-bottom: 1px solid var(--color-border); }
+  .graduate-payment-options dd { font-size: 1.45rem; }
+  .graduate-availability { grid-template-columns: 1fr; gap: .5rem; }
+  .graduate-program { grid-template-columns: 1.5rem 1fr; gap: .7rem; padding: 1.2rem 0; }
+  .graduate-handoff { align-items: flex-start; flex-direction: column; padding-top: 1.4rem; }
+  .graduate-body { padding-bottom: 2.5rem; }
+}
+@media (max-width: 400px) {
+  .degree-options { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem; }
+  .degree-options a { flex-wrap: wrap; padding: .7rem; font-size: .82rem; }
+  .graduate-fees > div { flex-direction: column; gap: .2rem; }
+  .academic-message { padding: .8rem; font-size: .87rem; }
+}
+
+.graduate-help .assistant-trigger { position: static; width: auto; min-width: 44px; padding: .65rem 1rem; margin-top: 1rem; }
+.graduate-help .assistant-trigger-label { position: static; width: auto; height: auto; clip-path: none; }

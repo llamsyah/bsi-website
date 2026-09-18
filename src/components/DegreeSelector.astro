@@ -1,0 +1,15 @@
+---
+import '../styles/academic.css';
+const path = Astro.url.pathname;
+---
+<nav class="container degree-nav" aria-label="Pilih jenjang studi" data-degree-nav>
+  <span class="meta-label">Jenjang studi</span>
+  <div class="degree-options">
+    <a href={`${path}?jenjang=s1#sarjana`} data-degree-link="S1">Sarjana <span>(S1)</span></a>
+    <a href={`${path}?jenjang=s2#pascasarjana`} data-degree-link="S2">Pascasarjana <span>(S2)</span></a>
+  </div>
+  <p class="academic-message" data-academic-error role="status" hidden></p>
+  <span class="sr-only" data-degree-announcement role="status" aria-live="polite"></span>
+</nav>
+<noscript><p class="container academic-note">Kedua jenjang ditampilkan. Tautan jenjang menuju bagian yang dipilih; aktifkan JavaScript untuk menampilkan satu jenjang saja.</p></noscript>
+<script>import '../scripts/academic-selection';</script>

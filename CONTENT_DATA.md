@@ -769,20 +769,15 @@ Remove from Margonda calculator and Program Studi.
 
 ---
 
-## S2
+## S2 — Task 11A/11B decision, 17–18 September 2026
 
-UBSI secara institusi memiliki:
+`VERIFIED` for Margonda, September 2026: Magister Manajemen and Magister Teknologi Informasi, Jumat/Sabtu. Source: https://pmbubsi.id/infopmb/prodi/s2_info ; full conflict/evidence matrix: `TASK_11A_ACADEMIC_OFFERING_AUDIT.md`.
 
-* Magister Manajemen
-* Magister Teknologi Informasi
+Program profiles support 3 semesters, not guaranteed completion. Exact S2 registration dates, lecture start, class hours/mode, building assignment and full document checklist remain unknown. Do not inherit S1 waves or SLTA requirements.
 
-Tetapi current Margonda offering tidak konsisten antar official snapshot.
+Published MM: Rp35,000,000 program / Rp11,700,000 semester / 18 × Rp1,950,000. Products yield Rp35,100,000: preserve the Rp100,000 conflict. MTI: Rp45,000,000 / Rp15,000,000 semester / 18 × Rp2,500,000. Both list registration Rp500,000, matriculation Rp2,500,000 at re-registration, almamater Rp500,000. Inclusion in the program figure remains unclear: no all-in sum. Excludes remedial, thesis and graduation. No automatic scholarship reduction.
 
-Status:
-
-`NEEDS CONFIRMATION`
-
-Jangan jadikan current Margonda offering sampai dikonfirmasi.
+S1 remains the eleven operationally verified programs. HI and Ilmu Hukum remain conflicting candidates, not active/priced offerings. Faculty counts for S1 do not include a guessed S2 faculty.
 
 ---
 
@@ -1467,7 +1462,7 @@ These items remain open:
 * final official confirmation of operating hours,
 * exact facility inventory Margonda B,
 * photos Margonda B,
-* S2 availability at Margonda,
+* exact S2 dates, payment inclusions, and MM published total discrepancy,
 * detailed accreditation for most programs,
 * current status Indonesia Cerdas,
 * current status Golden Ticket,

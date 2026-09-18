@@ -1,9 +1,9 @@
 ---
+import { academicHref } from '../../utils/academicSelection';
 import { classTimes, faculties, type Program } from '../../data/programs';
 interface Props { program: Program; index: number }
 const { program, index } = Astro.props;
-// The costs page may ignore this selection until the calculator migration.
-const costUrl = `/biaya-beasiswa?${new URLSearchParams({ program: program.slug })}`;
+const costUrl = academicHref('/biaya-beasiswa', { degreeLevel: 'S1', programId: program.id });
 ---
 <article class="program-row" data-program-id={program.id} data-program-name={program.name}
   data-program-faculty={program.facultyId} aria-labelledby={`program-${program.id}`}>

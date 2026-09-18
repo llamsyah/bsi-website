@@ -1,0 +1,66 @@
+---
+import { graduatePrograms, graduateIntake } from '../data/graduate';
+import { getGraduateCost } from '../utils/graduateCosts';
+import { academicHref } from '../utils/academicSelection';
+import { formatRupiah as rupiah } from '../utils/currency';
+import { registration } from '../data/admissions';
+interface Props { view: 'programs' | 'costs' | 'pmb' }
+const { view } = Astro.props;
+const headings = { programs: 'Langkah lanjut untuk bidang yang kamu tekuni.', costs: 'Rencanakan biaya studi magister.', pmb: 'Siapkan langkah menuju studi magister.' };
+---
+<div data-degree-panel="S2" id="pascasarjana">
+  <section class="graduate-intro container">
+    <p class="eyebrow">Pascasarjana · UBSI Margonda · {graduateIntake.label}</p>
+    <h1>{headings[view]}</h1>
+    <p class="lead">{view === 'programs' ? `${graduatePrograms.length} program magister, dengan kelas ${graduateIntake.classLabel}. Kenali programnya, lalu pertimbangkan biaya dan pendaftaran.` : view === 'costs' ? 'Nominal program, per semester, atau angsuran: bandingkan pilihan pembayaran tanpa menjumlahkan ketiganya.' : 'Kenali pilihan program dan persiapannya. Jadwal pendaftaran serta awal kuliah S2 perlu dikonfirmasi melalui PMB resmi UBSI.'}</p>
+  </section>
+  <section class="graduate-body container" aria-label={view === 'costs' ? 'Rincian biaya S2' : view === 'pmb' ? 'Persiapan PMB S2' : 'Pilihan program S2'}>
+    {view !== 'programs' && <div class="graduate-select" data-graduate-select-wrap hidden>
+      <label for="graduate-program">Program pascasarjana</label>
+      <select id="graduate-program" data-graduate-select>
+        <option value="">Lihat kedua program</option>
+        {graduatePrograms.map(program => <option value={program.id}>{program.name}</option>)}
+      </select>
+    </div>}
+    {view === 'programs' && <div class="graduate-program-list">{graduatePrograms.map((program, index) => <article class="graduate-program" id={program.slug}>
+      <span class="meta-label" aria-hidden="true">0{index + 1}</span>
+      <div><h2>{program.name}</h2><p>{graduateIntake.classLabel} · Intake {graduateIntake.label}</p>
+        <p class="academic-note">Durasi program: {program.durationSemesters} semester. Penyelesaian mengikuti ketentuan akademik.</p>
+        <div class="actions"><a class="text-link" href={academicHref('/biaya-beasiswa', { degreeLevel: 'S2', programId: program.id })}>Lihat estimasi biaya →</a><a class="text-link" href={academicHref('/pmb', { degreeLevel: 'S2', programId: program.id })}>Panduan pendaftaran →</a></div>
+      </div>
+    </article>)}</div>}
+    {view === 'costs' && <>
+      <div class="graduate-cost-list">{graduatePrograms.map(program => {
+        const result = getGraduateCost(program.id)!;
+        return <article class="graduate-cost" data-graduate-program={program.id} aria-labelledby={`cost-${program.id}`}>
+          <header><p class="meta-label">Biaya kuliah program</p><h2 id={`cost-${program.id}`}>{program.name}</h2></header>
+          <dl class="graduate-payment-options">
+            <div class="graduate-published"><dt>Total program yang dipublikasikan</dt><dd>{rupiah(result.cost.programTotal)}</dd></div>
+            <div><dt>Pembayaran per semester</dt><dd>{rupiah(result.cost.semesterPayment)}</dd><span>{program.durationSemesters} semester × nominal di atas = {rupiah(result.semesterProduct)}</span></div>
+            <div><dt>Angsuran {result.cost.installment.count} kali</dt><dd>{rupiah(result.cost.installment.amount)} <small>/ angsuran</small></dd><span>{result.cost.installment.count} × nominal di atas = {rupiah(result.installmentProduct)}</span></div>
+          </dl>
+          {result.inconsistent && <p class="academic-message"><strong>Perbedaan angka publikasi:</strong> perkalian semester maupun angsuran menghasilkan {rupiah(result.installmentProduct)}, berbeda {rupiah(result.difference)} dari total program. Semua nominal di atas mengikuti publikasi resmi, tanpa penyesuaian.</p>}
+          <details class="graduate-breakdown"><summary>Komponen lain &amp; batas estimasi</summary>
+            <dl class="graduate-fees"><div><dt>Pendaftaran</dt><dd>{rupiah(result.cost.registration)}</dd></div><div><dt>Matrikulasi · saat daftar ulang</dt><dd>{rupiah(result.cost.matriculation)}</dd></div><div><dt>Jas almamater</dt><dd>{rupiah(result.cost.almamater)}</dd></div></dl>
+            <p>Hubungan komponen ini dengan total program perlu dikonfirmasi. Kami tidak menjumlahkannya menjadi tagihan akhir.</p>
+          </details>
+          <p class="academic-note"><strong>Belum termasuk:</strong> {result.cost.exclusions.join(', ')}. Nominalnya tidak dicantumkan pada sumber. Jadwal angsuran dan tagihan akhir perlu dikonfirmasi di sistem resmi.</p>
+          <a class="text-link" href={academicHref('/pmb', { degreeLevel: 'S2', programId: program.id })}>Panduan pendaftaran {program.name} →</a>
+        </article>;
+      })}</div>
+      <p class="academic-source">Acuan: <a href={graduateIntake.source}>publikasi PMB S2 UBSI</a>, ditinjau 17 September 2026. Nominal mengikuti publikasi; bukan penetapan tagihan atau jaminan beasiswa.</p>
+    </>}
+    {view === 'pmb' && <>
+      <div class="graduate-availability">{graduatePrograms.map(program => <article data-graduate-program={program.id}>
+        <h2>{program.name}</h2><p>Margonda · {graduateIntake.label} · {graduateIntake.classLabel}</p>
+        <a class="text-link" href={academicHref('/biaya-beasiswa', { degreeLevel: 'S2', programId: program.id })}>Lihat estimasi biaya →</a>
+      </article>)}</div>
+      <p class="academic-message"><strong>Konfirmasi jadwal PMB S2.</strong> Ketersediaan intake tidak berarti pendaftaran sedang dibuka. Tanggal pendaftaran dan awal perkuliahan belum tercantum dalam acuan S2 yang digunakan.</p>
+      <h2 class="graduate-preparation-title">Yang perlu kamu siapkan</h2>
+      <ul class="graduate-checklist"><li><strong>{graduateIntake.eligibility}.</strong> Konfirmasi dokumen dan proses seleksi melalui PMB resmi.</li><li><strong>Laptop untuk perkuliahan.</strong> Ikuti kebutuhan akademik program.</li><li><strong>Pendaftaran dan daftar ulang.</strong> Biaya pendaftaran tercantum pada rincian biaya; matrikulasi dibayarkan saat daftar ulang.</li></ul>
+      <p class="academic-note">Hari kelas: {graduateIntake.classLabel}. Jam terperinci, mode perkuliahan, dan gedung tempat belajar perlu dikonfirmasi. Website ini membantu memahami pilihan; pendaftaran dan pembayaran dilakukan melalui sistem PMB resmi.</p>
+    </>}
+    <div class="graduate-help" data-graduate-assistant-slot></div>
+    <div class="graduate-handoff"><div><p class="meta-label">Langkah berikutnya</p><h2>{view === 'pmb' ? 'Lanjutkan melalui PMB resmi.' : 'Siapkan keputusan studimu.'}</h2><p>Pastikan ketentuan yang berlaku untuk program dan periode pilihanmu.</p></div><a class="button button-primary" href={registration.url}>{registration.label} ↗</a></div>
+  </section>
+</div>

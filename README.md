@@ -253,7 +253,7 @@ there is no API, fetch request, credential or new package in this implementation
 The resolver uses normalized words/phrases, not natural-language reasoning.
 Unknown topics and unsupported claims fall back safely; ambiguous costs/classes
 ask for a program. Paraphrases and multi-topic requests may not be understood.
-There is no conversational entity memory: each question must name its subject.
+Task 11B adds explicit page-local degree/program context for follow-up questions; no persistent conversation storage.
 Each input is limited to 500 characters. Answers cannot establish eligibility,
 personal recommendations, installment plans, future intakes or live availability.
 
@@ -577,3 +577,25 @@ native FAQ were checked. Home and `/pmb` showed matching status and the browser
 console had no warnings/errors. Reduced motion was checked in the CSS rules;
 this was not a comprehensive assistive-technology audit. The legacy hash remains
 unchanged. No commit or push was performed for Task 04.
+
+
+## Task 11B — S1 / S2 integration
+
+The operational S1 compatibility dataset remains unchanged (11 programs, four faculties, existing classes and seven-wave calculator). `src/data/academic.ts` projects it into the degree-aware catalog alongside two graduate programs in `graduate.ts`. Pascasarjana is a display group, not a new faculty claim. See `TASK_11A_ACADEMIC_OFFERING_AUDIT.md` for source scope and conflicts.
+
+Program Studi, Biaya & Beasiswa and Panduan PMB share the degree selector and `academicSelection.ts` URL contract. Default S1 and old `?program=<s1-slug>` links remain valid. New links carry `jenjang=s1|s2` and optional `program`. A unique S2 slug infers S2; incompatible or unknown query values receive a visible correction message. Both static sections remain accessible without JavaScript.
+
+S2 costs are independent published payment alternatives, never SSP/precollege or a combined all-in bill. MM's Rp100,000 discrepancy is shown explicitly; unknown S2 dates are not evaluated using the S1 engine. Tanya BSI keeps typed degree/program context only in the current page conversation and honors explicit changes of level. No cross-page hidden storage is used.
+
+Home/Campus offer compact S2 discovery links. HI/Ilmu Hukum, unverified payment inclusions, S2 dates, building assignments and automatic scholarships remain excluded.
+
+
+### Task 11B validation — 18 September 2026
+
+- 111 tests pass. Astro check: 49 files, zero errors/warnings/hints. Production build: five static routes.
+- Browser matrix: Program Studi, Biaya and PMB in both S1/S2 modes at 1920, 1366, 768, 390 and 320 px; one visible H1, no horizontal overflow, seven PMB wave rows in S1 and none in S2. Home/Campus discovery links and overflow checked at the same widths.
+- Visually reviewed graduate rows, payment alternatives, disclosures and PMB layout. Fixed a narrow mobile assistant trigger found during validation. No console errors observed.
+- Verified Program → Cost → PMB MTI handoff, MM discrepancy, legacy Informatika query (Rp12,840,000 current initial estimate), S1 search/faculty intersection, keyboard degree/disclosure controls, browser Back and refresh, mismatch message, and S2 TI → follow-up cost context in the mobile dialog. Escape restores focus.
+- Unchanged against base: legacy `index.html`, S1 program/admissions/tuition datasets, S1 tuition/date engines and approved calculator stylesheet. Static build retains both degree sections for no-JavaScript access; JavaScript chooses the URL-requested section.
+
+Changed-file groups: academic/graduate data and helpers; degree selector/graduate presentation/CSS; page integration in all five routes; calculator and explorer integration scripts; assistant context/resolver; academic tests and explicit S1 test queries; CONTENT_DATA, CURRENT_STATE, this README, and the preserved Task 11A audit report. No dependencies added.

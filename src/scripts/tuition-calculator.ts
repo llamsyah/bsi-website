@@ -1,3 +1,4 @@
+import { parseAcademicSelection, academicHref } from '../utils/academicSelection';
 import { september2026 } from '../data/admissions';
 import { calculateTuition, getDefaultTuitionWave, resolveProgramSelection } from '../utils/tuition';
 import { getCostComposition, getSspComparison, type TuitionResult } from '../utils/tuitionVisuals';
@@ -92,6 +93,8 @@ if (root) {
   controls.addEventListener('submit', event => event.preventDefault());
   program.addEventListener('change', () => {
     queryNote.textContent = 'Pilihan program mengikuti daftar S1 Margonda untuk periode ini.';
+    history.pushState(null, '', academicHref(location.pathname, { degreeLevel: 'S1', programId: program.value }));
+    window.dispatchEvent(new Event('academic-selection-change'));
     render(true);
   });
   wave.addEventListener('change', () => { manualWave = true; render(true); });
@@ -101,7 +104,23 @@ if (root) {
   // Keep the existing assistant trigger in a dedicated help area on this route.
   // Its native dialog listeners and focus-return behavior remain unchanged.
   const assistantTrigger = document.querySelector<HTMLElement>('[data-assistant-trigger]');
-  if (assistantTrigger) root.querySelector('[data-tuition-assistant-slot]')!.append(assistantTrigger);
+  function synchronizeAcademicSelection() {
+    const state = parseAcademicSelection(location.search);
+    if (state.degreeLevel === 'S1') {
+      const next = resolveProgramSelection(state.program?.slug ?? new URLSearchParams(location.search).get('program'));
+      program.value = next.program.id;
+      queryNote.textContent = state.error ?? (next.invalid ? `Program tidak dikenali. ${next.program.name} ditampilkan sebagai contoh S1.` : 'Pilihan program mengikuti daftar S1 Margonda untuk periode ini.');
+      render();
+    }
+    document.querySelectorAll<HTMLAnchorElement>('[data-academic-handoff]').forEach(link => {
+      link.href = academicHref(link.dataset.academicHandoff!, { degreeLevel: 'S1', programId: program.value });
+    });
+    const slot = document.querySelector(state.degreeLevel === 'S2' ? '[data-graduate-assistant-slot]' : '[data-tuition-assistant-slot]');
+    if (assistantTrigger && slot) slot.append(assistantTrigger);
+  }
+  synchronizeAcademicSelection();
+  window.addEventListener('academic-selection-change', synchronizeAcademicSelection);
+  window.addEventListener('popstate', synchronizeAcademicSelection);
   window.addEventListener('pageshow', refresh);
   window.addEventListener('focus', refresh);
   document.addEventListener('visibilitychange', () => {
