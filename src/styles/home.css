@@ -1,25 +1,12 @@
 /* Curated Home: compact discovery, deeper detail stays on dedicated routes. */
 .home-hero {
   position: relative;
-  isolation: isolate;
   overflow: clip;
-  min-height: min(680px, calc(100svh - 90px));
-  display: grid;
-  align-items: center;
-  padding-block: clamp(3.5rem, 6vw, 5rem);
   border-bottom: 1px solid var(--color-border);
   background: #f4f6fb;
   color: var(--color-text);
 }
-.home-hero::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0 0 0 67%;
-  border-left: 8px solid var(--color-red);
-  background: var(--color-blue-dark);
-}
-.hero-inner { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(20rem, .9fr); align-items: center; gap: clamp(3rem, 7vw, 7rem); }
+.hero-inner { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(20rem, .9fr); align-items: center; gap: clamp(3rem, 7vw, 7rem); padding-block: clamp(3.5rem, 6vw, 5rem); }
 .hero-copy { position: relative; z-index: 1; }
 .home-hero .eyebrow { border-color: rgb(224 32 61 / 16%); background: var(--color-red-soft); color: var(--color-red-dark); }
 .home-hero h1 { max-width: 50rem; font-size: clamp(2.6rem, 5.1vw, 4.6rem); line-height: 1.04; letter-spacing: -.04em; color: var(--color-blue-dark); }
@@ -33,12 +20,17 @@
 .hero-trust span { display: inline-flex; align-items: center; gap: .25rem; }
 .hero-trust span + span::before { content: ''; width: 4px; height: 4px; margin-right: 1rem; border-radius: 50%; background: var(--color-red); }
 .hero-trust strong { color: var(--color-red-dark); }
-.hero-actions { margin-top: 1.75rem; }
 .hero-campus { position: relative; margin: 0; padding: .85rem; border: 1px solid #d6ddec; border-radius: var(--radius-xl); background: white; box-shadow: 0 24px 70px rgb(12 29 85 / 22%); }
-.hero-campus::before { content: ''; position: absolute; z-index: -1; inset: 2rem -2rem -2rem 2rem; border: 1px solid rgb(255 255 255 / 28%); }
 .hero-campus-image { position: relative; min-height: 22rem; overflow: hidden; border-radius: calc(var(--radius-xl) - .5rem); background: #e6eaf4; }
 .hero-campus img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; min-height: 22rem; object-fit: cover; object-position: center top; }
 .hero-campus figcaption { padding: .75rem .2rem .05rem; color: var(--color-blue-dark); font-size: .72rem; font-weight: 800; }
+.hero-transition { border-top: 4px solid var(--color-red); background: var(--color-blue-dark); color: white; }
+.hero-transition-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; padding-block: 1.25rem; }
+.hero-transition-inner > p { margin: 0; color: #dce3f2; font-size: .84rem; }
+.hero-transition-actions { flex: 0 0 auto; }
+.hero-transition .button-on-dark { background: white; border-color: white; color: var(--color-blue-dark); }
+.hero-transition .button-on-dark:hover { background: var(--color-blue-soft); }
+.hero-transition :focus-visible { outline-color: white; }
 
 .home-section { padding-block: clamp(4rem, 7vw, 6rem); }
 .section-heading.section-heading-stacked { display: block; }
@@ -126,7 +118,6 @@
 
 
 @media (max-width: 74rem) {
-  .home-hero::after { inset-inline-start: 72%; }
   .hero-inner { grid-template-columns: 1.2fr .8fr; gap: 3rem; }
   .home-hero h1 { font-size: clamp(2.5rem, 5vw, 3.75rem); }
   .home-graduate-strip { grid-template-columns: minmax(14rem, 1fr) minmax(15rem, 1fr) auto; }
@@ -138,13 +129,10 @@
 }
 
 @media (max-width: 56rem) {
-  .home-hero { min-height: auto; padding-block: 3.5rem; }
-  .home-hero::after { inset: auto 0 0; height: 29%; border-top: 6px solid var(--color-red); border-left: 0; }
-  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; padding-block: 3.5rem; }
   .hero-copy { max-width: 43rem; }
   .home-hero h1 { font-size: clamp(2.5rem, 6.5vw, 3.75rem); }
   .hero-campus { width: min(100%, 34rem); margin-inline: auto; }
-  .hero-campus::before { display: none; }
   .campus-teaser { grid-template-columns: .85fr 1.15fr; }
   .campus-teaser-media { min-height: 22rem; }
   .program-teaser { grid-template-columns: 1fr; }
@@ -159,21 +147,22 @@
 }
 
 @media (max-width: 36rem) {
-  .home-hero { padding-block: 1.65rem 1.25rem; }
-  .hero-inner { gap: 1.35rem; }
+  .hero-inner { gap: 1.35rem; padding-block: 1.65rem 1.25rem; }
   .home-hero h1 { max-width: 12ch; margin-bottom: 0; font-size: clamp(2rem, 9.5vw, 2.75rem); }
   .hero-identity { margin-top: .7rem; font-size: .78rem; line-height: 1.45; }
   .hero-offering { margin-top: .55rem; font-size: .76rem; }
   .hero-subhead { margin-top: .75rem; font-size: .9rem; line-height: 1.55; }
   .hero-trust { gap: .3rem .75rem; margin-top: .75rem; font-size: .72rem; }
   .hero-trust span + span::before { margin-right: .45rem; }
-  .hero-actions { margin-top: 1rem; gap: .65rem 1rem; }
-  .hero-actions .button { min-height: 44px; padding: .65rem .9rem; }
-  .hero-actions .text-link { font-size: .8rem; }
   .hero-campus { padding: .6rem; border-radius: var(--radius-lg); }
   .hero-campus-image { min-height: 0; aspect-ratio: 2 / 1; border-radius: calc(var(--radius-lg) - .35rem); }
   .hero-campus img { min-height: 0; object-position: center 18%; }
   .hero-campus figcaption { padding: .55rem .1rem 0; font-size: .65rem; }
+  .hero-transition-inner { display: grid; gap: .75rem; padding-block: 1rem; }
+  .hero-transition-inner > p { font-size: .74rem; line-height: 1.45; }
+  .hero-transition-actions { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .6rem 1rem; width: 100%; }
+  .hero-transition-actions .button { min-height: 44px; padding: .65rem .8rem; }
+  .hero-transition-actions .text-link { font-size: .78rem; }
   .home-section { padding-block: 3.25rem; }
   .campus-teaser { display: block; }
   .campus-teaser-media { min-height: 0; aspect-ratio: 16 / 10; }
@@ -211,4 +200,10 @@
   .home-pmb-next .meta-label { grid-column: 1 / -1; }
   .home-pmb-next p { margin: 0; font-size: 1.15rem; }
   .home-pmb-next .button { padding-inline: .9rem; }
+}
+
+@media (max-width: 21.25rem) {
+  .hero-transition-actions { gap: .5rem; }
+  .hero-transition-actions .button { gap: .4rem; padding-inline: .55rem; font-size: .75rem; white-space: nowrap; }
+  .hero-transition-actions .text-link { gap: .3rem; font-size: .7rem; white-space: nowrap; }
 }
