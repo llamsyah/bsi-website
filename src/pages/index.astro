@@ -28,6 +28,7 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
         <p class="hero-identity">{institution.name} · {institution.branding}</p>
         <p class="hero-offering"><strong>{margondaPrograms.programs.length} Program S1</strong><span aria-hidden="true">·</span><strong>{graduatePrograms.length} Program Magister</strong></p>
         <p class="hero-subhead">Kenali pilihan studi, kampus, biaya, dan langkah PMB untuk menentukan rencana kuliahmu.</p>
+        <p class="hero-trust"><span><strong>{institution.accreditation.label}</strong></span><span>{campus.buildings.length} Lokasi di Margonda</span></p>
         <div class="actions hero-actions">
           <a class="button button-secondary" href="/program-studi">Lihat Program Studi<span aria-hidden="true">→</span></a>
           <a class="text-link" href={registration.url}>{registration.label}<span aria-hidden="true">↗</span></a>
@@ -36,21 +37,9 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
       <figure class="hero-campus">
         <div class="hero-campus-image">
           <img src={margondaAPreview.image.src} alt={margondaAPreview.image.alt} width={margondaAPreview.image.width} height={margondaAPreview.image.height} loading="eager" decoding="async" fetchpriority="high" />
-          <span class="hero-photo-label">Foto resmi UBSI</span>
         </div>
-        <figcaption>
-          <span class="meta-label">Kampus Margonda A</span>
-          <strong>Depok</strong>
-        </figcaption>
+        <figcaption>Kampus Margonda A · Depok</figcaption>
       </figure>
-    </div>
-  </section>
-
-  <section class="trust-strip" aria-label="Informasi institusi dan pilihan studi Margonda">
-    <div class="container trust-grid">
-      <div><span class="trust-caption">Akreditasi institusi · {institution.accreditation.authority}</span><p class="trust-value accreditation">{institution.accreditation.label}</p><span class="trust-note">{institution.name}</span></div>
-      <div><span class="trust-caption">Pilihan studi Margonda</span><p class="trust-value">{margondaPrograms.programs.length} program S1 <span class="trust-degree-divider">·</span> {graduatePrograms.length} Magister</p><span class="trust-note">{margondaPrograms.periodLabel}</span></div>
-      <div><span class="trust-caption">Identitas UBSI</span><p class="trust-value">{institution.branding}</p><span class="trust-note">Kenali kampus dan pilihan studimu</span></div>
     </div>
   </section>
 
@@ -58,7 +47,7 @@ const formatEditorialDate = (item: (typeof homeEditorialContent.supporting)[numb
     <div class="container campus-teaser">
       <figure class="campus-teaser-media">
         <img src={margondaAPreview.image.src} alt={margondaAPreview.image.alt} width={margondaAPreview.image.width} height={margondaAPreview.image.height} loading="lazy" decoding="async" />
-        <figcaption>Foto resmi UBSI · Margonda A</figcaption>
+        <figcaption>Kampus Margonda A · Depok</figcaption>
       </figure>
       <div class="campus-teaser-copy">
         <p class="eyebrow">Kampus Margonda</p>
